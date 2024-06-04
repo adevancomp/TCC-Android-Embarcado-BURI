@@ -1,2 +1,5 @@
-# TCC-Android-Embarcado-BURI
-Projeto de Conclusão de Curso em Engenharia de Computação na Universidade do Estado do Amazonas.
+## Projeto BURI
+
+### Autor : [Adevan Neves Santos](https://www.linkedin.com/in/adevancomp/)
+
+### Orientador : [Prof. Jonathas Silva dos Santos](https://www.linkedin.com/in/jonathassilvasantos/)
