@@ -1,5 +1,6 @@
 package br.edu.uea.buri.dto.user.requests
 
+import br.edu.uea.buri.domain.UserApp
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
@@ -11,4 +12,10 @@ data class UserRegisterDTO(
     val email: String,
     @NotBlank
     val password: String
-)
+){
+    fun toEntity() : UserApp = UserApp(
+        name = this.name,
+        email = this.email,
+        passwordEncrypted = this.password
+    )
+}

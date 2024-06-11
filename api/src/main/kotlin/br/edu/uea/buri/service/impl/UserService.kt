@@ -5,13 +5,15 @@ import br.edu.uea.buri.exception.DomainException
 import br.edu.uea.buri.repository.UserAppRepository
 import br.edu.uea.buri.service.IUserService
 import jakarta.validation.constraints.Email
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 @Service
 class UserService(
-    private val repo: UserAppRepository
+    private val repo: UserAppRepository,
+    private val encoder: PasswordEncoder
 ) : IUserService {
     override fun save(user: UserApp): UserApp = this.repo.save(user)
 
