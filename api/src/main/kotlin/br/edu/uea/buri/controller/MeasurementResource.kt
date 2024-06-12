@@ -2,6 +2,7 @@ package br.edu.uea.buri.controller
 
 import br.edu.uea.buri.dto.measurement.requests.MeasurementRegisterDTO
 import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
+import br.edu.uea.buri.repository.MeasurementRepository
 import br.edu.uea.buri.service.IEquipmentService
 import br.edu.uea.buri.service.IMeasurementService
 import org.springframework.http.HttpStatus
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/measurement")
 class MeasurementResource (
     private val measurementService: IMeasurementService,
-    private val equipmentService: IEquipmentService
+    private val equipmentService: IEquipmentService, private val measurementRepository: MeasurementRepository
 ){
     @PostMapping
     fun save(@RequestBody dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
@@ -25,6 +26,12 @@ class MeasurementResource (
         measurement.equipment = equipmentService.findById(dto.equipmentId)
         val measurementSaved = measurementService.save(measurement)
         return ResponseEntity.status(HttpStatus.CREATED).body(measurementSaved.toMeasurementViewDTO())
+    }
+    @PostMapping("/items")
+    fun saveItems(@RequestBody listDto: List<MeasurementRegisterDTO>) : ResponseEntity<String>{
+        val measurements = listDto.map { item -> item.toEntity() }
+        measurements.stream().forEach(measurementService::save)
+        return ResponseEntity.status(HttpStatus.CREATED).body("Os ${measurements.size} foram salvos")
     }
     @GetMapping("/{id}")
     fun findById(@PathVariable id: Long) : ResponseEntity<MeasurementViewDTO>{
