@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/measurement")
 class MeasurementResource (
     private val measurementService: IMeasurementService,
-    private val equipmentService: IEquipmentService, private val measurementRepository: MeasurementRepository
+    private val equipmentService: IEquipmentService
 ){
     @PostMapping
     fun save(@RequestBody dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
