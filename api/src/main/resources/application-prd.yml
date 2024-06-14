@@ -9,7 +9,7 @@ spring:
     hibernate:
       properties:
         hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-      ddl-auto: validate
+      ddl-auto: create-drop
     show-sql: true
 jwt:
   key: ${JWT_KEY}
