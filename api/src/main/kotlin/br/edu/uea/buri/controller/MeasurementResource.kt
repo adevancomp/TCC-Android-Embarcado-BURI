@@ -5,6 +5,7 @@ import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
 import br.edu.uea.buri.repository.MeasurementRepository
 import br.edu.uea.buri.service.IEquipmentService
 import br.edu.uea.buri.service.IMeasurementService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,7 +22,7 @@ class MeasurementResource (
     private val equipmentService: IEquipmentService
 ){
     @PostMapping
-    fun save(@RequestBody dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
+    fun save(@RequestBody @Valid dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
         val measurement = dto.toEntity()
         measurement.equipment = equipmentService.findById(dto.equipmentId)
         val measurementSaved = measurementService.save(measurement)

@@ -5,12 +5,14 @@ import br.edu.uea.buri.domain.Measurement
 import br.edu.uea.buri.exception.DomainException
 import br.edu.uea.buri.repository.EquipmentRepository
 import br.edu.uea.buri.service.IEquipmentService
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service
 class EquipmentService(
     private val repo: EquipmentRepository
 ) : IEquipmentService {
+    @Transactional
     override fun save(equipment: Equipment): Equipment = this.repo.save(equipment)
 
     override fun findById(id: String): Equipment = this.repo.findById(id).orElseThrow{
@@ -19,6 +21,7 @@ class EquipmentService(
 
     override fun existsById(id: String): Boolean = this.repo.existsById(id)
 
+    @Transactional
     override fun deleteById(id: String) {
         this.repo.deleteById(id)
     }
