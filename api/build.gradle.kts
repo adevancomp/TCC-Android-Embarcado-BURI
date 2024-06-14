@@ -45,6 +45,12 @@ kotlin {
 	}
 }
 
+tasks.jar{
+	manifest{
+		attributes["Main-Class"]="br.edu.uea.buri.BuriApplication.kt"
+	}
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
