@@ -1,19 +1,15 @@
 package br.edu.uea.buri.controller
 
+import br.edu.uea.buri.domain.Measurement
 import br.edu.uea.buri.dto.measurement.requests.MeasurementRegisterDTO
 import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
-import br.edu.uea.buri.repository.MeasurementRepository
 import br.edu.uea.buri.service.IEquipmentService
 import br.edu.uea.buri.service.IMeasurementService
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/measurement")
@@ -38,5 +34,14 @@ class MeasurementResource (
     fun findById(@PathVariable id: Long) : ResponseEntity<MeasurementViewDTO>{
         val measurement = this.measurementService.findById(id)
         return ResponseEntity.status(HttpStatus.OK).body(measurement.toMeasurementViewDTO())
+    }
+    @GetMapping("/equipment/{id}")
+    fun getMeasurementsByEquipmentIdSorted(
+        @PathVariable equipmentId: String,
+        @RequestParam("page", defaultValue = "0") page: Int,
+        @RequestParam("size", defaultValue = "10") size: Int) : Page<MeasurementViewDTO>{
+        val pg = this.measurementService.findAllByEquipmentsSortedByDataCollection(equipmentId,page,size)
+        val pgView = pg.map { measurement: Measurement -> measurement.toMeasurementViewDTO() }
+        return pgView
     }
 }

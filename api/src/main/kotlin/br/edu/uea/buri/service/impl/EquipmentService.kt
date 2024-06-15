@@ -6,6 +6,8 @@ import br.edu.uea.buri.exception.DomainException
 import br.edu.uea.buri.repository.EquipmentRepository
 import br.edu.uea.buri.service.IEquipmentService
 import jakarta.transaction.Transactional
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,6 +19,10 @@ class EquipmentService(
 
     override fun findById(id: String): Equipment = this.repo.findById(id).orElseThrow{
         throw DomainException("Equipamento com id $id não encontrado!")
+    }
+
+    override fun findAllEquipments(page: Int, size: Int): Page<Equipment> {
+        return this.repo.findAll(PageRequest.of(page,size))
     }
 
     override fun existsById(id: String): Boolean = this.repo.existsById(id)

@@ -1,10 +1,12 @@
 package br.edu.uea.buri.controller
 
+import br.edu.uea.buri.domain.Equipment
 import br.edu.uea.buri.dto.equipment.requests.EquipmentRegisterDTO
 import br.edu.uea.buri.dto.equipment.views.EquipmentViewDTO
 import br.edu.uea.buri.service.IEquipmentService
 import br.edu.uea.buri.service.IUserService
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -29,7 +31,14 @@ class EquipmentResource(
         val equipmentView = equipmentService.findById(id)
         return ResponseEntity.status(HttpStatus.OK).body(equipmentView.toEquipmentViewDTO())
     }
-
+    @GetMapping("/all")
+    fun findAllEquipments(
+        @RequestParam("page", defaultValue = "0") page: Int,
+        @RequestParam("size", defaultValue = "10") size: Int
+    ) : Page<EquipmentViewDTO>{
+        val equipmentPage = this.equipmentService.findAllEquipments(page,size)
+        return equipmentPage.map { equipment: Equipment? -> equipment?.toEquipmentViewDTO() }
+    }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteById(@PathVariable id: String){
