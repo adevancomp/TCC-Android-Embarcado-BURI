@@ -1,11 +1,13 @@
 package br.edu.uea.buri.config
 
 import br.edu.uea.buri.config.security.CustomUserDetailsService
+import br.edu.uea.buri.config.security.JwtProperties
 import br.edu.uea.buri.repository.UserAppRepository
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Contact
 import io.swagger.v3.oas.models.info.Info
 import org.springdoc.core.customizers.OpenApiCustomizer
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -17,14 +19,8 @@ import org.springframework.security.web.DefaultSecurityFilterChain
 
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties(JwtProperties::class)
 class Configuration: OpenApiCustomizer {
-
-    @Bean
-    fun encoder() : PasswordEncoder = BCryptPasswordEncoder()
-
-    @Bean
-    fun userDetailsService(userAppRepository: UserAppRepository) : UserDetailsService =
-        CustomUserDetailsService(userAppRepository)
 
     @Bean
     fun securityFilterChain(
@@ -35,6 +31,14 @@ class Configuration: OpenApiCustomizer {
         }
         return http.build()
     }
+
+    @Bean
+    fun encoder() : PasswordEncoder = BCryptPasswordEncoder()
+
+    @Bean
+    fun userDetailsService(userAppRepository: UserAppRepository) : UserDetailsService =
+        CustomUserDetailsService(userAppRepository)
+
 
     override fun customise(openApi: OpenAPI?) {
         val info: Info = Info()

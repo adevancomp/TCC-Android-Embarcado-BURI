@@ -3,6 +3,7 @@ package br.edu.uea.buri.exception
 import org.springframework.dao.DataAccessException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.validation.FieldError
 import org.springframework.validation.ObjectError
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -27,7 +28,20 @@ class RestExceptionHandler {
                 )
             )
     }
-
+    @ExceptionHandler(UsernameNotFoundException::class)
+    fun handlerUsernameNotFoundException(ex: UsernameNotFoundException) : ResponseEntity<ExceptionDetails>{
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(
+                ExceptionDetails(
+                    title = "Not Found! Consulte a documentação em /swagger-ui.html",
+                    timestamp = LocalDateTime.now(),
+                    status = HttpStatus.NOT_FOUND.value(),
+                    exception = ex.javaClass.toString(),
+                    details = mutableMapOf(ex.cause.toString() to ex.message)
+                )
+            )
+    }
     @ExceptionHandler(DomainException::class)
     fun handlerValidException(ex: DomainException): ResponseEntity<ExceptionDetails> {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
