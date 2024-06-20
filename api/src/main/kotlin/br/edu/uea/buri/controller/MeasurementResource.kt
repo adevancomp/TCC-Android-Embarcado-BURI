@@ -37,7 +37,7 @@ class MeasurementResource (
     }
     @GetMapping("/equipment/{id}")
     fun getMeasurementsByEquipmentIdSorted(
-        @PathVariable equipmentId: String,
+        @PathVariable("id") equipmentId: String,
         @RequestParam("page", defaultValue = "0") page: Int,
         @RequestParam("size", defaultValue = "10") size: Int) : Page<MeasurementViewDTO>{
         val pg = this.measurementService.findAllByEquipmentsSortedByDataCollection(equipmentId,page,size)
