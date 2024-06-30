@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class EquipmentService(
@@ -24,6 +25,10 @@ class EquipmentService(
     override fun findAllEquipments(page: Int, size: Int): Page<Equipment> {
         return this.repo.findAll(PageRequest.of(page,size))
     }
+
+    override fun findByOwnerId(id: UUID): List<Equipment> =
+        this.repo.findByOwnerId(id)
+
 
     override fun existsById(id: String): Boolean = this.repo.existsById(id)
 

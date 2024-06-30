@@ -31,6 +31,11 @@ class EquipmentResource(
         val equipmentView = equipmentService.findById(id)
         return ResponseEntity.status(HttpStatus.OK).body(equipmentView.toEquipmentViewDTO())
     }
+    @GetMapping
+    fun findAllByOwnerId(@RequestParam("ownerId") ownerId: UUID) : ResponseEntity<List<EquipmentViewDTO>>{
+        val list = equipmentService.findByOwnerId(id = ownerId);
+        return ResponseEntity.status(HttpStatus.OK).body(list.map { item -> item.toEquipmentViewDTO() })
+    }
     @GetMapping("/all")
     fun findAllEquipments(
         @RequestParam("page", defaultValue = "0") page: Int,

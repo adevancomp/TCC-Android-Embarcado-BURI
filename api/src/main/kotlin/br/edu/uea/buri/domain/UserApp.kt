@@ -26,6 +26,7 @@ data class UserApp(
         id = this.id!!,
         name = this.name,
         email = this.email,
-        role = this.role.toString()
+        role = this.role.toString(),
+        equipments = this.equipments.map { equipment -> equipment.toEquipmentViewDTO() }
     )
 }
