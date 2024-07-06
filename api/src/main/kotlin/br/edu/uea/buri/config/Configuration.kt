@@ -53,7 +53,7 @@ class Configuration: OpenApiCustomizer {
             auth.requestMatchers(HttpMethod.POST, "/user", "/auth").permitAll()
             auth.requestMatchers("/measurement/**").permitAll()
             auth.requestMatchers(HttpMethod.POST, "/measurement").permitAll()
-            auth.anyRequest().hasAnyRole("ADM","CUSTOMER")
+            auth.anyRequest().authenticated()
         }.sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }.addFilterBefore(authFilter,UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
