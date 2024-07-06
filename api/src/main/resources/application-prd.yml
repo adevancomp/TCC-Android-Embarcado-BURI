@@ -11,6 +11,9 @@ spring:
         hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: update
     show-sql: true
+logging:
+  level:
+    org.springframework.security: DEBUG
 jwt:
   key: ${JWT_KEY}
   access-token-expiration: 3600000
