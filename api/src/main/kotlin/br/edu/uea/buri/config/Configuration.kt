@@ -45,12 +45,13 @@ class Configuration: OpenApiCustomizer {
         http: HttpSecurity,
         authFilter: CustomAuthFilter
     ) : DefaultSecurityFilterChain {
-        http.csrf{it.disable()}.authorizeHttpRequests { auth ->
+        http.csrf{it.disable()}.authorizeRequests { auth ->
             auth.requestMatchers(
                 "/swagger-ui/**", "/swagger-ui.html",
                 "/swagger-resources/*",
                 "/v3/api-docs/**").permitAll()
             auth.requestMatchers(HttpMethod.POST, "/user", "/auth").permitAll()
+            auth.requestMatchers("/user/**").authenticated()
             auth.requestMatchers("/measurement/**").permitAll()
             auth.requestMatchers(HttpMethod.POST, "/measurement").permitAll()
             auth.anyRequest().authenticated()
