@@ -1,5 +1,6 @@
 package br.edu.uea.buri.config
 
+import br.edu.uea.buri.config.security.CustomAuthFilter
 import br.edu.uea.buri.config.security.CustomUserDetailsService
 import br.edu.uea.buri.config.security.JwtProperties
 import br.edu.uea.buri.repository.UserAppRepository
@@ -16,10 +17,12 @@ import org.springframework.security.authentication.ProviderManager
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.DefaultSecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +31,8 @@ class Configuration: OpenApiCustomizer {
 
     @Bean
     fun securityFilterChain(
-        http: HttpSecurity
+        http: HttpSecurity,
+        authFilter: CustomAuthFilter
     ) : DefaultSecurityFilterChain {
         http.csrf{it.disable()}.authorizeHttpRequests { auth ->
             auth.requestMatchers(
@@ -39,7 +43,7 @@ class Configuration: OpenApiCustomizer {
             auth.requestMatchers("/measurement/**").permitAll()
             auth.requestMatchers(HttpMethod.POST, "/measurement").permitAll()
             auth.anyRequest().hasAnyRole("ADM","CUSTOMER")
-        }
+        }.sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }.addFilterBefore(authFilter,UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
 
