@@ -10,6 +10,10 @@ import org.springdoc.core.customizers.OpenApiCustomizer
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.ProviderManager
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -26,8 +30,15 @@ class Configuration: OpenApiCustomizer {
     fun securityFilterChain(
         http: HttpSecurity
     ) : DefaultSecurityFilterChain {
-        http.csrf{it.disable()}.authorizeRequests {
-            it.anyRequest().permitAll()
+        http.csrf{it.disable()}.authorizeHttpRequests { auth ->
+            auth.requestMatchers(
+                "/swagger-ui/**", "/swagger-ui.html",
+                "/swagger-resources/*",
+                "/v3/api-docs/**").permitAll()
+            auth.requestMatchers(HttpMethod.POST, "/user", "/auth").permitAll()
+            auth.requestMatchers("/measurement/**").permitAll()
+            auth.requestMatchers(HttpMethod.POST, "/measurement").permitAll()
+            auth.anyRequest().hasAnyRole("ADM","CUSTOMER")
         }
         return http.build()
     }
@@ -39,6 +50,17 @@ class Configuration: OpenApiCustomizer {
     fun userDetailsService(userAppRepository: UserAppRepository) : UserDetailsService =
         CustomUserDetailsService(userAppRepository)
 
+    @Bean
+    fun authenticationManager(
+        userDetailsService: CustomUserDetailsService,
+        passwordEncoder: PasswordEncoder) : AuthenticationManager {
+        val authenticationProvider = DaoAuthenticationProvider()
+        authenticationProvider.setUserDetailsService(userDetailsService)
+        authenticationProvider.setPasswordEncoder(passwordEncoder)
+        val providerManager = ProviderManager(authenticationProvider)
+        providerManager.isEraseCredentialsAfterAuthentication = false
+        return providerManager
+    }
 
     override fun customise(openApi: OpenAPI?) {
         val info: Info = Info()
