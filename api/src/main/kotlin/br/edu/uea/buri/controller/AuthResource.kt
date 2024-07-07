@@ -1,8 +1,12 @@
 package br.edu.uea.buri.controller
 
+import br.edu.uea.buri.dto.measurement.requests.MeasurementRegisterDTO
+import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
 import br.edu.uea.buri.dto.user.requests.LoginDTO
 import br.edu.uea.buri.dto.user.requests.UserRegisterDTO
 import br.edu.uea.buri.dto.user.views.UserViewDTO
+import br.edu.uea.buri.service.IEquipmentService
+import br.edu.uea.buri.service.IMeasurementService
 import br.edu.uea.buri.service.IUserService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -22,7 +26,9 @@ import org.springframework.web.bind.annotation.RestController
 class AuthResource (
     private val authManager: AuthenticationManager,
     private val userService: IUserService,
-    private val encoder: PasswordEncoder
+    private val encoder: PasswordEncoder,
+    private val measurementService: IMeasurementService,
+    private val equipmentService: IEquipmentService
 ){
     @PostMapping
     fun login(@RequestBody @Valid dto: LoginDTO) : ResponseEntity<Authentication>{
@@ -39,5 +45,13 @@ class AuthResource (
         user.passwordEncrypted = encoder.encode(user.passwordEncrypted)
         val userSaved = userService.save(user)
         return ResponseEntity.status(HttpStatus.CREATED).body(userSaved.toUserViewDTO())
+    }
+
+    @PostMapping("/measurement")
+    fun save(@RequestBody @Valid dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
+        val measurement = dto.toEntity()
+        measurement.equipment = equipmentService.findById(dto.equipmentId)
+        val measurementSaved = measurementService.save(measurement)
+        return ResponseEntity.status(HttpStatus.CREATED).body(measurementSaved.toMeasurementViewDTO())
     }
 }
