@@ -56,7 +56,8 @@ class Configuration: OpenApiCustomizer {
                     "/swagger-resources/**",
                     "/v3/api-docs/**"
                 ).permitAll()
-                auth.requestMatchers(HttpMethod.POST,"/auth","/auth/measurement","/auth/register").permitAll()
+                auth.requestMatchers(HttpMethod.POST,"/auth","/auth/register").permitAll()
+                auth.requestMatchers(HttpMethod.POST,"/auth/measurement").permitAll()
                 auth.anyRequest().authenticated()
         }.sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }.addFilterBefore(authFilter,UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
