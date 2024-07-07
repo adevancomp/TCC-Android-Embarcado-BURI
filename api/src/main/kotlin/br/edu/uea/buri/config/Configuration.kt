@@ -83,7 +83,7 @@ class Configuration: OpenApiCustomizer {
         authenticationProvider.setUserDetailsService(userDetailsService)
         authenticationProvider.setPasswordEncoder(passwordEncoder)
         val providerManager = ProviderManager(authenticationProvider)
-        //providerManager.isEraseCredentialsAfterAuthentication = false
+        providerManager.isEraseCredentialsAfterAuthentication = false
         return providerManager
     }
 
