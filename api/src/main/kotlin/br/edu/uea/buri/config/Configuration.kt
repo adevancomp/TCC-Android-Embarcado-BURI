@@ -22,11 +22,15 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.config.web.server.ServerHttpSecurity.http
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.DefaultSecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.security.web.util.matcher.RequestMatcher
+import org.springframework.util.AntPathMatcher
 
 @Configuration
 @EnableWebSecurity
@@ -45,16 +49,20 @@ class Configuration: OpenApiCustomizer {
         http: HttpSecurity,
         authFilter: CustomAuthFilter
     ) : DefaultSecurityFilterChain {
-        http.csrf{it.disable()}.authorizeRequests { auth ->
-            auth.requestMatchers(
-                "/swagger-ui/**", "/swagger-ui.html",
-                "/swagger-resources/*",
-                "/v3/api-docs/**").permitAll()
-            auth.requestMatchers(HttpMethod.POST, "/user", "/auth").permitAll()
-            auth.requestMatchers("/user/**").authenticated()
-            auth.requestMatchers("/measurement/**").permitAll()
-            auth.requestMatchers(HttpMethod.POST, "/measurement").permitAll()
-            auth.anyRequest().authenticated()
+        http.csrf{it.disable()}.authorizeHttpRequests {
+            auth ->
+                auth.requestMatchers(
+                    "/swagger-ui/**", "/swagger-ui.html",
+                    "/swagger-resources/**",
+                    "/v3/api-docs/**"
+                ).permitAll()
+                auth.requestMatchers(
+                    HttpMethod.POST, "/user","/auth","/measurement"
+                ).permitAll()
+                auth.requestMatchers(
+                    "/measurement/**"
+                ).permitAll()
+                auth.anyRequest().permitAll()
         }.sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }.addFilterBefore(authFilter,UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
@@ -100,3 +108,17 @@ class Configuration: OpenApiCustomizer {
         openApi?.addSecurityItem(SecurityRequirement().addList("basicAuth"))
     }
 }
+
+/*
+*
+auth.requestMatchers(
+                "/swagger-ui/**", "/swagger-ui.html",
+                "/swagger-resources/**",
+                "/v3/api-docs/**").permitAll()
+            auth.requestMatchers(HttpMethod.POST, "/user", "/auth").permitAll()
+            auth.requestMatchers("/user/**").authenticated()
+            auth.requestMatchers("/measurement/**").permitAll()
+            auth.requestMatchers(HttpMethod.POST, "/measurement").permitAll()
+            auth.anyRequest().authenticated()
+*
+* */
