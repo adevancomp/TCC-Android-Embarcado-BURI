@@ -57,7 +57,7 @@ class Configuration: OpenApiCustomizer {
                     "/v3/api-docs/**"
                 ).permitAll()
                 auth.requestMatchers(
-                    HttpMethod.POST, "/user","/auth","/measurement"
+                    HttpMethod.POST, "/auth/register","/auth","/measurement"
                 ).permitAll()
                 auth.requestMatchers(
                     "/measurement/**"
