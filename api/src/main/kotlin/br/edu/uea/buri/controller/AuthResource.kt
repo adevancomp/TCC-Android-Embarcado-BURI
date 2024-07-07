@@ -48,7 +48,7 @@ class AuthResource (
     }
 
     @PostMapping("/measurement")
-    fun save(@RequestBody @Valid dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
+    fun saveMeasurement(@RequestBody @Valid dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
         val measurement = dto.toEntity()
         measurement.equipment = equipmentService.findById(dto.equipmentId)
         val measurementSaved = measurementService.save(measurement)
