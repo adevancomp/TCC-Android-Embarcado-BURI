@@ -103,14 +103,3 @@ class Configuration: OpenApiCustomizer {
         openApi?.addSecurityItem(SecurityRequirement().addList("basicAuth"))
     }
 }
-
-/*
-*
-auth.requestMatchers(
-                    HttpMethod.POST, "/auth/register","/auth","/measurement"
-                ).permitAll()
-                auth.requestMatchers(
-                    "/measurement/**"
-                ).permitAll()
-*
-* */
