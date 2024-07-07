@@ -56,12 +56,6 @@ class Configuration: OpenApiCustomizer {
                     "/swagger-resources/**",
                     "/v3/api-docs/**"
                 ).permitAll()
-                auth.requestMatchers(
-                    HttpMethod.POST, "/auth/register","/auth","/measurement"
-                ).permitAll()
-                auth.requestMatchers(
-                    "/measurement/**"
-                ).permitAll()
                 auth.anyRequest().authenticated()
         }.sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }.addFilterBefore(authFilter,UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
@@ -112,13 +106,10 @@ class Configuration: OpenApiCustomizer {
 /*
 *
 auth.requestMatchers(
-                "/swagger-ui/**", "/swagger-ui.html",
-                "/swagger-resources/**",
-                "/v3/api-docs/**").permitAll()
-            auth.requestMatchers(HttpMethod.POST, "/user", "/auth").permitAll()
-            auth.requestMatchers("/user/**").authenticated()
-            auth.requestMatchers("/measurement/**").permitAll()
-            auth.requestMatchers(HttpMethod.POST, "/measurement").permitAll()
-            auth.anyRequest().authenticated()
+                    HttpMethod.POST, "/auth/register","/auth","/measurement"
+                ).permitAll()
+                auth.requestMatchers(
+                    "/measurement/**"
+                ).permitAll()
 *
 * */
