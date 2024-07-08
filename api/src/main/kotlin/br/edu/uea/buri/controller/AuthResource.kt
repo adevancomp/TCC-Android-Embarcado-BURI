@@ -1,5 +1,6 @@
 package br.edu.uea.buri.controller
 
+import br.edu.uea.buri.config.security.AuthResponse
 import br.edu.uea.buri.dto.measurement.requests.MeasurementRegisterDTO
 import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
 import br.edu.uea.buri.dto.user.requests.LoginDTO
@@ -31,13 +32,14 @@ class AuthResource (
     private val equipmentService: IEquipmentService
 ){
     @PostMapping
-    fun login(@RequestBody @Valid dto: LoginDTO) : ResponseEntity<Authentication>{
+    fun login(@RequestBody @Valid dto: LoginDTO) : ResponseEntity<AuthResponse>{
         val authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(
                 dto.email, dto.password
         )
         val authenticationResponse = authManager.authenticate(authenticationRequest)
+        val authResponse = AuthResponse(authenticated = authenticationResponse.isAuthenticated, name = dto.email)
         SecurityContextHolder.getContext().authentication = authenticationResponse
-        return ResponseEntity.status(HttpStatus.OK).body(authenticationResponse)
+        return ResponseEntity.status(HttpStatus.OK).body(authResponse)
     }
     @PostMapping("/register")
     fun save(@RequestBody @Valid dto: UserRegisterDTO) : ResponseEntity<UserViewDTO>{
