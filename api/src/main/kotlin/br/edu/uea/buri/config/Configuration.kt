@@ -57,7 +57,7 @@ class Configuration: OpenApiCustomizer {
                     "/v3/api-docs/**"
                 ).permitAll()
             auth.requestMatchers(HttpMethod.POST, "/buriAuth/**").permitAll()
-                auth.anyRequest().authenticated()
+            auth.anyRequest().authenticated()
         }.sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }.addFilterBefore(authFilter,UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
