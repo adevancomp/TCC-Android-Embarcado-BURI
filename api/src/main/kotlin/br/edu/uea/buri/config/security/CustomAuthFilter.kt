@@ -36,7 +36,7 @@ class CustomAuthFilter(
         println(name)
         println(password)
         val userDetails = userDetailsService.loadUserByUsername(name)
-        println(userDetails.toString())
+
         if(encoder.matches(password,userDetails.password)){
             val authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(
                 name, password
