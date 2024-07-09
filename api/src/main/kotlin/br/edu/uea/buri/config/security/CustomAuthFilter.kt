@@ -28,6 +28,9 @@ class CustomAuthFilter(
             filterChain.doFilter(request,response)
             return
         }
+        if(request.requestURI.startsWith("/auth")){
+            filterChain.doFilter(request,response)
+        }
         val basicToken = headerAuthorization.substring(START_INDEX_BASIC_AUTH)
         val basicTokenDecoded = java.util.Base64.getDecoder().decode(basicToken)
         val basicTokenValue = String(basicTokenDecoded)
