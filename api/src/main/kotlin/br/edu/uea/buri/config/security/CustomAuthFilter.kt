@@ -28,7 +28,7 @@ class CustomAuthFilter(
             filterChain.doFilter(request,response)
             return
         }
-        if(request.requestURL.startsWith("/auth")){
+        if(request.requestURL.startsWith("/buriAuth")){
             println("Começa com /auth, vou ignorar")
             filterChain.doFilter(request,response)
         }
