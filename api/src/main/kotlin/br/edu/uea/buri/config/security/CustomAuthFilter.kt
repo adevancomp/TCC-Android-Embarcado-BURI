@@ -28,9 +28,10 @@ class CustomAuthFilter(
             filterChain.doFilter(request,response)
             return
         }
-        if(request.requestURL.startsWith("/buriAuth")){
+        if(request.requestURL.contains("buriAuth")){
             println("Começa com /auth, vou ignorar")
             filterChain.doFilter(request,response)
+            return
         }
         val basicToken = headerAuthorization.substring(START_INDEX_BASIC_AUTH)
         val basicTokenDecoded = java.util.Base64.getDecoder().decode(basicToken)
