@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/buriAuth")
+@RequestMapping("/auth")
 class AuthResource (
     private val authManager: AuthenticationManager,
     private val userService: IUserService,

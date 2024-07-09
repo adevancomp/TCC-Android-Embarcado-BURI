@@ -28,8 +28,7 @@ class CustomAuthFilter(
             filterChain.doFilter(request,response)
             return
         }
-        if(request.requestURL.contains("buriAuth")){
-            println("Começa com /auth, vou ignorar")
+        if(request.requestURL.contains("auth")){
             filterChain.doFilter(request,response)
             return
         }
@@ -38,8 +37,7 @@ class CustomAuthFilter(
         val basicTokenValue = String(basicTokenDecoded)
         val name = basicTokenValue.split(":")[0]
         val password = basicTokenValue.split(":")[1]
-        println(name)
-        println(password)
+
         val userDetails = userDetailsService.loadUserByUsername(name)
 
         if(encoder.matches(password,userDetails.password)){
@@ -47,7 +45,7 @@ class CustomAuthFilter(
                 name, password
             )
             val authenticationResponse = authManager.authenticate(authenticationRequest)
-            println(authenticationResponse)
+
             SecurityContextHolder.getContext().authentication = authenticationResponse
         }
         filterChain.doFilter(request,response)
