@@ -29,6 +29,7 @@ class CustomAuthFilter(
             return
         }
         if(request.requestURL.startsWith("/auth")){
+            println("Começa com /auth, vou ignorar")
             filterChain.doFilter(request,response)
         }
         val basicToken = headerAuthorization.substring(START_INDEX_BASIC_AUTH)
