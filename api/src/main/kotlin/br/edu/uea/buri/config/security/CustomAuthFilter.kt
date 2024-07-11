@@ -50,6 +50,7 @@ class CustomAuthFilter(
                 name, password
             )
             val authenticationResponse = authManager.authenticate(authenticationRequest)
+            println("Authentication Response $authenticationResponse")
 
             SecurityContextHolder.getContext().authentication = authenticationResponse
         }
