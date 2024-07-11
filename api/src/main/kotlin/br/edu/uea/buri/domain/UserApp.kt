@@ -16,7 +16,7 @@ data class UserApp(
     @Column(nullable = false)
     var passwordEncrypted: String,
     @OneToMany(mappedBy = "owner",
-        fetch = FetchType.LAZY,
+        fetch = FetchType.EAGER,
         cascade = [CascadeType.PERSIST]
     ) val equipments: List<Equipment> = mutableListOf(),
     @Enumerated(EnumType.STRING)
