@@ -9,11 +9,11 @@ import java.time.LocalDateTime
 data class Measurement(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    @Column(precision = 7, scale = 4)
+    @Column(precision = 15, scale = 4)
     val carbonMonoxide: BigDecimal? = null,
-    @Column(precision = 7, scale = 4)
+    @Column(precision = 10, scale = 4)
     val airHumidity: BigDecimal? = null,
-    @Column(precision = 7, scale = 4)
+    @Column(precision = 8, scale = 4)
     val temperature: BigDecimal? = null,
     @Column(nullable = false)
     val collectionDate: LocalDateTime,
