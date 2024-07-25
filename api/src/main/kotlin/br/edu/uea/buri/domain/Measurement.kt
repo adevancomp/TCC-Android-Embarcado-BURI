@@ -4,6 +4,7 @@ import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 @Entity
 data class Measurement(
@@ -16,7 +17,7 @@ data class Measurement(
     @Column(precision = 8, scale = 4)
     val temperature: BigDecimal? = null,
     @Column(nullable = false)
-    val collectionDate: LocalDateTime,
+    val collectionDate: ZonedDateTime,
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     var equipment: Equipment? = null
 ) {
