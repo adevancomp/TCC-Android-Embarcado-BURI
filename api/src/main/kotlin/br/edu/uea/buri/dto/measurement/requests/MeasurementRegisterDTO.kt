@@ -16,7 +16,7 @@ data class MeasurementRegisterDTO (
     val airH: BigDecimal? = null,
     @Digits(integer = 3, fraction = 4)
     val temp: BigDecimal? = null,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
     val collectionDate: ZonedDateTime,
     @NotBlank(message = "equipmentId não pode ser vazio") @Size(min = 6, max = 6, message = "ID deve ter 6 caracteres")
     val equipmentId: String = ""
