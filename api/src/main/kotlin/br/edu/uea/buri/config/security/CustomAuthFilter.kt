@@ -30,7 +30,6 @@ class CustomAuthFilter(
             return
         }
         if(request.requestURL.contains("auth")){
-            println("eh auth, sem ler header")
             filterChain.doFilter(request,response)
             return
         }
@@ -40,11 +39,9 @@ class CustomAuthFilter(
         val name = basicTokenValue.split(":")[0]
         val password = basicTokenValue.split(":")[1]
 
-        println("nome: $name senha: $password")
 
         val userDetails = userDetailsService.loadUserByUsername(name)
 
-        println(userDetails)
 
         if(encoder.matches(password,userDetails.password)){
             val authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(
