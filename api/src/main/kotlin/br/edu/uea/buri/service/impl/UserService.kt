@@ -25,6 +25,10 @@ class UserService(
         throw DomainException("Usuário com id $id não encontrado!")
     }
 
+    override fun findByEmail(email: String): UserApp = this.repo.findByEmail(email).orElseThrow{
+        throw DomainException("Usuário com email $email não encontrado!")
+    }
+
     override fun existsById(id: UUID): Boolean = this.repo.existsById(id)
     override fun existsByEmail(email: String): Boolean = this.repo.existsByEmail(email)
 
