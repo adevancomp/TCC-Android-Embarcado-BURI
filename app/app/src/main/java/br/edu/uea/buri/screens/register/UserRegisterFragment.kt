@@ -1,9 +1,11 @@
 package br.edu.uea.buri.screens.register
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
@@ -107,6 +109,11 @@ class UserRegisterFragment : Fragment() {
                     .setBackgroundTint(
                         ContextCompat.getColor(requireContext(),R.color.blue_accent)
                     ).show()
+            }
+            val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+            val view = activity?.currentFocus
+            view?.let {
+                imm?.hideSoftInputFromWindow(it.windowToken, 0)
             }
         }
     }
