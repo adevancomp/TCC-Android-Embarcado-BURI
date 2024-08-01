@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="24dp"
+    android:layout_marginEnd="16dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvEquipmentItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCardContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvEquipmentName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textColor="#0B2C27"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tvEquipmentId"
+                app:layout_constraintStart_toEndOf="@id/tvLabelName"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Casa 1" />
+
+            <TextView
+                android:id="@+id/tvLabelName"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/hint_nome"
+                android:textColor="#0B2C27"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tvEquipmentName"
+                app:layout_constraintEnd_toStartOf="@id/tvEquipmentName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvEquipmentName" />
+
+            <TextView
+                android:id="@+id/tvEquipmentId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:textColor="#0B2C27"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tvEquipmentName"
+                app:layout_constraintStart_toStartOf="@id/tvEquipmentName"
+                app:layout_constraintTop_toBottomOf="@id/tvEquipmentName"
+                tools:text="123456"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvLabelId"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/hint_id"
+                android:textColor="#0B2C27"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tvEquipmentId"
+                app:layout_constraintEnd_toStartOf="@id/tvEquipmentId"
+                app:layout_constraintTop_toTopOf="@id/tvEquipmentId" />
+
+            <ImageView
+                android:id="@+id/ivEquipmentIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                android:contentDescription="@string/cd_image_equipment_icon"
+                android:padding="4dp"
+                android:src="@drawable/equipment_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvEquipmentName"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
