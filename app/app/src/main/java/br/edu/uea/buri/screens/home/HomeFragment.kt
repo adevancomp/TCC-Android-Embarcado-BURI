@@ -18,6 +18,7 @@ import br.edu.uea.buri.R
 import br.edu.uea.buri.databinding.FragmentHomeBinding
 import br.edu.uea.buri.screens.MainViewModel
 import br.edu.uea.buri.screens.home.adapter.EquipmentAdapter
+import br.edu.uea.buri.screens.home.viewmodel.HomeState
 import br.edu.uea.buri.screens.home.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -63,18 +64,21 @@ class HomeFragment : Fragment() {
                 } else {
                     binding.tvEmptyList.isVisible = false
                 }
-                adapter = EquipmentAdapter(state.listEquipments) {
-                        equipment ->
-                            val direction = HomeFragmentDirections.goToEquipmentInfoFragment(equipment)
-                            findNavController().navigate(direction)
-                }
-                val recyclerView = binding.rvEquipmentList
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            configList(state)
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity().finish()
         }
+    }
+
+    private fun configList(state: HomeState) {
+        adapter = EquipmentAdapter(state.listEquipments) { equipment ->
+            val direction = HomeFragmentDirections.goToEquipmentInfoFragment(equipment)
+            findNavController().navigate(direction)
+        }
+        val recyclerView = binding.rvEquipmentList
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onDestroyView() {
