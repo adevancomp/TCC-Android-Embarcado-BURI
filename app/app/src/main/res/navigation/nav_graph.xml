@@ -23,7 +23,7 @@
         android:id="@+id/userRegisterFragment"
         android:name="br.edu.uea.buri.screens.register.UserRegisterFragment"
         android:label="UserRegisterFragment"
-        tools:layout="@layout/fragment_user_register" >
+        tools:layout="@layout/fragment_user_register">
         <action
             android:id="@+id/go_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -36,6 +36,9 @@
         <action
             android:id="@+id/go_to_equipmentInfoFragment"
             app:destination="@id/equipmentInfoFragment" />
+        <action
+            android:id="@+id/go_to_equipmentRegisterFragment"
+            app:destination="@id/equipmentRegisterFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_loginFragment"
@@ -46,9 +49,14 @@
         android:id="@+id/equipmentInfoFragment"
         android:name="br.edu.uea.buri.screens.equipment.info.EquipmentInfoFragment"
         android:label="EquipmentInfoFragment"
-        tools:layout="@layout/fragment_equipment_info" >
+        tools:layout="@layout/fragment_equipment_info">
         <argument
             android:name="equipment"
             app:argType="br.edu.uea.buri.domain.equipment.Equipment" />
     </fragment>
+    <fragment
+        android:id="@+id/equipmentRegisterFragment"
+        android:name="br.edu.uea.buri.screens.equipment.register.EquipmentRegisterFragment"
+        android:label="EquipmentRegisterFragment"
+        tools:layout="@layout/fragment_equipment_register" />
 </navigation>

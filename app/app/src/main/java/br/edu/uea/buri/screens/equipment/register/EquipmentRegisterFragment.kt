@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class EquipmentRegisterFragment : Fragment() {
     private var _binding: FragmentEquipmentRegisterBinding? = null
-    private val binding: FragmentEquipmentRegisterBinding = _binding!!
+    private val binding: FragmentEquipmentRegisterBinding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,

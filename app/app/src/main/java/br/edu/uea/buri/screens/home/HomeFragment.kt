@@ -20,6 +20,8 @@ import br.edu.uea.buri.screens.MainViewModel
 import br.edu.uea.buri.screens.home.adapter.EquipmentAdapter
 import br.edu.uea.buri.screens.home.viewmodel.HomeState
 import br.edu.uea.buri.screens.home.viewmodel.HomeViewModel
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,6 +32,7 @@ class HomeFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var adapter: EquipmentAdapter
+    private lateinit var btCreateEquipment: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +45,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupView()
+        setupListeners()
         mainViewModel.authenticated.observe(viewLifecycleOwner){ authenticated ->
             if(!authenticated){
                 val directions = HomeFragmentDirections.actionGlobalLoginFragment()
@@ -69,6 +74,16 @@ class HomeFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity().finish()
         }
+    }
+
+    private fun setupListeners() {
+        btCreateEquipment.setOnClickListener {
+            findNavController().navigate(R.id.equipmentRegisterFragment)
+        }
+    }
+
+    private fun setupView() {
+        btCreateEquipment = binding.fabAddEquipment
     }
 
     private fun configList(state: HomeState) {
