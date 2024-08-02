@@ -21,4 +21,6 @@
     <string name="text_empty_list">Lista Vazia</string>
     <string name="hint_nome">Nome:</string>
     <string name="hint_id">Id:</string>
+    <string name="network">Sem internet</string>
+    <string name="cd_network">Ícone de não conectado à internet</string>
 </resources>
