@@ -32,10 +32,23 @@
         android:id="@+id/homeFragment"
         android:name="br.edu.uea.buri.screens.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/go_to_equipmentInfoFragment"
+            app:destination="@id/equipmentInfoFragment" />
+    </fragment>
     <action
         android:id="@+id/action_global_loginFragment"
         app:destination="@id/loginFragment"
         app:popUpTo="@id/homeFragment"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/equipmentInfoFragment"
+        android:name="br.edu.uea.buri.screens.equipment.info.EquipmentInfoFragment"
+        android:label="EquipmentInfoFragment"
+        tools:layout="@layout/fragment_equipment_info" >
+        <argument
+            android:name="equipment"
+            app:argType="br.edu.uea.buri.domain.equipment.Equipment" />
+    </fragment>
 </navigation>

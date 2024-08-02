@@ -63,12 +63,14 @@ class HomeFragment : Fragment() {
                 } else {
                     binding.tvEmptyList.isVisible = false
                 }
-                adapter = EquipmentAdapter()
-                adapter.submitList(state.listEquipments)
+                adapter = EquipmentAdapter(state.listEquipments) {
+                        equipment ->
+                            val direction = HomeFragmentDirections.goToEquipmentInfoFragment(equipment)
+                            findNavController().navigate(direction)
+                }
                 val recyclerView = binding.rvEquipmentList
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                recyclerView.adapter
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity().finish()

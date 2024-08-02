@@ -6,15 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.edu.uea.buri.databinding.EquipmentItemBinding
 import br.edu.uea.buri.domain.equipment.Equipment
 
-class EquipmentAdapter() : RecyclerView.Adapter<EquipmentAdapter.ViewHolder>() {
-
-    private var equipments: List<Equipment> = emptyList()
-    var equipmentItemListener: (Equipment)-> Unit = {}
-
-    fun submitList(newData: List<Equipment>){
-        equipments = newData
-        notifyDataSetChanged()
-    }
+class EquipmentAdapter(private val equipments: List<Equipment>,private val onClick: (Equipment)->Unit) : RecyclerView.Adapter<EquipmentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = EquipmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,13 +20,13 @@ class EquipmentAdapter() : RecyclerView.Adapter<EquipmentAdapter.ViewHolder>() {
         holder.equipmentId.text = equipments[position].equipmentId
         holder.content.setOnClickListener {
             val equipment = equipments[position]
-            equipmentItemListener(equipment)
+            onClick(equipment)
         }
     }
 
     inner class ViewHolder(binding: EquipmentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            var content = binding.cvEquipmentItem
+            var content = binding.clCardContent
             var equipmentName = binding.tvEquipmentName
             var equipmentId = binding.tvEquipmentId
     }
