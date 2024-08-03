@@ -1,6 +1,9 @@
 package br.edu.uea.buri.screens
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
@@ -31,8 +34,16 @@ class ConnectivityRepository @Inject constructor(@ApplicationContext private val
                 }
             })
         } else {
-            val activeNetworkInfo = connectivityManager.activeNetworkInfo
-            _isConnected.value = activeNetworkInfo?.isConnected ?: false
+            //val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            //_isConnected.value = activeNetworkInfo?.isConnected ?: false
+            val networkReceiver = object: BroadcastReceiver(){
+                override fun onReceive(p0: Context?, p1: Intent?) {
+                    val activeNetworkInfo = connectivityManager.activeNetworkInfo
+                    _isConnected.value = activeNetworkInfo?.isConnected ?: false
+                }
+            }
+            val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+            context.registerReceiver(networkReceiver,intentFilter)
         }
     }
 }
