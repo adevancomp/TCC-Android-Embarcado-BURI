@@ -26,9 +26,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideBasicAuthInterceptor(sharedPreferences: SharedPreferences): BasicAuthInterceptor {
-        val username = sharedPreferences.getString("username", "") ?: ""
-        val password = sharedPreferences.getString("password", "") ?: ""
-        return BasicAuthInterceptor(username, password)
+        return BasicAuthInterceptor(sharedPreferences)
     }
 
     @Singleton

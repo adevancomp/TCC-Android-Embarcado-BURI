@@ -28,6 +28,9 @@ class HomeViewModel @Inject constructor(
         _homeState.value = HomeState.Loading
         viewModelScope.launch {
             _homeState.value = runCatching {
+                /*var username = shared.getString("username", "") ?: ""
+                var password = shared.getString("password", "") ?: ""
+                Log.i("BURI","Home ViewModel: $username $password")*/
                 api.getAllEquipmentsByOwnerId(UUID.fromString(shared.getString("id","")))
             }.fold(
                 onSuccess = { response ->
