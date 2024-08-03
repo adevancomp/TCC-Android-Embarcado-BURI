@@ -43,7 +43,7 @@ class UserRegisterViewModel @Inject constructor(
                                     response.body()?.userId?.let {
                                         putString("id",it.toString())
                                     }
-                                    apply()
+                                    commit()
                                 }
                                 RegisterState.Success(user,true)
                             }
