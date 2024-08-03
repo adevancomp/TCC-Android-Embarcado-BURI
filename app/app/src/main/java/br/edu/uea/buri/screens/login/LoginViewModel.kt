@@ -36,7 +36,7 @@ class LoginViewModel  @Inject constructor(
                             response.body()?.id?.let {
                                 putString("id",it.toString())
                             }
-                            apply()
+                            commit()
                         }
                         LoginState.Success(response.body() ?: UserAuth())
                     }
