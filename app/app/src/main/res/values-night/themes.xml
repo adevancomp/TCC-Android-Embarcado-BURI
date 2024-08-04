@@ -3,5 +3,10 @@
     <style name="Base.Theme.Buri" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/dark_green_primary</item>
+        <item name="colorPrimaryDark">@color/dark_green_primary_dark</item>
+        <item name="colorAccent">@color/dark_blue_accent</item>
+        <item name="colorSecondary">@color/dark_yellow_secondary</item>
+        <item name="colorSecondaryVariant">@color/dark_yellow_secondary_dark</item>
     </style>
 </resources>

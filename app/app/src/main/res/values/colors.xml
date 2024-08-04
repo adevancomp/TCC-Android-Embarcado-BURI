@@ -8,4 +8,11 @@
     <color name="yellow_secondary">#F4E982</color>
     <color name="yellow_secondary_dark">#EAA53F</color>
     <color name="text_link">#70BFE3</color>
+    <color name="dark_green_primary">#2E7D32</color>
+    <color name="dark_green_primary_dark">#1B5E20</color>
+    <color name="dark_blue_accent">#0277BD</color>
+    <color name="dark_yellow_secondary">#F9A825</color>
+    <color name="dark_yellow_secondary_dark">#F57F17</color>
+    <color name="card_content">#C4DFF4</color>
+
 </resources>
