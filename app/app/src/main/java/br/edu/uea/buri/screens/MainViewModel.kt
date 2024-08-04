@@ -14,8 +14,8 @@ class MainViewModel @Inject constructor(
     private val _authenticated = MutableLiveData<Boolean>(false)
     val authenticated : LiveData<Boolean> = _authenticated
     val isConnected: LiveData<Boolean> = repo.isConnected.asLiveData()
-    private val _buriWifiConnection = MutableLiveData<Boolean>(false)
-    val buriWifiConnection : LiveData<Boolean> = _buriWifiConnection
+    private val _buriWifiConnected = MutableLiveData<Boolean>(false)
+    val buriWifiConnected : LiveData<Boolean> = repo.isBuriWifiConnected.asLiveData()
     fun authenticate(){
         _authenticated.value= true
     }

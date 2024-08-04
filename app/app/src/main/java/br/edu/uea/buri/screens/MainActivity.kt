@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import br.edu.uea.buri.R
 import br.edu.uea.buri.data.BuriApi
 import br.edu.uea.buri.databinding.ActivityMainBinding
+import br.edu.uea.buri.screens.equipment.register.EquipmentRegisterFragment
 import br.edu.uea.buri.screens.login.LoginFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -57,6 +58,9 @@ class MainActivity : AppCompatActivity() {
                     currentFragment?.let { fragment ->
                         when(fragment){
                             is LoginFragment -> {
+                                binding.navHostFragment.isVisible = true
+                            }
+                            is EquipmentRegisterFragment -> {
                                 binding.navHostFragment.isVisible = true
                             }
                             else -> binding.navHostFragment.isVisible = false

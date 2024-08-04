@@ -4,15 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvEquipment"
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btNewEquipment"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Equipment Register"
-        android:textSize="24sp"
+        android:layout_margin="32dp"
+        android:text="@string/register_equipment"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btChangeOwner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:text="@string/sl"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/btNewEquipment"
+        app:layout_constraintStart_toStartOf="@id/btNewEquipment"
+        app:layout_constraintTop_toBottomOf="@id/btNewEquipment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
