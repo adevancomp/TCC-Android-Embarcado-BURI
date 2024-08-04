@@ -72,9 +72,11 @@ class ConnectivityRepository @Inject constructor(@ApplicationContext private val
 
     private fun getCurrentSsid(): String? {
         return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            Log.e("BURI","SSID: ${wifiManager.connectionInfo.ssid}")
             wifiManager.connectionInfo.ssid
         } else {
             val ssid = wifiManager.connectionInfo.ssid
+            Log.e("BURI","SSID: ${wifiManager.connectionInfo.ssid}")
             Log.i("BURI",ssid)
             if (ssid != null && ssid.startsWith("\"") && ssid.endsWith("\"")) {
                 ssid.substring(1, ssid.length - 1)
