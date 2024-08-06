@@ -9,6 +9,7 @@ import br.edu.uea.buri.dto.user.views.UserViewDTO
 import br.edu.uea.buri.service.IEquipmentService
 import br.edu.uea.buri.service.IMeasurementService
 import br.edu.uea.buri.service.IUserService
+import br.edu.uea.buri.utils.DomainOperations
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,10 +17,7 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/auth")
@@ -55,5 +53,15 @@ class AuthResource (
         measurement.equipment = equipmentService.findById(dto.equipmentId)
         val measurementSaved = measurementService.save(measurement)
         return ResponseEntity.status(HttpStatus.CREATED).body(measurementSaved.toMeasurementViewDTO())
+    }
+    @GetMapping("/generateId")
+    fun generateEquipmentId() : ResponseEntity<String>{
+        var newId : String
+        var existsId : Boolean
+        do {
+            newId = DomainOperations.generateEquipmentId()
+            existsId = equipmentService.existsById(newId)
+        } while (existsId)
+        return ResponseEntity.status(HttpStatus.OK).body(newId)
     }
 }
