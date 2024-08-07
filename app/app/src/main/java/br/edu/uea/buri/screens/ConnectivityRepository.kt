@@ -31,12 +31,6 @@ class ConnectivityRepository @Inject constructor(@ApplicationContext private val
                     _isConnected.value = true
                     if(connectivityManager.activeNetworkInfo?.isConnected == true){
                         val ssid = getCurrentSsid() ?: ""
-                        Log.i("BURI",ssid)
-                        if(ssid.isNotEmpty()){
-                            _isBuriWifiConnected.value = ssid == BURI_WIFI_NAME
-                        } else {
-                            _isBuriWifiConnected.value = false
-                        }
                     }
                 }
 
@@ -55,14 +49,6 @@ class ConnectivityRepository @Inject constructor(@ApplicationContext private val
                 override fun onReceive(p0: Context?, p1: Intent?) {
                     val activeNetworkInfo = connectivityManager.activeNetworkInfo
                     _isConnected.value = activeNetworkInfo?.isConnected ?: false
-                    if(_isConnected.value){
-                        val ssid = getCurrentSsid() ?: ""
-                        if(ssid.isNotEmpty()){
-                            _isBuriWifiConnected.value = ssid == BURI_WIFI_NAME
-                        } else {
-                            _isBuriWifiConnected.value = false
-                        }
-                    }
                 }
             }
             val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
@@ -71,18 +57,13 @@ class ConnectivityRepository @Inject constructor(@ApplicationContext private val
     }
 
     private fun getCurrentSsid(): String? {
-        return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            Log.e("BURI","SSID: ${wifiManager.connectionInfo.ssid}")
-            wifiManager.connectionInfo.ssid
+
+        var ssid = wifiManager.connectionInfo.ssid
+        ssid = if (ssid != null && ssid.startsWith("\"") && ssid.endsWith("\"")) {
+            ssid.substring(1, ssid.length - 1)
         } else {
-            val ssid = wifiManager.connectionInfo.ssid
-            Log.e("BURI","SSID: ${wifiManager.connectionInfo.ssid}")
-            Log.i("BURI",ssid)
-            if (ssid != null && ssid.startsWith("\"") && ssid.endsWith("\"")) {
-                ssid.substring(1, ssid.length - 1)
-            } else {
-                ssid
-            }
+            ssid
         }
+        return  ssid
     }
 }
