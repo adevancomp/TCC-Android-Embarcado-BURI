@@ -40,6 +40,10 @@ class MeasurementService (
         return pageResult
     }
 
+    override fun findAllByLastHourInterval(ownerId:String,hourDuration: Int): List<Measurement> = repo.findAllByLastHourInterval(ownerId,hourDuration)
+
+    override fun findAllByLastMinuteInterval(ownerId:String,minuteDuration: Int): List<Measurement> = repo.findAllByLastMinuteInterval(ownerId,minuteDuration)
+
     override fun existsById(id: Long): Boolean = this.repo.existsById(id)
 
     @Transactional

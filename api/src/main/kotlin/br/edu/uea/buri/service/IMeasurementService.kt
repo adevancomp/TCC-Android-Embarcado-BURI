@@ -9,6 +9,8 @@ interface IMeasurementService {
     fun findById(id: Long) : Measurement
     fun findByEquipment(equipment: Equipment) : List<Measurement>
     fun findAllByEquipmentsSortedByDataCollection(equipmentId: String, page:Int,size:Int) : Page<Measurement>
+    fun findAllByLastHourInterval(ownerId:String,hourDuration: Int) : List<Measurement>
+    fun findAllByLastMinuteInterval(ownerId:String,minuteDuration: Int): List<Measurement>
     fun existsById(id: Long) : Boolean
     fun deleteById(id: Long)
 }

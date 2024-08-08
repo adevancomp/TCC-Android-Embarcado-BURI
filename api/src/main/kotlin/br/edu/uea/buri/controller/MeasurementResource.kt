@@ -35,6 +35,16 @@ class MeasurementResource (
         val measurement = this.measurementService.findById(id)
         return ResponseEntity.status(HttpStatus.OK).body(measurement.toMeasurementViewDTO())
     }
+    @GetMapping("/hour")
+    fun findByHourDuration(@RequestParam("ownerId") ownerId: String, @RequestParam("hourDuration") hourDuration: Int) : ResponseEntity<List<MeasurementViewDTO>>{
+        val measurements = this.measurementService.findAllByLastHourInterval(ownerId,hourDuration)
+        return ResponseEntity.status(HttpStatus.OK).body(measurements.map { measurement -> measurement.toMeasurementViewDTO() })
+    }
+    @GetMapping("/minute")
+    fun findByMinuteDuration(@RequestParam("ownerId") ownerId: String, @RequestParam("minuteDuration") minuteDuration: Int) : ResponseEntity<List<MeasurementViewDTO>>{
+        val measurements = this.measurementService.findAllByLastMinuteInterval(ownerId,minuteDuration)
+        return ResponseEntity.status(HttpStatus.OK).body(measurements.map { measurement -> measurement.toMeasurementViewDTO() })
+    }
     @GetMapping("/equipment/{id}")
     fun getMeasurementsByEquipmentIdSorted(
         @PathVariable("id") equipmentId: String,
