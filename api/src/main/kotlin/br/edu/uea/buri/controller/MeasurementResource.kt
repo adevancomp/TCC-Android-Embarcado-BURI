@@ -36,13 +36,13 @@ class MeasurementResource (
         return ResponseEntity.status(HttpStatus.OK).body(measurement.toMeasurementViewDTO())
     }
     @GetMapping("/hour")
-    fun findByHourDuration(@RequestParam("ownerId") ownerId: String, @RequestParam("hourDuration") hourDuration: Int) : ResponseEntity<List<MeasurementViewDTO>>{
-        val measurements = this.measurementService.findAllByLastHourInterval(ownerId,hourDuration)
+    fun findByHourDuration(@RequestParam("equipmentId") equipmentId: String, @RequestParam("hourDuration") hourDuration: Int) : ResponseEntity<List<MeasurementViewDTO>>{
+        val measurements = this.measurementService.findAllByLastHourInterval(equipmentId,hourDuration)
         return ResponseEntity.status(HttpStatus.OK).body(measurements.map { measurement -> measurement.toMeasurementViewDTO() })
     }
     @GetMapping("/minute")
-    fun findByMinuteDuration(@RequestParam("ownerId") ownerId: String, @RequestParam("minuteDuration") minuteDuration: Int) : ResponseEntity<List<MeasurementViewDTO>>{
-        val measurements = this.measurementService.findAllByLastMinuteInterval(ownerId,minuteDuration)
+    fun findByMinuteDuration(@RequestParam("equipmentId") equipmentId: String, @RequestParam("minuteDuration") minuteDuration: Int) : ResponseEntity<List<MeasurementViewDTO>>{
+        val measurements = this.measurementService.findAllByLastMinuteInterval(equipmentId,minuteDuration)
         return ResponseEntity.status(HttpStatus.OK).body(measurements.map { measurement -> measurement.toMeasurementViewDTO() })
     }
     @GetMapping("/equipment/{id}")

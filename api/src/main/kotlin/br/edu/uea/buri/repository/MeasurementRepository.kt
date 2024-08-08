@@ -22,7 +22,7 @@ interface MeasurementRepository : JpaRepository<Measurement, Long> {
                     LIMIT 1)
             ); """,
         nativeQuery = true
-    ) fun findAllByLastHourInterval(ownerId:String,hourDuration: Int) : List<Measurement>
+    ) fun findAllByLastHourInterval(equipmentId:String,hourDuration: Int) : List<Measurement>
 
     @Query(
         value = """
@@ -41,5 +41,5 @@ interface MeasurementRepository : JpaRepository<Measurement, Long> {
                     );""",
         nativeQuery = true
     )
-    fun findAllByLastMinuteInterval(ownerId:String,minuteDuration: Int): List<Measurement>
+    fun findAllByLastMinuteInterval(equipmentId:String,minuteDuration: Int): List<Measurement>
 }
