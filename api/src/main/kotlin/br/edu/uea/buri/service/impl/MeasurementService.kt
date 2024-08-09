@@ -44,6 +44,21 @@ class MeasurementService (
 
     override fun findAllByLastMinuteInterval(equipmentId:String,minuteDuration: Int): List<Measurement> = repo.findAllByLastMinuteInterval(equipmentId,minuteDuration)
 
+    override fun findLast3Measurements(equipmentId: String): List<Measurement> = repo.findLast3Measurements(equipmentId)
+
+    override fun sensorsAreConnected(equipmentId: String): Boolean {
+        val measurements = this.findLast3Measurements(equipmentId)
+        val isDisconnected = measurements.all { measurement ->
+            measurement.airHumidity == null ||
+                    measurement.carbonMonoxide == null ||
+                    measurement.temperature == null
+        }
+        if(measurements.size<3){
+            return true
+        }
+        return !isDisconnected
+    }
+
     override fun existsById(id: Long): Boolean = this.repo.existsById(id)
 
     @Transactional

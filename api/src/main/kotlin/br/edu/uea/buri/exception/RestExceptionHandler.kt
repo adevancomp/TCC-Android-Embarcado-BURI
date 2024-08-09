@@ -56,6 +56,11 @@ class RestExceptionHandler {
             )
     }
 
+    @ExceptionHandler(SensorNotConnectedException::class)
+    fun handlerSensorNotConnectedException(ex: SensorNotConnectedException) : ResponseEntity<String>{
+        return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body("Sensores não conectados!!")
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handlerValidException(ex: MethodArgumentNotValidException) : ResponseEntity<ExceptionDetails>{
         val errors : MutableMap<String, String?> = HashMap()

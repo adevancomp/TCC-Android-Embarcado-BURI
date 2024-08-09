@@ -6,6 +6,8 @@ import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
 import br.edu.uea.buri.dto.user.requests.LoginDTO
 import br.edu.uea.buri.dto.user.requests.UserRegisterDTO
 import br.edu.uea.buri.dto.user.views.UserViewDTO
+import br.edu.uea.buri.exception.SensorNotConnectedException
+import br.edu.uea.buri.service.IEnvironmentEventService
 import br.edu.uea.buri.service.IEquipmentService
 import br.edu.uea.buri.service.IMeasurementService
 import br.edu.uea.buri.service.IUserService
@@ -26,7 +28,8 @@ class AuthResource (
     private val userService: IUserService,
     private val encoder: PasswordEncoder,
     private val measurementService: IMeasurementService,
-    private val equipmentService: IEquipmentService
+    private val equipmentService: IEquipmentService,
+    private val eventService: IEnvironmentEventService
 ){
     @PostMapping
     fun login(@RequestBody @Valid dto: LoginDTO) : ResponseEntity<AuthResponse>{
@@ -50,6 +53,9 @@ class AuthResource (
     @PostMapping("/measurement")
     fun saveMeasurement(@RequestBody @Valid dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
         val measurement = dto.toEntity()
+        if(!measurementService.sensorsAreConnected(dto.equipmentId)){
+            throw SensorNotConnectedException("Sensores não conectados!!!")
+        }
         measurement.equipment = equipmentService.findById(dto.equipmentId)
         val measurementSaved = measurementService.save(measurement)
         return ResponseEntity.status(HttpStatus.CREATED).body(measurementSaved.toMeasurementViewDTO())

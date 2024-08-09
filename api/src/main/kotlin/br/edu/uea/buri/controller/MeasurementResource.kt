@@ -3,6 +3,7 @@ package br.edu.uea.buri.controller
 import br.edu.uea.buri.domain.Measurement
 import br.edu.uea.buri.dto.measurement.requests.MeasurementRegisterDTO
 import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
+import br.edu.uea.buri.exception.SensorNotConnectedException
 import br.edu.uea.buri.service.IEquipmentService
 import br.edu.uea.buri.service.IMeasurementService
 import jakarta.validation.Valid
@@ -20,6 +21,9 @@ class MeasurementResource (
     @PostMapping
     fun save(@RequestBody @Valid dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
         val measurement = dto.toEntity()
+        if(!measurementService.sensorsAreConnected(dto.equipmentId)){
+            throw SensorNotConnectedException("Sensores não conectados!!!")
+        }
         measurement.equipment = equipmentService.findById(dto.equipmentId)
         val measurementSaved = measurementService.save(measurement)
         return ResponseEntity.status(HttpStatus.CREATED).body(measurementSaved.toMeasurementViewDTO())
