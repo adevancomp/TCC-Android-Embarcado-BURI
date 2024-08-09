@@ -90,7 +90,7 @@ class AuthResource (
                         equipment = measurementSaved.equipment
                     )
                 }
-                if(measurementSaved.carbonMonoxide>=BigDecimal(20)){
+                if(measurementSaved.carbonMonoxide>=BigDecimal(11)){
                     event = EnvironmentEvent(
                         type = EventType.CarbonMonoxide,
                         message = coToMessage(measurementSaved.carbonMonoxide),
