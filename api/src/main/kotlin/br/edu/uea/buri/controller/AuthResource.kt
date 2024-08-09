@@ -82,7 +82,7 @@ class AuthResource (
                         equipment = measurementSaved.equipment
                     )
                 }
-                if(measurementSaved.airHumidity<= BigDecimal(0.352)){
+                if(measurementSaved.airHumidity<= BigDecimal(0.352) || (measurementSaved.airHumidity <= BigDecimal(0.40) && measurementSaved.airHumidity <= BigDecimal(0.80) )){
                     event = EnvironmentEvent(
                         type = EventType.AirHumidity,
                         message = airHumidityToMessage(measurementSaved.airHumidity),

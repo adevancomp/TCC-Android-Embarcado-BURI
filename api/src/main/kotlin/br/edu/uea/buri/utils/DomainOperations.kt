@@ -25,7 +25,8 @@ class DomainOperations {
             else -> "Estado indefinido"
         }
         fun coToMessage(co: BigDecimal) : String = when {
-            co < BigDecimal("35.0") -> "nenhum sintoma adverso dentro de 8 horas de exposição"
+            co < BigDecimal("10.0") -> "Quantidade não preocupante"
+            co >= BigDecimal("10.0") && co < BigDecimal("35.0") -> "nenhum sintoma adverso dentro de 8 horas de exposição"
             co >= BigDecimal("35.0") && co < BigDecimal("200.0") -> "dor de cabeça após 2 a 3 horas de exposição"
             co >= BigDecimal("200.0") && co < BigDecimal("400.0") -> "dor de cabeça e náusea após 1 a 2 horas de exposição"
             co >= BigDecimal("400.0") && co < BigDecimal("800.0") -> "dor de cabeça, náusea e distúrbios após 45 minutos de exposição; morte em até 2 horas de duração"
