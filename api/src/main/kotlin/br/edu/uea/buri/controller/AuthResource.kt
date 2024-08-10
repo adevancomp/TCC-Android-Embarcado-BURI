@@ -2,6 +2,7 @@ package br.edu.uea.buri.controller
 
 import br.edu.uea.buri.config.security.AuthResponse
 import br.edu.uea.buri.domain.EnvironmentEvent
+import br.edu.uea.buri.dto.equipment.response.EquipmentNewId
 import br.edu.uea.buri.dto.measurement.requests.MeasurementRegisterDTO
 import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
 import br.edu.uea.buri.dto.user.requests.LoginDTO
@@ -122,13 +123,14 @@ class AuthResource (
         return ResponseEntity.status(HttpStatus.CREATED).body(measurementSaved.toMeasurementViewDTO())
     }
     @GetMapping("/generateId")
-    fun generateEquipmentId() : ResponseEntity<String>{
+    fun generateEquipmentId() : ResponseEntity<EquipmentNewId>{
         var newId : String
         var existsId : Boolean
         do {
             newId = DomainOperations.generateEquipmentId()
             existsId = equipmentService.existsById(newId)
         } while (existsId)
-        return ResponseEntity.status(HttpStatus.OK).body(newId)
+        val eqpId = EquipmentNewId(newId)
+        return ResponseEntity.status(HttpStatus.OK).body(eqpId)
     }
 }
