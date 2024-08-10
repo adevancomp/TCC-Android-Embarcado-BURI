@@ -82,7 +82,7 @@ class AuthResource (
                         equipment = measurementSaved.equipment
                     )
                 }
-                if(measurementSaved.airHumidity<= BigDecimal(0.352) || (measurementSaved.airHumidity <= BigDecimal(0.40) && measurementSaved.airHumidity <= BigDecimal(0.80) )){
+                if(measurementSaved.airHumidity<= BigDecimal(0.352) || (measurementSaved.airHumidity <= BigDecimal(0.46))){
                     event = EnvironmentEvent(
                         type = EventType.AirHumidity,
                         message = airHumidityToMessage(measurementSaved.airHumidity),
@@ -98,6 +98,7 @@ class AuthResource (
                         equipment = measurementSaved.equipment
                     )
                 }
+
                 event?.let {
                     if(lastEvent.id!=null){
                         //Tanto event como o last event existem
@@ -107,8 +108,13 @@ class AuthResource (
                             //Os eventos sao do mesmo tipo, verificar se tem a mesma mensagem
                             if(event.message != lastEvent.message){
                                 eventService.save(event)
+                            } else {
+
                             }
                         }
+                    } else {
+                        //Primeiro evento cadastrado
+                        eventService.save(event)
                     }
                 }
             }
