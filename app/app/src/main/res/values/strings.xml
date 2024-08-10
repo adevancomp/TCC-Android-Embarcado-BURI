@@ -26,4 +26,5 @@
     <string name="register_equipment">Cadastrar aparelho (Novo)</string>
     <string name="change_owner">Cadastrar aparelho (Novo)</string>
     <string name="sl">Solicita propriedade</string>
+    <string name="label_new_Id">ID do novo equipamento :</string>
 </resources>

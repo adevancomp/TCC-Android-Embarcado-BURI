@@ -1,6 +1,7 @@
 package br.edu.uea.buri.data
 
 import br.edu.uea.buri.domain.equipment.Equipment
+import br.edu.uea.buri.domain.equipment.EquipmentNewId
 import br.edu.uea.buri.domain.equipment.EquipmentRegister
 import br.edu.uea.buri.domain.measurement.Measurement
 import br.edu.uea.buri.domain.user.User
@@ -24,6 +25,8 @@ interface BuriApi {
     suspend fun saveUserAuth(@Body user: UserRegister) : Response<User>
     @POST("/auth")
     suspend fun loginUserAuth(@Body user: UserLogin) : Response<UserAuth>
+    @GET("/auth/generateId")
+    suspend fun generateId() : Response<EquipmentNewId>
     @GET("/user/{userId}")
     suspend fun getUserById(@Path("userId") userId: UUID) : Response<User>
     @DELETE("/user/{userId}")

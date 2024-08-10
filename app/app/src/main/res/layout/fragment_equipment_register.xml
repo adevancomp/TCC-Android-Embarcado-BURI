@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -27,5 +28,31 @@
         app:layout_constraintEnd_toEndOf="@id/btNewEquipment"
         app:layout_constraintStart_toStartOf="@id/btNewEquipment"
         app:layout_constraintTop_toBottomOf="@id/btNewEquipment" />
+
+    <TextView
+        android:id="@+id/tvNewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_new_Id"
+        android:textSize="25sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btChangeOwner"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvNewIdValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="32sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/tvNewId"
+        app:layout_constraintStart_toStartOf="@id/tvNewId"
+        app:layout_constraintTop_toBottomOf="@id/tvNewId"
+        tools:text="aaaaaa"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
