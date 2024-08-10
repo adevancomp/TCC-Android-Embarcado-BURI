@@ -1,5 +1,6 @@
 package br.edu.uea.buri.screens.equipment.register
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EqpRegisterViewModel @Inject constructor(
-    private val buriApi: BuriApi
+    private val buriApi: BuriApi,
+    private val shared: SharedPreferences
 ) : ViewModel() {
     private val _id = MutableLiveData<String>("")
     val id : LiveData<String> = _id
@@ -30,4 +32,6 @@ class EqpRegisterViewModel @Inject constructor(
             }
         }
     }
+
+    fun saveEquipment():
 }
