@@ -103,9 +103,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/id"
-            android:inputType="textEmailAddress"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            android:inputType="text"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btSaveNewOwner"

@@ -43,4 +43,6 @@ interface BuriApi {
     suspend fun getAllEquipmentsByOwnerId(@Query("ownerId") id: UUID) : Response<List<Equipment>>
     @POST("/equipment")
     suspend fun saveEquipment(@Body equipment: Equipment) : Response<Equipment>
+    @GET("/equipment/{equipmentId}")
+    suspend fun getEquipmentById(@Path("equipmentId") equipmentId: String) : Response<Equipment>
 }
