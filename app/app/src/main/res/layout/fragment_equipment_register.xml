@@ -13,11 +13,118 @@
         android:text="@string/register_equipment"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tvNewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_new_Id"
+        android:textSize="25sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btNewEquipment"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvNewIdValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="32sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/tvNewId"
+        app:layout_constraintStart_toStartOf="@id/tvNewId"
+        app:layout_constraintTop_toBottomOf="@id/tvNewId"
+        tools:text="aaaaaa"
+        tools:visibility="visible" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEquipmentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNewIdValue"
+        tools:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtEquipmentName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/hint_save_equipment"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btSaveEquipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="32sp"
+        android:layout_marginEnd="130dp"
+        android:text="@string/hint_save"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tilEquipmentName"
+        tools:visibility="visible" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btChangeOwner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:text="@string/sl"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/btNewEquipment"
+        app:layout_constraintStart_toStartOf="@id/btNewEquipment"
+        app:layout_constraintTop_toBottomOf="@id/btSaveEquipment" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEquipmentId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btChangeOwner"
+        tools:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtEquipmentId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/id"
+            android:inputType="textEmailAddress"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btSaveNewOwner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="64sp"
+            android:layout_marginEnd="64sp"
+            android:text="@string/hint_save"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tilEquipmentName"
+            tools:visibility="visible" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!--<com.google.android.material.button.MaterialButton
         android:id="@+id/btChangeOwner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,6 +160,6 @@
         app:layout_constraintStart_toStartOf="@id/tvNewId"
         app:layout_constraintTop_toBottomOf="@id/tvNewId"
         tools:text="aaaaaa"
-        tools:visibility="visible" />
+        tools:visibility="visible" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
