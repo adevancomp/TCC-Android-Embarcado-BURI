@@ -113,7 +113,7 @@ class AuthResource (
                             }
                         }
                     } else {
-                        //Primeiro evento cadastrado
+                        //Primeiro evento cadastrado A
                         eventService.save(event)
                     }
                 }
