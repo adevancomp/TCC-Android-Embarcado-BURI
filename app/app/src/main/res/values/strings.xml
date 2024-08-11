@@ -30,4 +30,5 @@
     <string name="hint_save">Salvar</string>
     <string name="hint_save_equipment">Nome do equipamento</string>
     <string name="id">Id</string>
+    <string name="title_air">Umidade do ar</string>
 </resources>
