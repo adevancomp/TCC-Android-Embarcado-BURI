@@ -34,7 +34,7 @@ class MeasurementService (
     override fun findAllByEquipmentsSortedByDataCollection(equipmentId: String, page:Int,size:Int): Page<Measurement> {
         val equipment = eqpService.findById(equipmentId)
         val list = this.findByEquipment(equipment)
-        val sortedList = list.sortedBy { it.collectionDate }
+        val sortedList = list.sortedByDescending { it.collectionDate }
         val pageable: Pageable = PageRequest.of(page, size)
         val pageResult = PageImpl(sortedList, pageable, sortedList.size.toLong())
         return pageResult
