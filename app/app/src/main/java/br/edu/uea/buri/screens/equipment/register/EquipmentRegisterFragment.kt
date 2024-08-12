@@ -110,8 +110,8 @@ class EquipmentRegisterFragment : Fragment() {
             ).setTextColor(
                 ContextCompat.getColor(requireContext(), R.color.black)
             ).setAction("Copiar URL da API"){
-                val clipBoard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("API URL", BuildConfig.BASE_URL_API)
+                    val clipBoard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip = ClipData.newPlainText("API URL", BuildConfig.BASE_URL_API)
                     clipBoard.setPrimaryClip(clip)
                     Toast.makeText(requireContext(),"URL copiada para a área de transferência",Toast.LENGTH_SHORT).show()
                 }
@@ -148,6 +148,8 @@ class EquipmentRegisterFragment : Fragment() {
                             ownerId = UUID.fromString(shared.getString("id", "") ?: "")
                         )
                     )
+                } else {
+                    Toast.makeText(requireContext(),"Não foi encontrado",Toast.LENGTH_SHORT).show()
                 }
             }
             val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?

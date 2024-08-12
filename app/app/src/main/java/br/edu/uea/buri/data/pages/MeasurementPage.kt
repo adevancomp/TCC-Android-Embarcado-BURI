@@ -1,8 +1,10 @@
 package br.edu.uea.buri.data.pages
 
 import br.edu.uea.buri.domain.measurement.Measurement
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class MeasurementPage(
     @JsonProperty("totalPages") val totalPages: Int,
     @JsonProperty("totalElements") val totalElements: Int,

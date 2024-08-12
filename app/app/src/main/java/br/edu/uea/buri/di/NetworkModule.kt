@@ -1,6 +1,5 @@
 package br.edu.uea.buri.di
 
-import android.content.Context
 import android.content.SharedPreferences
 import br.edu.uea.buri.BuildConfig
 import br.edu.uea.buri.data.BasicAuthInterceptor
@@ -8,7 +7,6 @@ import br.edu.uea.buri.data.BuriApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

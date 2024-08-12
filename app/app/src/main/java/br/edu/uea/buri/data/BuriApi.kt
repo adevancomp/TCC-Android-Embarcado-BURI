@@ -1,5 +1,6 @@
 package br.edu.uea.buri.data
 
+import br.edu.uea.buri.data.pages.MeasurementPage
 import br.edu.uea.buri.domain.equipment.Equipment
 import br.edu.uea.buri.domain.equipment.EquipmentNewId
 import br.edu.uea.buri.domain.equipment.EquipmentRegister
@@ -35,7 +36,7 @@ interface BuriApi {
     @GET("/measurement/{measurementId}")
     suspend fun getMeasurementById(@Path("measurementId") measurementId: Long) : Response<Measurement>
     @GET("/measurement/equipment/{id}")
-    suspend fun getAllMeasurementsByEquipmentId(@Path("id") equipmentId: String, @Query("page") page: Int, @Query("size") size: Int)
+    suspend fun getAllMeasurementsByEquipmentId(@Path("id") equipmentId: String, @Query("page") page: Int, @Query("size") size: Int) : Response<MeasurementPage>
 
     @POST("/auth/measurement")
     suspend fun saveMeasurementAuth(@Body equipment: EquipmentRegister) : Response<Equipment>

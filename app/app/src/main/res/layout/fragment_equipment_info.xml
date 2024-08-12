@@ -26,4 +26,139 @@
         app:layout_constraintStart_toStartOf="@id/tvAirHumidityTitle"
         app:layout_constraintTop_toBottomOf="@id/tvAirHumidityTitle" />
 
+    <TextView
+        android:id="@+id/tvMonoxideTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/title_co"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pcAirHumidity" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvMonoxideValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintTop_toBottomOf="@id/tvMonoxideTitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCardCO"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#048573">
+
+            <TextView
+                android:id="@+id/tvCardEquipmentName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Casa 1" />
+
+            <TextView
+                android:id="@+id/tvCardEquipmentValueCO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tvCardEquipmentName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvCardEquipmentName"
+                tools:background="@color/blue_accent"
+                tools:text="300 ppm" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvTemperatureTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/temperature_title7"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvMonoxideValue" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvTemperatureValue"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#048573"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="@id/tvTemperatureTitle"
+        app:layout_constraintStart_toStartOf="@id/tvTemperatureTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvTemperatureTitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCardTemperature"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#048573">
+
+            <TextView
+                android:id="@+id/tvTemperatureEquipmentName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Casa 1" />
+
+            <TextView
+                android:id="@+id/tvTemperatureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/tvTemperatureEquipmentName"
+                app:layout_constraintStart_toStartOf="@id/tvTemperatureEquipmentName"
+                app:layout_constraintTop_toBottomOf="@id/tvTemperatureEquipmentName"
+                tools:text="34 °C" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

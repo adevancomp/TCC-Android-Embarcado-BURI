@@ -26,6 +26,8 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
 retrofit = {group="com.squareup.retrofit2", name="retrofit", version.ref="retrofitVersion"}
 jackson = { group="com.squareup.retrofit2", name="converter-jackson", version.ref="jacksonVersion"}
+jackson-core = { group="com.fasterxml.jackson.core", name="jackson-databind", version="jacksonVersion" }
+jackson-datatype = { group="com.fasterxml.jackson.datatype", name="jackson-datatype-jsr310", version="jacksonVersion" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
