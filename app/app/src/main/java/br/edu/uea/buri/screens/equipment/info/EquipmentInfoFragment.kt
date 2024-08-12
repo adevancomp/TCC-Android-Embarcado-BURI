@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,6 +34,10 @@ class EquipmentInfoFragment : Fragment()  {
     private val binding: FragmentEquipmentInfoBinding get() = _binding!!
     private lateinit var airHumidityPieChart: PieChart
     private lateinit var pbLoading: ProgressBar
+    private lateinit var tvCOEquipmentName: TextView
+    private lateinit var tvCOValue: TextView
+    private lateinit var tvTemperatureEquipmentName: TextView
+    private lateinit var tvTemperatureValue: TextView
     private val args by navArgs<EquipmentInfoFragmentArgs>()
     @Inject lateinit var buriApi: BuriApi
     private val infoViewModel by viewModels<EqpInfoViewModel> {
@@ -66,8 +72,8 @@ class EquipmentInfoFragment : Fragment()  {
                 measurement.air?.let {
                     air ->
                         val entries = mutableListOf<PieEntry>()
-                        entries.add(PieEntry(air.toFloat(), "Umidade"))
-                        entries.add(PieEntry(1 - air.toFloat(), "Outros (Ar)"))
+                        entries.add(PieEntry(air.setScale(2,RoundingMode.HALF_UP).toFloat(), "Umidade"))
+                        entries.add(PieEntry(1 - air.setScale(2,RoundingMode.HALF_UP).toFloat(), "Outros (Ar)"))
 
                         val dataSet = PieDataSet(entries, " ")
                         dataSet.valueTextColor = Color.parseColor("#000000")
@@ -78,9 +84,21 @@ class EquipmentInfoFragment : Fragment()  {
 
                         airHumidityPieChart.description.isEnabled = false
                         airHumidityPieChart.data = data
+                        airHumidityPieChart.legend.textSize = 12f
                         airHumidityPieChart.setDrawEntryLabels(false)
 
                         airHumidityPieChart.invalidate()
+                }
+                measurement.co?.let { co ->
+                    val formattedCo = co.setScale(2, RoundingMode.HALF_UP)
+                    tvCOEquipmentName.text = args.equipment.name
+                    tvCOValue.text = "$formattedCo ppm"
+                }
+
+                measurement.tmp?.let { temperature ->
+                    val formattedTemperature = temperature.setScale(2, RoundingMode.HALF_UP)
+                    tvTemperatureEquipmentName.text = args.equipment.name
+                    tvTemperatureValue.text = "$formattedTemperature °C"
                 }
         }
     }
@@ -88,6 +106,12 @@ class EquipmentInfoFragment : Fragment()  {
     private fun setupView(){
         airHumidityPieChart = binding.pcAirHumidity
         pbLoading = binding.pbLoading
+
+        tvCOEquipmentName = binding.tvCardEquipmentName
+        tvCOValue = binding.tvCardEquipmentValueCO
+
+        tvTemperatureEquipmentName = binding.tvTemperatureEquipmentName
+        tvTemperatureValue = binding.tvTemperatureValue
     }
 
     private fun setupListeners(){
