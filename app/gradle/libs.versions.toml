@@ -12,6 +12,7 @@ constraintlayout = "2.1.4"
 mpandroidchart = "v3.1.0"
 retrofitVersion = "2.9.0"
 jacksonVersion = "2.9.0"
+jacksonConverter = "2.13.2"
 hilt = "2.48"
 navigation = "2.7.7"
 room = "2.6.1"
@@ -26,6 +27,10 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
 retrofit = {group="com.squareup.retrofit2", name="retrofit", version.ref="retrofitVersion"}
 jackson = { group="com.squareup.retrofit2", name="converter-jackson", version.ref="jacksonVersion"}
+jackson-annotations = { group="com.fasterxml.jackson.core", name="jackson-annotations", version.ref="jacksonConverter"}
+jackson-core = { group="com.fasterxml.jackson.core", name="jackson-core", version.ref="jacksonConverter"}
+jackson-databind = { group="com.fasterxml.jackson.core", name="jackson-databind", version.ref="jacksonConverter"}
+jackson-datatype = { group="com.fasterxml.jackson.datatype", name="jackson-datatype-jsr310", version.ref="jacksonConverter"}
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }

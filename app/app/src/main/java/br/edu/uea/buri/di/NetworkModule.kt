@@ -4,6 +4,9 @@ import android.content.SharedPreferences
 import br.edu.uea.buri.BuildConfig
 import br.edu.uea.buri.data.BasicAuthInterceptor
 import br.edu.uea.buri.data.BuriApi
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,6 +14,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
+import java.lang.Compiler.disable
 import javax.inject.Singleton
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
@@ -56,7 +60,12 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL_API)
             .addConverterFactory(
-                JacksonConverterFactory.create()
+                JacksonConverterFactory.create(
+                    ObjectMapper().apply {
+                        registerModule(JavaTimeModule())
+                        disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                    }
+                )
             )
             .client(client)
             .build()

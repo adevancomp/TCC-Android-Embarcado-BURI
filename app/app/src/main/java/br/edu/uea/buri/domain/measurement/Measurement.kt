@@ -13,6 +13,6 @@ data class Measurement(
     @JsonProperty("carbonMonoxide") val co: BigDecimal?,
     @JsonProperty("airHumidity") val air: BigDecimal?,
     @JsonProperty("temperature") val tmp: BigDecimal?,
-    @JsonProperty("collectionDate") @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") val collectionDate: ZonedDateTime,
+    @JsonProperty("collectionDate") val collectionDate: String,
     @JsonProperty("equipmentId") val equipmentId: String
 )
