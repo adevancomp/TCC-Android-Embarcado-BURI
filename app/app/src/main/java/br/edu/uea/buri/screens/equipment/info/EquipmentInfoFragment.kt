@@ -43,7 +43,7 @@ class EquipmentInfoFragment : Fragment()  {
     private val args by navArgs<EquipmentInfoFragmentArgs>()
     @Inject lateinit var buriApi: BuriApi
     private val infoViewModel by viewModels<EqpInfoViewModel> {
-        EqpInfoViewModelFactory(buriApi,args.equipment.equipmentId)
+        EqpInfoViewModelFactory(buriApi,args.equipment.id)
     }
 
     override fun onCreateView(

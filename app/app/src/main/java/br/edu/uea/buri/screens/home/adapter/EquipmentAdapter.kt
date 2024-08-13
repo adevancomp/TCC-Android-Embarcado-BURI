@@ -17,7 +17,7 @@ class EquipmentAdapter(private val equipments: List<Equipment>,private val onCli
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.equipmentName.text = equipments[position].name
-        holder.equipmentId.text = equipments[position].equipmentId
+        holder.equipmentId.text = equipments[position].id
         holder.content.setOnClickListener {
             val equipment = equipments[position]
             onClick(equipment)

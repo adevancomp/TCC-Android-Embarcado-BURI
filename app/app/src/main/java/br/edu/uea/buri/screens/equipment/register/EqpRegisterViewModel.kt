@@ -1,6 +1,7 @@
 package br.edu.uea.buri.screens.equipment.register
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.internal.wait
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +31,9 @@ class EqpRegisterViewModel @Inject constructor(
                 onSuccess = { response ->
                     when{
                         response.isSuccessful ->
-                            EqpRegisterState.SetNewEquipment(response.body()?.id ?: "")
+                            {
+                                Log.i("BURI","ID buscado ${response.body()?.id}")
+                            EqpRegisterState.SetNewEquipment(response.body()?.id ?: "")}
                         else -> EqpRegisterState.Failed( "Erro na api ${response.code()}")
                     }
                 },
@@ -94,7 +96,7 @@ class EqpRegisterViewModel @Inject constructor(
         val elementsRegisterChangeOwnerVisible: Boolean
             get() = false
         val id : String
-            get() = equipment?.equipmentId ?: ""
+            get() = equipment?.id ?: ""
         val defaultMode: Boolean
             get() = true
         val errorMessage: String?

@@ -1,12 +1,12 @@
 package br.edu.uea.buri.screens.equipment.register
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,9 +29,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 
@@ -125,7 +123,7 @@ class EquipmentRegisterFragment : Fragment() {
         btSaveEquipment.setOnClickListener {
             eqpViewModel.saveEquipment(
                 Equipment(
-                    equipmentId = txtNewIdValue.toString(),
+                    id = txtNewIdValue.text.toString(),
                     name = edtEquipmentName.text?.toString() ?: "",
                     ownerId = UUID.fromString(shared.getString("id", "") ?: "")
                 )
@@ -143,7 +141,7 @@ class EquipmentRegisterFragment : Fragment() {
                 if(equipment!=null){
                     eqpViewModel.saveEquipment(
                         Equipment(
-                            equipmentId = equipment!!.equipmentId,
+                            id = equipment!!.id,
                             name = equipment!!.name,
                             ownerId = UUID.fromString(shared.getString("id", "") ?: "")
                         )

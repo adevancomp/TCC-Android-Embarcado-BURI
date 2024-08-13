@@ -7,7 +7,7 @@ import java.util.UUID
 
 @Parcelize
 data class Equipment(
-    @JsonProperty("id") val equipmentId: String,
+    @JsonProperty("id") val id: String,
     @JsonProperty("name") val name: String,
     @JsonProperty("ownerId") val ownerId: UUID? = null
 ) : Parcelable
