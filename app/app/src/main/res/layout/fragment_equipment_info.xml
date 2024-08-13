@@ -19,8 +19,8 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pcAirHumidity"
-        android:layout_width="310dp"
-        android:layout_height="295dp"
+        android:layout_width="280dp"
+        android:layout_height="250dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@id/tvAirHumidityTitle"
         app:layout_constraintStart_toStartOf="@id/tvAirHumidityTitle"
@@ -148,6 +148,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvCollectionDateValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:layout_marginBottom="16dp"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvTemperatureValue"
+        tools:text="Última atualização 19/02/2024 10:20 AM" />
 
 
     <ProgressBar

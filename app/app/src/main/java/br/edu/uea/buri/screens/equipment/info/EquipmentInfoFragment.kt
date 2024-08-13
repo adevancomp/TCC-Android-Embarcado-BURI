@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,8 +24,9 @@ import com.github.mikephil.charting.data.PieEntry
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,6 +39,7 @@ class EquipmentInfoFragment : Fragment()  {
     private lateinit var tvCOValue: TextView
     private lateinit var tvTemperatureEquipmentName: TextView
     private lateinit var tvTemperatureValue: TextView
+    private lateinit var tvCollectionDateValue: TextView
     private val args by navArgs<EquipmentInfoFragmentArgs>()
     @Inject lateinit var buriApi: BuriApi
     private val infoViewModel by viewModels<EqpInfoViewModel> {
@@ -70,6 +71,7 @@ class EquipmentInfoFragment : Fragment()  {
         airHumidityPieChart.clear()
         state.measurement?.let {
             measurement: Measurement ->
+                Log.i("BURI",measurement.collectionDate.toString())
                 measurement.air?.let {
                     air ->
                         val entries = mutableListOf<PieEntry>()
@@ -101,6 +103,10 @@ class EquipmentInfoFragment : Fragment()  {
                     tvTemperatureEquipmentName.text = args.equipment.name
                     tvTemperatureValue.text = "$formattedTemperature °C"
                 }
+
+                val collectionDate = measurement.collectionDate.withZoneSameInstant(ZoneId.of("America/Manaus"))
+                val strCollectionDate = collectionDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+                tvCollectionDateValue.text = "Última atualização $strCollectionDate"
         }
     }
 
@@ -113,6 +119,8 @@ class EquipmentInfoFragment : Fragment()  {
 
         tvTemperatureEquipmentName = binding.tvTemperatureEquipmentName
         tvTemperatureValue = binding.tvTemperatureValue
+
+        tvCollectionDateValue = binding.tvCollectionDateValue
     }
 
     private fun setupListeners(){
