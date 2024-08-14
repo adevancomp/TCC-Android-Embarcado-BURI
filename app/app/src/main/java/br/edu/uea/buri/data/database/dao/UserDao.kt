@@ -18,11 +18,11 @@ interface UserDao {
     suspend fun insertEquipment(equipment: EquipmentEntity)
 
     @Transaction
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserWithoutEquipments(user: UserEntity)
 
     @Transaction
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserWithEquipmentsList(user: UserEntity, equipments: List<EquipmentEntity>){
         insertUserWithoutEquipments(user)
         equipments.forEach {insertEquipment(it)}

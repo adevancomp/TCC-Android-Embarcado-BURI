@@ -84,18 +84,6 @@ class HomeFragment : Fragment() {
 
     private fun setupListeners() {
         btCreateEquipment.setOnClickListener {
-            lifecycleScope.launch {
-                val user: UserWithEquipments? =
-                    userDao.getUserWithEquipmentsById(UUID.fromString(shared.getString("id", "")))
-                if(user==null){
-                    Log.i("BURI","Vazio")
-                } else{
-                    Log.i("BURI",user.user.toString())
-                    user.equipments.forEach {
-                        Log.i("BURI",it.toString())
-                    }
-                }
-            }
             findNavController().navigate(R.id.equipmentRegisterFragment)
         }
     }
