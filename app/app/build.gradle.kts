@@ -71,6 +71,8 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.mpandroidchart)
+    implementation(libs.androidx.work)
+    implementation(libs.androidx.hilt.common)
     annotationProcessor(libs.room.compiler)
     kapt(libs.dagger.hilt.android.compiler)
     kapt(libs.room.compiler)

@@ -13,12 +13,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import br.edu.uea.buri.R
 import br.edu.uea.buri.data.BuriApi
+import br.edu.uea.buri.data.work.events.EventsWorkManager
 import br.edu.uea.buri.databinding.ActivityMainBinding
 import br.edu.uea.buri.screens.equipment.register.EquipmentRegisterFragment
 import br.edu.uea.buri.screens.login.LoginFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,6 +41,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        WorkManager.getInstance(this).enqueue(
+            PeriodicWorkRequestBuilder<EventsWorkManager>(1,TimeUnit.MINUTES).build()
+        )
         //Se as permissões não foram concedidas, peça novamente
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
             ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
