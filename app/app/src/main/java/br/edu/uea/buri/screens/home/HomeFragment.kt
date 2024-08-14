@@ -15,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.uea.buri.R
+import br.edu.uea.buri.data.database.dao.UserDao
+import br.edu.uea.buri.data.database.entity.UserWithEquipments
 import br.edu.uea.buri.databinding.FragmentHomeBinding
 import br.edu.uea.buri.screens.MainViewModel
 import br.edu.uea.buri.screens.home.adapter.EquipmentAdapter
@@ -23,6 +25,8 @@ import br.edu.uea.buri.screens.home.viewmodel.HomeViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,6 +37,8 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var adapter: EquipmentAdapter
     private lateinit var btCreateEquipment: FloatingActionButton
+    @Inject lateinit var userDao: UserDao
+    @Inject lateinit var shared: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,6 +84,18 @@ class HomeFragment : Fragment() {
 
     private fun setupListeners() {
         btCreateEquipment.setOnClickListener {
+            lifecycleScope.launch {
+                val user: UserWithEquipments? =
+                    userDao.getUserWithEquipmentsById(UUID.fromString(shared.getString("id", "")))
+                if(user==null){
+                    Log.i("BURI","Vazio")
+                } else{
+                    Log.i("BURI",user.user.toString())
+                    user.equipments.forEach {
+                        Log.i("BURI",it.toString())
+                    }
+                }
+            }
             findNavController().navigate(R.id.equipmentRegisterFragment)
         }
     }

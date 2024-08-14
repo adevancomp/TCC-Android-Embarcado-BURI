@@ -8,29 +8,70 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.uea.buri.data.BuriApi
+import br.edu.uea.buri.data.database.dao.UserDao
+import br.edu.uea.buri.data.database.entity.EquipmentEntity
+import br.edu.uea.buri.data.database.entity.UserEntity
 import br.edu.uea.buri.domain.equipment.Equipment
+import br.edu.uea.buri.domain.user.User
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val api: BuriApi,
-    private val shared: SharedPreferences
+    private val shared: SharedPreferences,
+    private val userDao: UserDao
 ): ViewModel() {
     private val _homeState = MutableLiveData<HomeState>(HomeState.EmptyState)
     val homeState : LiveData<HomeState> = _homeState
+
+    init {
+        CoroutineScope(Dispatchers.IO).launch {
+
+            if (!shared.getString("id", "").isNullOrEmpty()) {
+                val response: Response<User> = api.getUserById(UUID.fromString(shared.getString("id", "")))
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        userDao.insertUserWithoutEquipments(
+                            UserEntity(
+                                id = it.userId,
+                                email = it.email
+                            )
+                        )
+                        val responseEquipmentsList: Response<List<Equipment>> = api.getAllEquipmentsByOwnerId(it.userId)
+                        if(responseEquipmentsList.isSuccessful){
+                            responseEquipmentsList.body()?.let {
+                                    list ->
+                                list.forEach {
+                                        equipment ->
+                                    userDao.insertEquipment(
+                                        EquipmentEntity(
+                                            id = equipment.id,
+                                            name = equipment.name,
+                                            userId = equipment.ownerId!!
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     fun fetchData(){
         _homeState.value = HomeState.Loading
         viewModelScope.launch {
             _homeState.value = runCatching {
-                /*var username = shared.getString("username", "") ?: ""
-                var password = shared.getString("password", "") ?: ""
-                Log.i("BURI","Home ViewModel: $username $password")*/
                 api.getAllEquipmentsByOwnerId(UUID.fromString(shared.getString("id","")))
             }.fold(
                 onSuccess = { response ->

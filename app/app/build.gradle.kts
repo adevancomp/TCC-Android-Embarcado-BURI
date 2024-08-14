@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     implementation(libs.navigation.fragment.ui.ktx)
     implementation(libs.navigation.fragment.ktx)
+    implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.lifecycle.viewmodel.ktx)
