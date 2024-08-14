@@ -27,6 +27,8 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import kotlin.concurrent.thread
 
 @RestController
@@ -61,65 +63,84 @@ class AuthResource (
     @PostMapping("/measurement")
     fun saveMeasurement(@RequestBody @Valid dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
         val measurement = dto.toEntity()
+        measurement.equipment = equipmentService.findById(dto.equipmentId)
         if(!measurementService.sensorsAreConnected(dto.equipmentId)){
+            eventService.save(
+                EnvironmentEvent(
+                    id = null,
+                    type = EventType.SensorsNotConnected,
+                    message = "Sensores do ${dto.equipmentId} não conectados",
+                    date = ZonedDateTime.now(ZoneOffset.UTC),
+                    equipment = measurement.equipment
+                )
+            )
             throw SensorNotConnectedException("Sensores não conectados!!!")
         }
-        measurement.equipment = equipmentService.findById(dto.equipmentId)
         val measurementSaved = measurementService.save(measurement)
         thread(start = true){
             //Salvar um evento de acordo as informações de measurement
-            if(measurementSaved.airHumidity!=null && measurementSaved.temperature!=null && measurementSaved.carbonMonoxide!=null){
-                var event: EnvironmentEvent? = null
-                var lastEvent: EnvironmentEvent = EnvironmentEvent()
-                measurementSaved.equipment?.let {
-                    lastEvent = eventService.findTopByEquipmentIdOrderByDateDesc(it.id)
-                }
+            var event: EnvironmentEvent? = null
+            val lastEvent: EnvironmentEvent? = eventService.findTopByEquipmentIdOrderByDateDesc(dto.equipmentId)
 
-                if(measurementSaved.temperature>=BigDecimal(35) || measurementSaved.temperature<=BigDecimal(15)){
+            //Cria o evento
+            measurementSaved.temperature?.let {
+                    temp ->
+                if(temp<BigDecimal(15) || temp<BigDecimal(35)){
                     event = EnvironmentEvent(
+                        id = null,
                         type = EventType.Temperature,
-                        message = temperatureToMessage(measurementSaved.temperature),
+                        message = temperatureToMessage(temp),
                         date = measurementSaved.collectionDate,
                         equipment = measurementSaved.equipment
                     )
                 }
-                if(measurementSaved.airHumidity<= BigDecimal(0.352) || (measurementSaved.airHumidity <= BigDecimal(0.46))){
-                    event = EnvironmentEvent(
-                        type = EventType.AirHumidity,
-                        message = airHumidityToMessage(measurementSaved.airHumidity),
-                        date = measurementSaved.collectionDate,
-                        equipment = measurementSaved.equipment
-                    )
-                }
-                if(measurementSaved.carbonMonoxide>=BigDecimal(11)){
-                    event = EnvironmentEvent(
-                        type = EventType.CarbonMonoxide,
-                        message = coToMessage(measurementSaved.carbonMonoxide),
-                        date = measurementSaved.collectionDate,
-                        equipment = measurementSaved.equipment
-                    )
-                }
+            }
 
-                event?.let {
-                    if(lastEvent.id!=null){
-                        //Tanto event como o last event existem
-                        if(event.type!=lastEvent.type){
-                            eventService.save(event)
-                        } else {
-                            //Os eventos sao do mesmo tipo, verificar se tem a mesma mensagem
-                            if(event.message != lastEvent.message){
-                                eventService.save(event)
-                            } else {
+            measurementSaved.airHumidity?.let {
+                    airH ->
+                if(airH<=BigDecimal(0.62)){
+                    event = EnvironmentEvent(
+                        id = null,
+                        type = EventType.Temperature,
+                        message = airHumidityToMessage(airH),
+                        date = measurementSaved.collectionDate,
+                        equipment = measurementSaved.equipment
+                    )
+                }
+            }
 
-                            }
-                        }
+            measurementSaved.carbonMonoxide?.let {
+                    co ->
+                if(co<BigDecimal(10.0)){
+                    event = EnvironmentEvent(
+                        id = null,
+                        type = EventType.Temperature,
+                        message = coToMessage(co),
+                        date = measurementSaved.collectionDate,
+                        equipment = measurementSaved.equipment
+                    )
+                }
+            }
+
+            if(lastEvent==null && event!=null){
+                //Simplesmente salva o novo evento
+                eventService.save(event!!)
+            } else if(lastEvent!=null && event!=null) {
+                //Então existe um último evento, iremos criar um evento novo e comparar com o antigo
+                if(event!!.type==lastEvent.type){
+                    if(event!!.message==lastEvent.message){
+                        //Tem a mesma mensagem, o ambiente nao mudou entao grava o mais recente e exclui o antigo
+                        eventService.deleteById(lastEvent.id!!)
+                        eventService.save(event!!)
                     } else {
-                        //Primeiro evento cadastrado A
-                        eventService.save(event)
+                        eventService.save(event!!)
                     }
+                } else {
+                    eventService.save(event!!)
                 }
             }
         }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(measurementSaved.toMeasurementViewDTO())
     }
     @GetMapping("/generateId")

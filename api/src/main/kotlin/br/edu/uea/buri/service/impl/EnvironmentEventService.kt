@@ -20,8 +20,8 @@ class EnvironmentEventService (
 
     override fun existsById(id: Long): Boolean = repo.existsById(id)
 
-    override  fun findTopByEquipmentIdOrderByDateDesc(equipmentId: String): EnvironmentEvent {
-        val event = repo.findTopByEquipmentIdOrderByDateDesc(equipmentId) ?: EnvironmentEvent()
+    override  fun findTopByEquipmentIdOrderByDateDesc(equipmentId: String): EnvironmentEvent? {
+        val event = repo.findTopByEquipmentIdOrderByDateDesc(equipmentId)
         return event
     }
 
