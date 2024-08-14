@@ -37,8 +37,6 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var adapter: EquipmentAdapter
     private lateinit var btCreateEquipment: FloatingActionButton
-    @Inject lateinit var userDao: UserDao
-    @Inject lateinit var shared: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
