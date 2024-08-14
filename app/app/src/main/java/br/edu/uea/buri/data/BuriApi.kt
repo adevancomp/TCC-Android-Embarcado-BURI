@@ -4,6 +4,7 @@ import br.edu.uea.buri.data.pages.MeasurementPage
 import br.edu.uea.buri.domain.equipment.Equipment
 import br.edu.uea.buri.domain.equipment.EquipmentNewId
 import br.edu.uea.buri.domain.equipment.EquipmentRegister
+import br.edu.uea.buri.domain.event.EnviromentEvent
 import br.edu.uea.buri.domain.measurement.Measurement
 import br.edu.uea.buri.domain.user.User
 import br.edu.uea.buri.domain.user.UserAuth
@@ -46,4 +47,6 @@ interface BuriApi {
     suspend fun saveEquipment(@Body equipment: Equipment) : Response<Equipment>
     @GET("/equipment/{equipmentId}")
     suspend fun getEquipmentById(@Path("equipmentId") equipmentId: String) : Response<Equipment>
+    @GET("/event")
+    suspend fun getEvent(@Query("eqpId") equipmentId: String) : Response<EnviromentEvent?>
 }

@@ -2,6 +2,9 @@ package br.edu.uea.buri.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
+import br.edu.uea.buri.data.database.AppDatabase
+import br.edu.uea.buri.data.database.dao.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,5 +19,21 @@ class DataLocalModule {
     @Singleton
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences("buri_shared", Context.MODE_PRIVATE)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context) : AppDatabase{
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+             "buri_db"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserDao(appDatabase: AppDatabase) : UserDao{
+        return appDatabase.userDao()
     }
 }
