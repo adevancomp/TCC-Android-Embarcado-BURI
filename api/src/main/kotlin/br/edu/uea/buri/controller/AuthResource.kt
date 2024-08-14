@@ -101,7 +101,7 @@ class AuthResource (
                 if(airH<=BigDecimal(0.62)){
                     event = EnvironmentEvent(
                         id = null,
-                        type = EventType.Temperature,
+                        type = EventType.AirHumidity,
                         message = airHumidityToMessage(airH),
                         date = measurementSaved.collectionDate,
                         equipment = measurementSaved.equipment
@@ -111,10 +111,10 @@ class AuthResource (
 
             measurementSaved.carbonMonoxide?.let {
                     co ->
-                if(co<BigDecimal(10.0)){
+                if(co>BigDecimal(10.0)){
                     event = EnvironmentEvent(
                         id = null,
-                        type = EventType.Temperature,
+                        type = EventType.CarbonMonoxide,
                         message = coToMessage(co),
                         date = measurementSaved.collectionDate,
                         equipment = measurementSaved.equipment

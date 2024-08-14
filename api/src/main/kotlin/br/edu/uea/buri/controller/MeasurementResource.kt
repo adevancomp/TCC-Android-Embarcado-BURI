@@ -54,42 +54,42 @@ class MeasurementResource (
 
             //Cria o evento
             measurementSaved.temperature?.let {
-                temp ->
-                    if(temp<BigDecimal(15) || temp<BigDecimal(35)){
-                        event = EnvironmentEvent(
-                            id = null,
-                            type = EventType.Temperature,
-                            message = temperatureToMessage(temp),
-                            date = measurementSaved.collectionDate,
-                            equipment = measurementSaved.equipment
-                        )
-                    }
+                    temp ->
+                if(temp<BigDecimal(15) || temp<BigDecimal(35)){
+                    event = EnvironmentEvent(
+                        id = null,
+                        type = EventType.Temperature,
+                        message = temperatureToMessage(temp),
+                        date = measurementSaved.collectionDate,
+                        equipment = measurementSaved.equipment
+                    )
+                }
             }
 
             measurementSaved.airHumidity?.let {
-                airH ->
-                    if(airH<=BigDecimal(0.62)){
-                        event = EnvironmentEvent(
-                            id = null,
-                            type = EventType.Temperature,
-                            message = airHumidityToMessage(airH),
-                            date = measurementSaved.collectionDate,
-                            equipment = measurementSaved.equipment
-                        )
-                    }
+                    airH ->
+                if(airH<=BigDecimal(0.62)){
+                    event = EnvironmentEvent(
+                        id = null,
+                        type = EventType.AirHumidity,
+                        message = airHumidityToMessage(airH),
+                        date = measurementSaved.collectionDate,
+                        equipment = measurementSaved.equipment
+                    )
+                }
             }
 
             measurementSaved.carbonMonoxide?.let {
-                co ->
-                    if(co<BigDecimal(10.0)){
-                        event = EnvironmentEvent(
-                            id = null,
-                            type = EventType.Temperature,
-                            message = coToMessage(co),
-                            date = measurementSaved.collectionDate,
-                            equipment = measurementSaved.equipment
-                        )
-                    }
+                    co ->
+                if(co>BigDecimal(10.0)){
+                    event = EnvironmentEvent(
+                        id = null,
+                        type = EventType.CarbonMonoxide,
+                        message = coToMessage(co),
+                        date = measurementSaved.collectionDate,
+                        equipment = measurementSaved.equipment
+                    )
+                }
             }
 
             if(lastEvent==null && event!=null){
