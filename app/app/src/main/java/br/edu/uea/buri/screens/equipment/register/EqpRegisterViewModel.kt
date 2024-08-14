@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.uea.buri.data.BuriApi
+import br.edu.uea.buri.data.database.dao.UserDao
+import br.edu.uea.buri.data.database.entity.EquipmentEntity
 import br.edu.uea.buri.domain.equipment.Equipment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class EqpRegisterViewModel @Inject constructor(
     private val buriApi: BuriApi,
-    private val shared: SharedPreferences
+    private val shared: SharedPreferences,
+    private val userDao: UserDao
 ) : ViewModel() {
 
     private val _state = MutableLiveData<EqpRegisterState>(EqpRegisterState.Default)
@@ -31,9 +34,7 @@ class EqpRegisterViewModel @Inject constructor(
                 onSuccess = { response ->
                     when{
                         response.isSuccessful ->
-                            {
-                                Log.i("BURI","ID buscado ${response.body()?.id}")
-                            EqpRegisterState.SetNewEquipment(response.body()?.id ?: "")}
+                            EqpRegisterState.SetNewEquipment(response.body()?.id ?: "")
                         else -> EqpRegisterState.Failed( "Erro na api ${response.code()}")
                     }
                 },
@@ -57,8 +58,15 @@ class EqpRegisterViewModel @Inject constructor(
                 onSuccess = {
                     response ->
                         when{
-                            response.isSuccessful ->
-                                EqpRegisterState.Success(equipment)
+                            response.isSuccessful ->{
+                                userDao.insertEquipment(
+                                    EquipmentEntity(
+                                        id = equipment.id,
+                                        name = equipment.name,
+                                        userId = equipment.ownerId!!
+                                    )
+                                )
+                                EqpRegisterState.Success(equipment)}
                             else->
                                 EqpRegisterState.Failed("Erro na API ${response.code()}")
                         }
