@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,9 +16,11 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import br.edu.uea.buri.BuriApplication
 import br.edu.uea.buri.R
 import br.edu.uea.buri.data.BuriApi
 import br.edu.uea.buri.data.work.events.EventsWorkManager
+import br.edu.uea.buri.data.work.events.WorkStarter
 import br.edu.uea.buri.databinding.ActivityMainBinding
 import br.edu.uea.buri.screens.equipment.register.EquipmentRegisterFragment
 import br.edu.uea.buri.screens.login.LoginFragment
@@ -31,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var buriApi: BuriApi
     @Inject
     lateinit var shared: SharedPreferences
+    @Inject
+    lateinit var workerStarter: WorkStarter
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by viewModels()
     private val requestPermissionLauncher =
@@ -41,9 +46,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        WorkManager.getInstance(this).enqueue(
-            PeriodicWorkRequestBuilder<EventsWorkManager>(1,TimeUnit.MINUTES).build()
-        )
+        workerStarter()
         //Se as permissões não foram concedidas, peça novamente
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
             ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||

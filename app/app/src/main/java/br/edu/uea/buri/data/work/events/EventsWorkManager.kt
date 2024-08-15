@@ -1,11 +1,10 @@
 package br.edu.uea.buri.data.work.events
 
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
@@ -34,8 +33,8 @@ class EventsWorkManager @AssistedInject constructor(
     private val userDao: UserDao
 ) : CoroutineWorker(appContext, workerParams) {
 
-    @SuppressLint("RestrictedApi")
     override suspend fun doWork(): Result  = withContext(Dispatchers.IO){
+        Log.d("BURI","executou o work")
         try {
             if (!shared.getString("id", "").isNullOrEmpty()) {
                 val response: Response<User> = buriApi.getUserById(UUID.fromString(shared.getString("id", "")))

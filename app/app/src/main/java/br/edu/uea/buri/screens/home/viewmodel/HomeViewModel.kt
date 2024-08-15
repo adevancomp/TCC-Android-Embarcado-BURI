@@ -40,6 +40,7 @@ class HomeViewModel @Inject constructor(
                 val response: Response<User> = api.getUserById(UUID.fromString(shared.getString("id", "")))
                 if(response.isSuccessful){
                     response.body()?.let {
+                        userDao.deleteUserById(it.userId)
                         userDao.insertUserWithoutEquipments(
                             UserEntity(
                                 id = it.userId,
@@ -63,7 +64,9 @@ class HomeViewModel @Inject constructor(
                             }
                         }
                     }
+                    Log.i("BURI",userDao.getUserWithEquipmentsById(response.body()!!.userId).toString())
                 }
+
             }
         }
     }
