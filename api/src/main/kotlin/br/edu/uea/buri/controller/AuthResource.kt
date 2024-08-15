@@ -2,6 +2,7 @@ package br.edu.uea.buri.controller
 
 import br.edu.uea.buri.config.security.AuthResponse
 import br.edu.uea.buri.domain.EnvironmentEvent
+import br.edu.uea.buri.domain.Measurement
 import br.edu.uea.buri.dto.equipment.response.EquipmentNewId
 import br.edu.uea.buri.dto.measurement.requests.MeasurementRegisterDTO
 import br.edu.uea.buri.dto.measurement.views.MeasurementViewDTO
@@ -64,75 +65,52 @@ class AuthResource (
     fun saveMeasurement(@RequestBody @Valid dto: MeasurementRegisterDTO) : ResponseEntity<MeasurementViewDTO>{
         val measurement = dto.toEntity()
         measurement.equipment = equipmentService.findById(dto.equipmentId)
+
         if(!measurementService.sensorsAreConnected(dto.equipmentId)){
-            eventService.save(
-                EnvironmentEvent(
-                    id = null,
-                    type = EventType.SensorsNotConnected,
-                    message = "Sensores do ${dto.equipmentId} não conectados",
-                    date = ZonedDateTime.now(ZoneOffset.UTC),
-                    equipment = measurement.equipment
+            if(measurement.airHumidity==null || measurement.carbonMonoxide==null || measurement.temperature==null){
+                eventService.save(
+                    EnvironmentEvent(
+                        id = null,
+                        type = EventType.SensorsNotConnected,
+                        message = "Sensores do ${dto.equipmentId} não conectados",
+                        date = ZonedDateTime.now(ZoneOffset.UTC),
+                        equipment = measurement.equipment
+                    )
                 )
-            )
-            throw SensorNotConnectedException("Sensores não conectados!!!")
+                throw SensorNotConnectedException("Sensores não conectados!!!")
+            }
         }
+
         val measurementSaved = measurementService.save(measurement)
+
         thread(start = true){
-            //Salvar um evento de acordo as informações de measurement
-            var event: EnvironmentEvent? = null
+            var event : EnvironmentEvent? = null
             val lastEvent: EnvironmentEvent? = eventService.findTopByEquipmentIdOrderByDateDesc(dto.equipmentId)
 
-            //Cria o evento
-            measurementSaved.temperature?.let {
-                    temp ->
-                if(temp<BigDecimal(15) || temp<BigDecimal(35)){
-                    event = EnvironmentEvent(
-                        id = null,
-                        type = EventType.Temperature,
-                        message = temperatureToMessage(temp),
-                        date = measurementSaved.collectionDate,
-                        equipment = measurementSaved.equipment
-                    )
+            measurementSaved.temperature?.let { temp ->
+                if(temp<BigDecimal(15.0) || temp<BigDecimal(35.0)){
+                    event = EnvironmentEvent(id = null, type = EventType.Temperature, message = temperatureToMessage(temp), date = measurementSaved.collectionDate, equipment = measurementSaved.equipment)
                 }
             }
 
-            measurementSaved.airHumidity?.let {
-                    airH ->
+            measurementSaved.airHumidity?.let { airH ->
                 if(airH<=BigDecimal(0.62)){
-                    event = EnvironmentEvent(
-                        id = null,
-                        type = EventType.AirHumidity,
-                        message = airHumidityToMessage(airH),
-                        date = measurementSaved.collectionDate,
-                        equipment = measurementSaved.equipment
-                    )
+                    event = EnvironmentEvent(id = null, type = EventType.AirHumidity, message = airHumidityToMessage(airH), date = measurementSaved.collectionDate, equipment = measurementSaved.equipment)
                 }
             }
 
-            measurementSaved.carbonMonoxide?.let {
-                    co ->
+            measurementSaved.carbonMonoxide?.let { co ->
                 if(co>BigDecimal(10.0)){
-                    event = EnvironmentEvent(
-                        id = null,
-                        type = EventType.CarbonMonoxide,
-                        message = coToMessage(co),
-                        date = measurementSaved.collectionDate,
-                        equipment = measurementSaved.equipment
-                    )
+                    event = EnvironmentEvent(id = null, type = EventType.CarbonMonoxide, message = coToMessage(co), date = measurementSaved.collectionDate, equipment = measurementSaved.equipment)
                 }
             }
 
             if(lastEvent==null && event!=null){
-                //Simplesmente salva o novo evento
                 eventService.save(event!!)
-            } else if(lastEvent!=null && event!=null) {
-                //Então existe um último evento, iremos criar um evento novo e comparar com o antigo
-                if(event!!.type==lastEvent.type){
-                    if(event!!.message==lastEvent.message){
-                        //Tem a mesma mensagem, o ambiente nao mudou entao grava o mais recente e exclui o antigo
+            } else if (lastEvent!=null && event!=null){
+                if(lastEvent.type==event!!.type){
+                    if(lastEvent.message==event!!.message){
                         eventService.deleteById(lastEvent.id!!)
-                        eventService.save(event!!)
-                    } else {
                         eventService.save(event!!)
                     }
                 } else {
@@ -143,6 +121,7 @@ class AuthResource (
 
         return ResponseEntity.status(HttpStatus.CREATED).body(measurementSaved.toMeasurementViewDTO())
     }
+
     @GetMapping("/generateId")
     fun generateEquipmentId() : ResponseEntity<EquipmentNewId>{
         var newId : String
