@@ -64,9 +64,7 @@ class HomeViewModel @Inject constructor(
                             }
                         }
                     }
-                    Log.i("BURI",userDao.getUserWithEquipmentsById(response.body()!!.userId).toString())
                 }
-
             }
         }
     }

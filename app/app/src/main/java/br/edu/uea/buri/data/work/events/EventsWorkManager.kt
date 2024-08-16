@@ -34,95 +34,39 @@ class EventsWorkManager @AssistedInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result  = withContext(Dispatchers.IO){
-        Log.d("BURI","executou o work")
-        try {
-            if (!shared.getString("id", "").isNullOrEmpty()) {
-                val response: Response<User> = buriApi.getUserById(UUID.fromString(shared.getString("id", "")))
-                if(response.isSuccessful){
-                    response.body()?.let {
-                        user ->
-                            user.equipments.forEach {
-                                equipment ->
-                                    //Para cada equipment, faça o seguinte :
-                                    //      - Dê um GET no /event
-                                    //      - Verifique se o ultimo evento salvo no banco de dados tem a mesma mensagem
-                                    //      - Se tiver, então notifica, se não então cria uma notificação
-                                val responseEvent: Response<EnviromentEvent?> = buriApi.getEvent(equipment.id)
-                                if(responseEvent.isSuccessful){
-                                    if(responseEvent.body()!=null){
-                                        val listEvents =
-                                            userDao.getAllEventsByEquipmentId(equipment.id)
-                                        if(listEvents.isEmpty()){
-                                            responseEvent.body()?.let {
-                                                userDao.insertEvent(
-                                                    EventEntity(
-                                                        id= it.id,
-                                                        type = it.type,
-                                                        message = it.message,
-                                                        equipmentId = it.equipmentId!!
-                                                    )
-                                                )
-                                            }
-                                        } else {
-                                            //Lista não vazia, já tinha um evento lá
-                                            val lastEvent : EventEntity = listEvents.first()
-                                            responseEvent.body()?.let {
-                                                newEventResponse ->
+        if(!shared.getString("id", "").isNullOrEmpty()){
+            Log.i("BURI","ID do shared: ${shared.getString("id", "")}")
 
-                                                if(lastEvent.message!=newEventResponse.message){
-                                                    //Grava e notifica
-                                                    userDao.insertEvent(
-                                                        EventEntity(
-                                                            id= newEventResponse.id,
-                                                            type = newEventResponse.type,
-                                                            message = newEventResponse.message,
-                                                            equipmentId = newEventResponse.equipmentId!!
-                                                        )
-                                                    )
-                                                    //Parte de notificar o usuário
-                                                    sendNotification(newEventResponse.type, message = newEventResponse.message)
-                                                    //Fim da parte de notificar o usuário
-                                                } else {
-                                                    //Só grava
-                                                    userDao.insertEvent(
-                                                        EventEntity(
-                                                            id= newEventResponse.id,
-                                                            type = newEventResponse.type,
-                                                            message = newEventResponse.message,
-                                                            equipmentId = newEventResponse.equipmentId!!
-                                                        )
-                                                    )
-                                                }
-                                            }
-                                        }
-                                    }
+            val responseUser = buriApi.getUserById(UUID.fromString(shared.getString("id", "")))
+            if(responseUser.isSuccessful){
+                Log.i("BURI","Retrofit: ${responseUser.body()}")
+                responseUser.body()?.let {
+                    user ->
+                        user.equipments.forEach { equipment ->
+                            Log.i("BURI",equipment.toString())
+                            val eventsList = userDao.getAllEventsByEquipmentId(equipment.id)
+                            Log.i("BURI","Room events list (size=${eventsList.size}): $eventsList")
+                            val lastEvent = eventsList.first()
+                            val newEventResponse = buriApi.getEvent(equipment.id)
+                            if(newEventResponse.isSuccessful){
+                                newEventResponse.body()?.let {
+                                    newEvent ->
+                                        Log.i("BURI","equipmentId:${newEvent.equipmentId} last event: $lastEvent")
+                                        Log.i("BURI","equipmentId:${newEvent.equipmentId} new event: $newEvent")
                                 }
+                            } else {
+                                Log.i("BURI","Response de equipment event deu erro ${newEventResponse.code()}")
                             }
-                    }
+                        }
                 }
+            } else{
+                Log.i("BURI","Response de user sem sucesso ${responseUser.code()}")
             }
+
             success()
-        } catch (ex: Exception){
+        } else {
             failure()
         }
     }
-    private fun sendNotification(title: String, message: String) {
-        val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channelId = "RISK_EVENT_CHANNEL"
 
-        val channel = NotificationChannel(
-            channelId,
-            "Alertas de Risco",
-            NotificationManager.IMPORTANCE_HIGH
-        )
-        notificationManager.createNotificationChannel(channel)
-
-        val notification = NotificationCompat.Builder(applicationContext, channelId)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setSmallIcon(R.drawable.all_inclusive)
-            .build()
-
-        notificationManager.notify(1, notification)
-    }
 }

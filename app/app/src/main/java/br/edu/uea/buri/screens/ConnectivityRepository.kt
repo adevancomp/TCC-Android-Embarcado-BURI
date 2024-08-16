@@ -20,40 +20,24 @@ class ConnectivityRepository @Inject constructor(@ApplicationContext private val
 
     private val _isConnected = MutableStateFlow(false)
     val isConnected : Flow<Boolean> = _isConnected
-    private val _isBuriWifiConnected = MutableStateFlow(false)
-    val isBuriWifiConnected : Flow<Boolean> = _isBuriWifiConnected
-    private val BURI_WIFI_NAME = "Buri-Hardware"
 
     init {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback(){
-                override fun onAvailable(network: Network) {
-                    _isConnected.value = true
-                    if(connectivityManager.activeNetworkInfo?.isConnected == true){
-                        val ssid = getCurrentSsid() ?: ""
-                    }
-                }
-
-                override fun onLost(network: Network) {
-                    _isConnected.value = false
-                    _isBuriWifiConnected.value = false
-                }
-
-                override fun onUnavailable() {
-                    _isConnected.value = false
-                    _isBuriWifiConnected.value = false
-                }
-            })
-        } else {
-            val networkReceiver = object: BroadcastReceiver(){
-                override fun onReceive(p0: Context?, p1: Intent?) {
-                    val activeNetworkInfo = connectivityManager.activeNetworkInfo
-                    _isConnected.value = activeNetworkInfo?.isConnected ?: false
+        connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback(){
+            override fun onAvailable(network: Network) {
+                _isConnected.value = true
+                if(connectivityManager.activeNetworkInfo?.isConnected == true){
+                    val ssid = getCurrentSsid() ?: ""
                 }
             }
-            val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-            context.registerReceiver(networkReceiver,intentFilter)
-        }
+
+            override fun onLost(network: Network) {
+                _isConnected.value = false
+            }
+
+            override fun onUnavailable() {
+                _isConnected.value = false
+            }
+        })
     }
 
     private fun getCurrentSsid(): String? {

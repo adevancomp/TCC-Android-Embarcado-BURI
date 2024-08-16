@@ -71,7 +71,6 @@ class EquipmentInfoFragment : Fragment()  {
         airHumidityPieChart.clear()
         state.measurement?.let {
             measurement: Measurement ->
-                Log.i("BURI",measurement.collectionDate.toString())
                 measurement.air?.let {
                     air ->
                         val entries = mutableListOf<PieEntry>()
