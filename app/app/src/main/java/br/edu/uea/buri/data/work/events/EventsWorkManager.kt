@@ -43,55 +43,7 @@ class EventsWorkManager @AssistedInject constructor(
 
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        val userId = shared.getString("id", "")
-        if (!userId.isNullOrEmpty()) {
-            try {
-                val userResponse = buriApi.getUserById(UUID.fromString(userId))
-                Log.i("BURI", "User response: $userResponse")
-
-                if (userResponse.isSuccessful) {
-                    val user = userResponse.body()
-                    if (user != null) {
-                        Log.i("BURI", "User email: ${user.email}, Number of equipments: ${user.equipments.size}")
-
-                        user.equipments.forEach { equipment ->
-                            Log.i("BURI", "Processing equipment: $equipment")
-
-                            val eventResponse = buriApi.getEvent(equipment.id)
-                            Log.i("BURI", "Event response for equipment ${equipment.id}: $eventResponse")
-
-                            if (eventResponse.isSuccessful) {
-                                val event = eventResponse.body()
-                                if (event != null) {
-                                    eventDao.insert(EventEntity(event.id, event.type, event.message, event.date, event.equipmentId!!))
-                                } else {
-                                    Log.e("BURI", "Event response body is null for equipment ${equipment.id}")
-                                }
-                            } else {
-                                Log.e("BURI", "Failed to fetch event for equipment ${equipment.id}, response code: ${eventResponse.code()}")
-                            }
-
-                            val listEvents: List<EventEntity> = eventDao.getAllOrderedByEquipmentId(equipment.id)
-                            Log.i("BURI", "Events for equipment ${equipment.id}: $listEvents")
-                        }
-                    } else {
-                        Log.e("BURI", "User response body is null")
-                        return@withContext failure()
-                    }
-                } else {
-                    Log.e("BURI", "Failed to fetch user, response code: ${userResponse.code()}")
-                    return@withContext failure()
-                }
-
-                return@withContext success()
-            } catch (e: Exception) {
-                Log.e("BURI", "Error during work execution", e)
-                return@withContext failure()
-            }
-        } else {
-            Log.e("BURI", "User ID is null or empty")
-            return@withContext failure()
-        }
+        success()
     }
 
 
