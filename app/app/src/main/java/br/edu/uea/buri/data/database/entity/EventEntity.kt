@@ -19,5 +19,6 @@ data class EventEntity(
     @PrimaryKey val id: Long,
     @ColumnInfo("type") val type: String,
     @ColumnInfo("message") val message: String,
+    @ColumnInfo("date_event") val dateEvent: ZonedDateTime,
     @ColumnInfo("equipmentId") val equipmentId: String
 )

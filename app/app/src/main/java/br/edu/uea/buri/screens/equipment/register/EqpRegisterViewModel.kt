@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.uea.buri.data.BuriApi
+import br.edu.uea.buri.data.database.dao.EquipmentDao
 import br.edu.uea.buri.data.database.dao.UserDao
 import br.edu.uea.buri.data.database.entity.EquipmentEntity
 import br.edu.uea.buri.domain.equipment.Equipment
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class EqpRegisterViewModel @Inject constructor(
     private val buriApi: BuriApi,
     private val shared: SharedPreferences,
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val equipmentDao: EquipmentDao
 ) : ViewModel() {
 
     private val _state = MutableLiveData<EqpRegisterState>(EqpRegisterState.Default)
@@ -59,7 +61,7 @@ class EqpRegisterViewModel @Inject constructor(
                     response ->
                         when{
                             response.isSuccessful ->{
-                                userDao.insertEquipment(
+                                equipmentDao.insert(
                                     EquipmentEntity(
                                         id = equipment.id,
                                         name = equipment.name,

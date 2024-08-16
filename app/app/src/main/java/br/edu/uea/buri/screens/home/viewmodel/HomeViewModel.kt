@@ -1,13 +1,12 @@
 package br.edu.uea.buri.screens.home.viewmodel
 
 import android.content.SharedPreferences
-import android.media.audiofx.DynamicsProcessing.Eq
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.uea.buri.data.BuriApi
+import br.edu.uea.buri.data.database.dao.EquipmentDao
 import br.edu.uea.buri.data.database.dao.UserDao
 import br.edu.uea.buri.data.database.entity.EquipmentEntity
 import br.edu.uea.buri.data.database.entity.UserEntity
@@ -16,10 +15,7 @@ import br.edu.uea.buri.domain.user.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.util.UUID
 import javax.inject.Inject
@@ -28,7 +24,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val api: BuriApi,
     private val shared: SharedPreferences,
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val equipmentDao: EquipmentDao
 ): ViewModel() {
     private val _homeState = MutableLiveData<HomeState>(HomeState.EmptyState)
     val homeState : LiveData<HomeState> = _homeState
@@ -40,8 +37,8 @@ class HomeViewModel @Inject constructor(
                 val response: Response<User> = api.getUserById(UUID.fromString(shared.getString("id", "")))
                 if(response.isSuccessful){
                     response.body()?.let {
-                        userDao.deleteUserById(it.userId)
-                        userDao.insertUserWithoutEquipments(
+                        userDao.deleteById(it.userId)
+                        userDao.insertWithoutEquipments(
                             UserEntity(
                                 id = it.userId,
                                 email = it.email
@@ -49,11 +46,9 @@ class HomeViewModel @Inject constructor(
                         )
                         val responseEquipmentsList: Response<List<Equipment>> = api.getAllEquipmentsByOwnerId(it.userId)
                         if(responseEquipmentsList.isSuccessful){
-                            responseEquipmentsList.body()?.let {
-                                    list ->
-                                list.forEach {
-                                        equipment ->
-                                    userDao.insertEquipment(
+                            responseEquipmentsList.body()?.let { list ->
+                                list.forEach { equipment ->
+                                    equipmentDao.insert(
                                         EquipmentEntity(
                                             id = equipment.id,
                                             name = equipment.name,

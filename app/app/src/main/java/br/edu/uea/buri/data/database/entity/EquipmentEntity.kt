@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 
 @Entity(
+    tableName = "equipment",
     foreignKeys=[ForeignKey(
         entity = UserEntity::class,
         parentColumns = ["id"],

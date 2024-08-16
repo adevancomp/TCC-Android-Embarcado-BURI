@@ -13,6 +13,8 @@ import androidx.work.ListenableWorker.Result.success
 import androidx.work.WorkerParameters
 import br.edu.uea.buri.R
 import br.edu.uea.buri.data.BuriApi
+import br.edu.uea.buri.data.database.dao.EquipmentDao
+import br.edu.uea.buri.data.database.dao.EventDao
 import br.edu.uea.buri.data.database.dao.UserDao
 import br.edu.uea.buri.data.database.entity.EventEntity
 import br.edu.uea.buri.domain.event.EnviromentEvent
@@ -22,6 +24,10 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.util.UUID
 
 @HiltWorker
@@ -30,43 +36,63 @@ class EventsWorkManager @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     private val shared: SharedPreferences,
     private val buriApi: BuriApi,
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val eventDao: EventDao,
+    private val equipmentDao: EquipmentDao
 ) : CoroutineWorker(appContext, workerParams) {
 
-    override suspend fun doWork(): Result  = withContext(Dispatchers.IO){
-        if(!shared.getString("id", "").isNullOrEmpty()){
-            Log.i("BURI","ID do shared: ${shared.getString("id", "")}")
 
-            val responseUser = buriApi.getUserById(UUID.fromString(shared.getString("id", "")))
-            if(responseUser.isSuccessful){
-                Log.i("BURI","Retrofit: ${responseUser.body()}")
-                responseUser.body()?.let {
-                    user ->
+    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        val userId = shared.getString("id", "")
+        if (!userId.isNullOrEmpty()) {
+            try {
+                val userResponse = buriApi.getUserById(UUID.fromString(userId))
+                Log.i("BURI", "User response: $userResponse")
+
+                if (userResponse.isSuccessful) {
+                    val user = userResponse.body()
+                    if (user != null) {
+                        Log.i("BURI", "User email: ${user.email}, Number of equipments: ${user.equipments.size}")
+
                         user.equipments.forEach { equipment ->
-                            Log.i("BURI",equipment.toString())
-                            val eventsList = userDao.getAllEventsByEquipmentId(equipment.id)
-                            Log.i("BURI","Room events list (size=${eventsList.size}): $eventsList")
-                            val lastEvent = eventsList.first()
-                            val newEventResponse = buriApi.getEvent(equipment.id)
-                            if(newEventResponse.isSuccessful){
-                                newEventResponse.body()?.let {
-                                    newEvent ->
-                                        Log.i("BURI","equipmentId:${newEvent.equipmentId} last event: $lastEvent")
-                                        Log.i("BURI","equipmentId:${newEvent.equipmentId} new event: $newEvent")
+                            Log.i("BURI", "Processing equipment: $equipment")
+
+                            val eventResponse = buriApi.getEvent(equipment.id)
+                            Log.i("BURI", "Event response for equipment ${equipment.id}: $eventResponse")
+
+                            if (eventResponse.isSuccessful) {
+                                val event = eventResponse.body()
+                                if (event != null) {
+                                    eventDao.insert(EventEntity(event.id, event.type, event.message, event.date, event.equipmentId!!))
+                                } else {
+                                    Log.e("BURI", "Event response body is null for equipment ${equipment.id}")
                                 }
                             } else {
-                                Log.i("BURI","Response de equipment event deu erro ${newEventResponse.code()}")
+                                Log.e("BURI", "Failed to fetch event for equipment ${equipment.id}, response code: ${eventResponse.code()}")
                             }
-                        }
-                }
-            } else{
-                Log.i("BURI","Response de user sem sucesso ${responseUser.code()}")
-            }
 
-            success()
+                            val listEvents: List<EventEntity> = eventDao.getAllOrderedByEquipmentId(equipment.id)
+                            Log.i("BURI", "Events for equipment ${equipment.id}: $listEvents")
+                        }
+                    } else {
+                        Log.e("BURI", "User response body is null")
+                        return@withContext failure()
+                    }
+                } else {
+                    Log.e("BURI", "Failed to fetch user, response code: ${userResponse.code()}")
+                    return@withContext failure()
+                }
+
+                return@withContext success()
+            } catch (e: Exception) {
+                Log.e("BURI", "Error during work execution", e)
+                return@withContext failure()
+            }
         } else {
-            failure()
+            Log.e("BURI", "User ID is null or empty")
+            return@withContext failure()
         }
     }
+
 
 }

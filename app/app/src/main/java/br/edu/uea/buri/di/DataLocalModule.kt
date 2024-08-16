@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import br.edu.uea.buri.data.database.AppDatabase
+import br.edu.uea.buri.data.database.dao.EquipmentDao
+import br.edu.uea.buri.data.database.dao.EventDao
 import br.edu.uea.buri.data.database.dao.UserDao
 import dagger.Module
 import dagger.Provides
@@ -35,5 +37,17 @@ class DataLocalModule {
     @Singleton
     fun provideUserDao(appDatabase: AppDatabase) : UserDao{
         return appDatabase.userDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideEventDao(appDatabase: AppDatabase) : EventDao{
+        return appDatabase.eventDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideEquipmentDao(appDatabase: AppDatabase) : EquipmentDao{
+        return appDatabase.equipmentDao()
     }
 }
