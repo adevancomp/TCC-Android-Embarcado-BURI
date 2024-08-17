@@ -16,7 +16,7 @@ class EventResource (
     private val service : IEnvironmentEventService
 ) {
     @GetMapping
-    fun realTime(@RequestParam("eqpId") equipmentId: String) : ResponseEntity<EventView?> {
+    fun realTime(@RequestParam("eqpId") equipmentId: String) : ResponseEntity<EventView> {
         val event = service.findTopByEquipmentIdOrderByDateDesc(equipmentId)
         return ResponseEntity.status(HttpStatus.OK).body(event?.toEventView())
     }

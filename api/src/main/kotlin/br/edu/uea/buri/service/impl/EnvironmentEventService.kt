@@ -4,6 +4,7 @@ import br.edu.uea.buri.domain.EnvironmentEvent
 import br.edu.uea.buri.exception.DomainException
 import br.edu.uea.buri.repository.EnvironmentEventRepository
 import br.edu.uea.buri.service.IEnvironmentEventService
+import jakarta.persistence.EntityNotFoundException
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
@@ -20,8 +21,8 @@ class EnvironmentEventService (
 
     override fun existsById(id: Long): Boolean = repo.existsById(id)
 
-    override  fun findTopByEquipmentIdOrderByDateDesc(equipmentId: String): EnvironmentEvent? {
-        val event = repo.findTopByEquipmentIdOrderByDateDesc(equipmentId)
+    override  fun findTopByEquipmentIdOrderByDateDesc(equipmentId: String): EnvironmentEvent {
+        val event = repo.findTopByEquipmentIdOrderByDateDesc(equipmentId) ?: throw DomainException("Event for equipment id $equipmentId is Null")
         return event
     }
 
