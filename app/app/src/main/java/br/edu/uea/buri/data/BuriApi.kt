@@ -48,5 +48,5 @@ interface BuriApi {
     @GET("/equipment/{equipmentId}")
     suspend fun getEquipmentById(@Path("equipmentId") equipmentId: String) : Response<Equipment>
     @GET("/event")
-    suspend fun getEvent(@Query("eqpId") equipmentId: String) : Response<EnviromentEvent?>
+    suspend fun getEvent(@Query("eqpId") equipmentId: String) : Response<EnviromentEvent>
 }

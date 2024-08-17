@@ -11,12 +11,12 @@ import java.util.UUID
     foreignKeys=[ForeignKey(
         entity = UserEntity::class,
         parentColumns = ["id"],
-        childColumns = ["userId"],
+        childColumns = ["user_id"],
         onDelete = ForeignKey.CASCADE
     )]
 )
 data class EquipmentEntity(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "userId") val userId: UUID
+    @ColumnInfo(name = "user_id") val userId: UUID
 )

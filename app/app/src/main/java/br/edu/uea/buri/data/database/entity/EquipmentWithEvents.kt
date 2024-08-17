@@ -7,6 +7,6 @@ data class EquipmentWithEvents(
     @Embedded val equipment: EquipmentEntity,
     @Relation(
         parentColumn = "id",
-        entityColumn = "equipmentId"
+        entityColumn = "equipment_id"
     ) val events: List<EventEntity>
 )

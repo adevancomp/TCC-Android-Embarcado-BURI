@@ -11,7 +11,7 @@ import java.time.ZonedDateTime
     foreignKeys = [ForeignKey(
         entity = EquipmentEntity::class,
         parentColumns = ["id"],
-        childColumns = ["equipmentId"],
+        childColumns = ["equipment_id"],
         onDelete = ForeignKey.CASCADE
     )]
 )
@@ -20,5 +20,5 @@ data class EventEntity(
     @ColumnInfo("type") val type: String,
     @ColumnInfo("message") val message: String,
     @ColumnInfo("date_event") val dateEvent: ZonedDateTime,
-    @ColumnInfo("equipmentId") val equipmentId: String
+    @ColumnInfo("equipment_id") val equipmentId: String
 )

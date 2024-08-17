@@ -7,6 +7,6 @@ data class UserWithEquipments(
     @Embedded val user: UserEntity,
     @Relation(
         parentColumn = "id",
-        entityColumn = "userId"
+        entityColumn = "user_id"
     ) val equipments: List<EquipmentEntity>
 )

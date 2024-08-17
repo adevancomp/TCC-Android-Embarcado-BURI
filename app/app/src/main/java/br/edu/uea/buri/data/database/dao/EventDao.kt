@@ -16,10 +16,10 @@ interface EventDao {
     @Query("SELECT * FROM event WHERE id=:eventId")
     suspend fun getById(eventId: Long) : EventEntity?
 
-    @Query("SELECT * FROM event WHERE equipmentId=:equipmentId ORDER BY date_event DESC")
+    @Query("SELECT * FROM event WHERE equipment_id=:equipmentId ORDER BY date_event DESC")
     suspend fun getAllOrderedByEquipmentId(equipmentId: String) : List<EventEntity>
 
     @Transaction
-    @Query("DELETE FROM event WHERE equipmentId=:equipmentId")
+    @Query("DELETE FROM event WHERE equipment_id=:equipmentId")
     suspend fun deleteAllByEquipmentId(equipmentId: String)
 }
