@@ -7,5 +7,6 @@ interface IEnvironmentEventService {
     fun findById(id: Long) : EnvironmentEvent
     fun existsById(id: Long) : Boolean
     fun findTopByEquipmentIdOrderByDateDesc(equipmentId: String) : EnvironmentEvent
+    fun findTopByEquipmentIdOrderByDateDesc2(equipmentId: String) : EnvironmentEvent?
     fun deleteById(id: Long)
 }

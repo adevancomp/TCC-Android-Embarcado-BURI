@@ -54,7 +54,7 @@ class MeasurementResource (
 
         thread(start = true){
             var event : EnvironmentEvent? = null
-            val lastEvent: EnvironmentEvent? = eventService.findTopByEquipmentIdOrderByDateDesc(dto.equipmentId)
+            val lastEvent: EnvironmentEvent? = eventService.findTopByEquipmentIdOrderByDateDesc2(dto.equipmentId)
 
             measurementSaved.temperature?.let { temp ->
                 if(temp<BigDecimal(15.0) || temp<BigDecimal(35.0)){

@@ -26,6 +26,11 @@ class EnvironmentEventService (
         return event
     }
 
+    override fun findTopByEquipmentIdOrderByDateDesc2(equipmentId: String): EnvironmentEvent? {
+        val event = repo.findTopByEquipmentIdOrderByDateDesc(equipmentId)
+        return event
+    }
+
     @Transactional
     override fun deleteById(id: Long) {
         repo.deleteById(id)
