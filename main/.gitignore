@@ -12,7 +12,7 @@
 *.cb2
 .*.lb
 
-main/novoIndex.pdf
+novoIndex.pdf
 
 ## Intermediate documents:
 *.dvi
