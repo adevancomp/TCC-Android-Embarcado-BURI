@@ -28,15 +28,18 @@ com destreza comparável à de seres humanos. Em suas fábricas, existe um cresc
 
 ``Um sistema distribuído é aquele no qual os componentes localizados em computadores interligados em rede se comunicam e coordenam suas ações apenas passando mensagens.'' \cite[pp. 1]{sistemas-distribuidos-coulouris2013}.
 A definição apresentada pelo autor leva em conta dois importantes fatores: o primeiro é representado pela comunicação via rede de computadores, e o segundo está relacionado ao provisionamento de um serviço.
-O mundo atual oferece inúmeros exemplos da importância dos sistemas distribuídos no desenvolvimento socieconômico: a modalidade de educação a distância \cite{mec-ead}, no qual serviços web e compartilhamento
-multimídia são responsáveis por possibilitar o acesso ao ensino de qualidade ao público distante fisicamente dos grandes centros de ensinos, como, por exemplo, cidades do interior ou comunidades ribeirinhas; o comércio digital, cujo crescimento do \textit{e-Commerce},
-resultou em um faturamento superior à R\$ 180 billhões de reais em 2023 no Brasil, de acordo com dados da Associação Brasileira de Comércio Eletrônico \cite{abcomm-ecomerce}; e transações distribuídas, porém auditáveis e transparentes, em redes \textit{blockchain} descentralizadas \cite{juliana-blockchain}, sendo sua 
-aplicação mais conhecida as criptomoedas, pois a tecnologia permite a transferência de recursos e o armazenamento de todas as operações.  
+O mundo atual oferece inúmeros exemplos da importância dos sistemas distribuídos no desenvolvimento socioeconômico: a modalidade de educação à distância \cite{mec-ead}, no qual serviços web e compartilhamento
+multimídia são responsáveis por possibilitar o acesso ao ensino de qualidade ao público distante fisicamente dos grandes centros de ensinos, como, por exemplo, cidades do interior ou comunidades ribeirinhas; o comércio digital, onde a arquitetura do sistema deve suportar picos de acesso em determinados períodos do ano e controle
+de concorrência na compra de produtos, deve-se ao crescimento do seguimento de \textit{e-Commerce},
+resultou em um faturamento superior à R\$ 180 bilhões de reais em 2023 no Brasil, de acordo com dados da Associação Brasileira de Comércio Eletrônico \cite{abcomm-ecomerce}; e redes \textit{blockchain}, pois as transações distribuídas devem ser auditáveis e transparentes, além do funcionamento descentralizado \cite{juliana-blockchain}, exemplo 
+das criptomoedas, pois a tecnologia permite a transferência de recursos e o armazenamento de todas as operações.  
 
-Portanto, o sistema distribuído tem foco no compartilhamento de recursos. Em relação a sua implementação, o comportamento mais comum visto na web é o modelo cliente/servidor, pois 
-grande das aplicações na web são construídos na sua premissa, por exemplo serviço de e-mail e sites. 
-A nível de Sistema Operacional, o intuito da comunicação entre os processos executados em computadores hospedeiros interlidados em rede é o gerenciamento e acesso de recursos, portanto um cliente realiza
-uma solicitação ou chamada ao servidor, que por sua vez executa uma tarefa interna para o processamento de toda a chamada e gera um resultado para o cliente em espera, ou em outras palavras, faz a comunicação do tipo requisição/resposta \cite[pp. 16]{sistemas-distribuidos-coulouris2013}. 
+Portanto, o sistema distribuído tem foco no compartilhamento de recursos. Na web, a implementação de arquitetura mais comum é o modelo cliente/servidor, pois
+um número grande de aplicações utiliza essa premissa, por exemplo, plataformas de redes sociais, jogos online e serviços bancários.
+Ao nível do Sistema Operacional, a comunicação entre processos executados em diferentes computadores interligados em rede é essencial para o gerenciamento e acesso aos recursos distribuídos.
+Nesse contexto, um cliente, que pode ser um processo ou aplicativo, realiza uma solicitação ao servidor para acessar ou manipular um recurso, como arquivos, impressoras, ou mesmo capacidade de processamento. O servidor, 
+ao receber essa solicitação, desencadeia uma série de operações internas, que podem incluir desde a autenticação do cliente até a busca de dados em um banco de dados distribuído. Em seguida, o servidor 
+retorna o resultado ao cliente em espera, completando o ciclo de comunicação do tipo requisição/resposta \cite[pp. 16]{sistemas-distribuidos-coulouris2013}.
 
 \section{Protocolo HTTP}
 
