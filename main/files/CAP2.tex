@@ -34,20 +34,47 @@ de concorrência na compra de produtos, deve-se ao crescimento do seguimento de 
 resultou em um faturamento superior à R\$ 180 bilhões de reais em 2023 no Brasil, de acordo com dados da Associação Brasileira de Comércio Eletrônico \cite{abcomm-ecomerce}; e redes \textit{blockchain}, pois as transações distribuídas devem ser auditáveis e transparentes, além do funcionamento descentralizado \cite{juliana-blockchain}, exemplo 
 das criptomoedas, pois a tecnologia permite a transferência de recursos e o armazenamento de todas as operações.  
 
-Portanto, o sistema distribuído tem foco no compartilhamento de recursos. Na web, a implementação de arquitetura mais comum é o modelo cliente/servidor, pois
+Portanto, o sistema distribuído tem foco no compartilhamento de recursos. Na web, a implementação de arquitetura mais comum é o modelo cliente-servidor, pois
 um número grande de aplicações utiliza essa premissa, por exemplo, plataformas de redes sociais, jogos online e serviços bancários.
 Ao nível do Sistema Operacional, a comunicação entre processos executados em diferentes computadores interligados em rede é essencial para o gerenciamento e acesso aos recursos distribuídos.
 Nesse contexto, um cliente, que pode ser um processo ou aplicativo, realiza uma solicitação ao servidor para acessar ou manipular um recurso, como arquivos, impressoras, ou mesmo capacidade de processamento. O servidor, 
 ao receber essa solicitação, desencadeia uma série de operações internas, que podem incluir desde a autenticação do cliente até a busca de dados em um banco de dados distribuído. Em seguida, o servidor 
-retorna o resultado ao cliente em espera, completando o ciclo de comunicação do tipo requisição/resposta \cite[pp. 16]{sistemas-distribuidos-coulouris2013}.
+retorna o resultado ao cliente em espera, completando o ciclo de comunicação do tipo requisição e resposta \cite[pp. 16]{sistemas-distribuidos-coulouris2013}.
 
 \section{Protocolo HTTP}
 
-O HTPP (do inglês \textit{HyperText Transfer Protocol})
+O HTTP (do inglês \textit{HyperText Transfer Protocol}) é o protocolo pertencente à camada de aplicação
+responsável por definir a estrutura de mensagens HTTP e a forma do programa cliente e do programa servidor 
+trocarem suas mensagens individuais. Seu funcionamento obedece à arquitetura cliente-servidor, ou seja, o
+usuário (geralmente um navegador Web) envia uma requisição ao servidor, que deverá processá-la e responder 
+com um resultado, denominado resposta. O exemplo descrito é o uso de navegadores para requisitar uma página web, porém 
+o protocolo HTTP é extensível, pois a comunicação descrita se aplica ao acesso dos mais variados tipos de recursos, graças a
+um conceito denominado URL (Uniform Resource Locator), responsável por identificar de maneira única um objeto na internet \cite[pp. 72]{redes-kurose2010}.
+
+\subsection{Padrão de mensagem HTTP}
+
+No protocolo, existem dois tipos de mensagem: requisição e resposta. Na mensagem de requisição, temos o elemento
+chamado \textbf{método}, esse campo define qual a ação que o usuário deseja executar, sendo comum o uso de verbos
+como GET, POST, HEAD, PUT e DELETE. Por exemplo, ao realizar o preeenchimento de um formulário de cadastro do site, o
+navegador web realiza uma requisição do tipo POST ao servidor, pois sua intenção é a criação de um recurso,
+neste caso, a nova conta. A ação é executada sobre um \textbf{caminho}, que corresponde à organização interna dos recursos 
+dentro do servidor, por exemplo, as informações sobre produtos estão no caminho ``/product''. O \textbf{cabeçalho} contém informações como: preferência de linguagem,
+credenciais de acesso, tipo de conteúdo na mensagem, entre outros. Por fim, o último campo é o \textbf{corpo da mensagem}, 
+onde ficam armazenados os dados \cite[pp. 77]{redes-kurose2010}.
+
+A mensagem de resposta é constituída de 3 componentes principais: linha de estado, linha de cabeçalho e corpo de entidade. Na \textbf{linha de estado}, um campo
+interessante é o \textit{status code}, número pré-definido que indica se o resultado da requisição foi bem-sucedido, ou não, assim como o motivo. No \textbf{cabeçalho}
+são adicionadas pelo servidor informações como o tipo do objeto e seu tamanho em bytes. Por último, o \textbf{corpo da mensagem} em si, contendo os dados solicitados \cite[pp. 78]{redes-kurose2010}.
+
+\subsection{API}
+
+%Com a vantagem de extensão dos sistemas web, um braço de desenvolvimento de software é a construção de 
+%API's REST para comunicação entre sistemas. O padrão REST (Representational State Transfer) é um estilo de 
+%arquitetura que fornece uma interface 
 
 \section{AOSP}
 
-AOSP é coisa e tal
+AOSP é coisa e tal.
 
 \section{Desenvolvimento Android}
 
