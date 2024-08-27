@@ -41,7 +41,7 @@ Nesse contexto, um cliente, que pode ser um processo ou aplicativo, realiza uma 
 ao receber essa solicitação, desencadeia uma série de operações internas, que podem incluir desde a autenticação do cliente até a busca de dados em um banco de dados distribuído. Em seguida, o servidor 
 retorna o resultado ao cliente em espera, completando o ciclo de comunicação do tipo requisição e resposta \cite[pp. 16]{sistemas-distribuidos-coulouris2013}.
 
-\section{Protocolo HTTP}
+\section{HTTP: Fundamentos e Impacto na Web}
 
 O HTTP (do inglês \textit{HyperText Transfer Protocol}) é o protocolo pertencente à camada de aplicação
 responsável por definir a estrutura de mensagens HTTP e a forma do programa cliente e do programa servidor 
@@ -100,6 +100,12 @@ dispositivo eletrônico envia os dados obtidos e o aplicativo Android consome os
 gestão da conta do usuário, com todas essas operações na API comunicadas de maneira uniforme; independência 
 de estado, já que o dispositivo pode perder a conexão, mas ao restabelecê-la, deve garantir a comunicação correta; e simplicidade 
 na evolução do sistema, uma vez que o modelo suporta comunicação com múltiplos clientes.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.45\textwidth]{img/api-design.png}
+    \caption{Example de design de API para microsserviços. Fonte:\cite{example-design-api}}\label{figAPIDesign}
+\end{figure}
 
 \section{AOSP}
 
