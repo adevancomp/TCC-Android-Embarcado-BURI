@@ -68,9 +68,26 @@ são adicionadas pelo servidor informações como o tipo do objeto e seu tamanho
 
 \subsection{API}
 
-%Com a vantagem de extensão dos sistemas web, um braço de desenvolvimento de software é a construção de 
-%API's REST para comunicação entre sistemas. O padrão REST (Representational State Transfer) é um estilo de 
-%arquitetura que fornece uma interface 
+API é o acrônimo de \textit{Application programming interface}, cuja função é estabelecer um conjunto de padrões e funções
+para que diferentes sistemas de software possam se comunicar, executar ações e trocar dados \cite{api-definition}. Por exemplo, a biblioteca
+\textit{OpenGL} foi construída como uma API de computação gráfica, responsável por  renderizar e modelar objetos no espaço tridimensional independente
+de dispositivos de \textit{hardware} \cite{opengl-example}. Outra API bastante utilizada é a \textit{Google Maps API}, pois é um serviço da empresa Google\textsuperscript{\textregistered} 
+para acessar dados de geolocalização muito utilizado em sites de hotéis, divulgação de lojas e uso pessoal para encontrar lugares \cite{google-maps-example}. Portanto, API é um recurso 
+fantástico, pois é transparente ao desenvolvedor na comunicação, porém, não têm necessidade de conhecer os procedimentos internos.
+
+O padrão REST (Representational State Transfer) é um estilo de arquitetura de sistemas web 
+que provê acesso uniforme aos recursos de um servidor, por meio de uma interface coerente que aplica uma mudança de
+estado através das operações básicas do protocolo HTTP, com importância maior aos dados do que a operação e baixo acoplamento entre sistemas. 
+Além disso, essa interface de comunicação de sistemas via HTTP garante que cada recurso seja acessível por
+uma URL e a interação da API, seja \textit{stateless}, ou seja, a requisição contém toda a informação necessária
+para sua execução pelo servidor \cite[pp. 384--386]{sistemas-distribuidos-coulouris2013}. 
+
+Portanto, o desenvolvimento de uma API no padrão REST é útil para a integração entre diferentes sistemas e  padronização das mensagens 
+utilizando o protocolo HTTP. As principais vantagens na escolha do REST são: interoperabilidade, onde o 
+dispositivo eletrônico envia os dados obtidos e o aplicativo Android consome os eventos, realizando a 
+gestão da conta do usuário, com todas essas operações na API comunicadas de maneira uniforme; independência 
+de estado, já que o dispositivo pode perder a conexão, mas ao restabelecê-la, deve garantir a comunicação correta; e simplicidade 
+na evolução do sistema, uma vez que o modelo suporta comunicação com múltiplos clientes.
 
 \section{AOSP}
 
