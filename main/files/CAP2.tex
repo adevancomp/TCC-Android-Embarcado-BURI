@@ -62,9 +62,21 @@ dentro do servidor, por exemplo, as informações sobre produtos estão no camin
 credenciais de acesso, tipo de conteúdo na mensagem, entre outros. Por fim, o último campo é o \textbf{corpo da mensagem}, 
 onde ficam armazenados os dados \cite[pp. 77]{redes-kurose2010}.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.55\textwidth]{img/mensagem-http-solicitação.png}
+    \caption{Padrão de mensagem de solicitação HTTP. Fonte:\cite{redes-kurose2010}}\label{figMessageRequest}
+\end{figure}
+
 A mensagem de resposta é constituída de 3 componentes principais: linha de estado, linha de cabeçalho e corpo de entidade. Na \textbf{linha de estado}, um campo
 interessante é o \textit{status code}, número pré-definido que indica se o resultado da requisição foi bem-sucedido, ou não, assim como o motivo. No \textbf{cabeçalho}
 são adicionadas pelo servidor informações como o tipo do objeto e seu tamanho em bytes. Por último, o \textbf{corpo da mensagem} em si, contendo os dados solicitados \cite[pp. 78]{redes-kurose2010}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.55\textwidth]{img/mensagem-http-resposta.png}
+    \caption{Padrão de mensagem de resposta HTTP. Fonte:\cite{redes-kurose2010}}\label{figMessageResponse}
+\end{figure}
 
 \subsection{API}
 
