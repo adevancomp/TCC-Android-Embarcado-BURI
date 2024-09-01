@@ -1,0 +1,14 @@
+@startuml UEA BURI
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Diagrama de Contexto BURI
+
+AddElementTag("1", $bgColor="Green", $borderColor="DarkGreen", $fontColor="White")
+
+Person(user_app, "Cliente" ,"Usuário doméstico", $tags="1")
+
+Container(buri_container,"Sistema BURI","Sistema Android Embarcado de monitoramento de contaminação com gás monóxido de carbono", $tags="1")
+
+Rel(user_app,buri_container,"Utiliza")
+
+@enduml
