@@ -109,17 +109,28 @@ na evolução do sistema, uma vez que o modelo suporta comunicação com múltip
 
 \section{AOSP}
 
-O Android é um Sistema Operacional de código aberto baseado na \textit{kernel} do Linux, com foco em dispositivos móveis, cujo 
-projeto tem liderança da Google\textsuperscript{\textregistered}. Porém, o \textit{Android Open Source Project} (AOSP) é o repositório
-de código aberto do Android, incluindo o código-fonte do SO e ferramentas necessárias para a criação de versões customizadas da plataforma, como 
-, por exemplo, \textit{ROMs} personalizadas, que permitem aos desenvolvedores e fabricantes adaptar o sistema operacional 
-às necessidades específicas de diferentes dispositivos e usuários. 
+O Android é um Sistema Operacional de código aberto com foco em dispositivos móveis, como, por exemplo, \textit{smartphones} e \textit{tables}, baseado na kernel do Linux. 
+Liderado pela empresa Google\textsuperscript{\textregistered}, o \textit{Android Open Source Project} (AOSP) é o projeto de código aberto que provê o código-fonte 
+do Android e todas as ferramentas necessárias para a construção de personalizações na plataforma, assim como têm o papel de garantir compatibilidade entre as 
+versões do projeto e centralizar as contribuições de desenvolvedores do mundo inteiro \cite{aosp-documentation}. O AOSP utiliza uma arquitetura multicamada
+na comunicação com o \textit{hardware}, pois o design modular permite flexibilidade, escalabilidade e facilidade de manutenção para que o seu uso em diferentes dispositivos tenha o foco
+em otimização no uso de recursos. 
+
+A seguir, será detalhada a estrutura interna do AOSP, destacando o funcionamento de suas camadas e como elas se interligam para otimizar o desempenho e a
+compatibilidade com diferentes dispositivos. Essa análise vai explorar como a arquitetura multicamada do AOSP facilita a personalização, a manutenção e o
+desenvolvimento contínuo do sistema operacional Android, assim como discutir a colaboração entre desenvolvedores para garantir sua evolução.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.55\textwidth]{img/android_stack_720.png}
     \caption{Arquitetura do AOSP. Fonte:\cite{aosp-documentation}}\label{figArchAOSP}
 \end{figure}
+
+A camada de nível mais alto em abstração é a de \textit{Framework}. Sua função é atuar como uma porta de entrada para o Sistema Operacional, assim como 
+estabelecer a comunicação do usuário (por meio de aplicativos ou interação com a interface do Android) com o dispositivo físico por \textit{API} (Application Programming Interface). 
+Portanto, essa camada provê serviços e funções para desenvolvedores de \textit{software}, por exemplo, usar  câmera, lanterna ou solicitar acesso à internet. Em seguida, existe 
+a camada \textit{System Services}, onde temos componentes modulares com foco único, por exemplo, os gerenciados de janela, responsáveis por desenhar os botões e controlar a notificação 
+de eventos de clique para as camadas inferiores. Outro componente é o \textit{Media Server}, que fornece interfaces padronizadas para o uso de câmera e áudio. 
 
 \section{Desenvolvimento Android}
 
