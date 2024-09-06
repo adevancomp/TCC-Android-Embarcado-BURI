@@ -126,11 +126,26 @@ desenvolvimento contínuo do sistema operacional Android, assim como discutir a 
     \caption{Arquitetura do AOSP. Fonte:\cite{aosp-documentation}}\label{figArchAOSP}
 \end{figure}
 
-A camada de nível mais alto em abstração é a de \textit{Framework}. Sua função é atuar como uma porta de entrada para o Sistema Operacional, assim como 
-estabelecer a comunicação do usuário (por meio de aplicativos ou interação com a interface do Android) com o dispositivo físico por \textit{API} (Application Programming Interface). 
-Portanto, essa camada provê serviços e funções para desenvolvedores de \textit{software}, por exemplo, usar  câmera, lanterna ou solicitar acesso à internet. Em seguida, existe 
-a camada \textit{System Services}, onde temos componentes modulares com foco único, por exemplo, os gerenciados de janela, responsáveis por desenhar os botões e controlar a notificação 
-de eventos de clique para as camadas inferiores. Outro componente é o \textit{Media Server}, que fornece interfaces padronizadas para o uso de câmera e áudio. 
+A camada de nível mais alto em abstração é a de \textit{Framework}. Sua função é atuar como porta de entrada para o Sistema Operacional, assim como
+estabelecer a comunicação do usuário, por meio de aplicativos ou interação com a interface do Android, com o dispositivo físico por \textit{API} (Application Programming Interface).
+Portanto, essa camada provê serviços e funções para desenvolvedores de \textit{software}, por exemplo, manipular a câmera, lanterna ou solicitar acesso à internet. Logo abaixo, existe 
+a camada \textit{System Services}, responsável por gerenciar componentes modulares com foco específico. Um exemplo é o \textit{Window Manager}, pois seu papel é gerenciar as janelas e o modo de exibição na tela, 
+enquanto o \textit{Media Server} oferece interfaces padronizadas para a utilização de multimídia, como a câmera e áudio.
+
+O \textit{Android Runtime} é o atual ambiente de execução (máquina virtual Java) usado pelo Android, substituindo o antigo \textit{Dalvik}. 
+Portanto, todos os aplicativos são executados nessa camada e compilados em \textit{bytecode} para execução na máquina virtual. Em seguida,
+o próximo nível é a HAL (\textit{Hardware Abstraction Layer}), a camada de abstração de hardware disponibiliza a definição 
+de uma interface e padrão de acesso para os componentes de hardware, pois os desenvolvedores da camada de \textit{Framework} podem acessar 
+esses dispositivos de maneira simplificada, sem preocupação com detalhes de implementação, \textit{drivers} e bibliotecas específicas de cada fabricante. A 
+\textit{Native Daemons and Libraries} é a camada que expõe funcionalidades de bibliotecas nativas escritas em C/C++ para aplicativos via camada de \textit{Framework} \cite{google-developers-architecture}. 
+Essa possibilidade é útil na manipulação de funções de baixo nível e desenvolvimento de extensões para a plataforma, por exemplo, em dispositivos mais específicos, como uma 
+máquina de pagamento, que necessita do uso de um sistema de impressão.
+
+Ao final, o \textit{Linux Kernel} representa o Sistema Operacional, de fato, em sua pura essência. É interessante destacar que o Android utiliza 
+uma versão do Linux com algumas adições especiais, como o \textit{low memory killer}, que é um sistema de gerenciamento de memória mais agressivo, pois trabalha com recursos 
+limitados e tem a premissa de que memória livre é memória com desperdício . Diante disso, o \textit{kernel} trabalha com os apps em segundo plano, permitindo que o usuário navegue 
+entre diferentes aplicações sem afetar significativamente o desempenho do seu aparelho \cite{google-developers-memory-killer}. Outro exemplo é o sistema de \textit{wake locks}, que é um serviço de energia que evita 
+a drenagem da bateria em situações de ociosidade \cite{google-developers-wakelock}.
 
 \section{Desenvolvimento Android}
 
