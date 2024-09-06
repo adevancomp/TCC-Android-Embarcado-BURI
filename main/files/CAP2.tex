@@ -195,4 +195,20 @@ ela passará para o estado \textit{destroyed}, encerrando seu ciclo de vida \cit
 
 \subsection{Arquitetura MVVM}
 
+O Model-View-ViewModel (MVVM) é um padrão de projeto de software criado por engenheiros da Microsoft\textsuperscript{\textregistered} 
+cuja função é separar a lógica de software da configuração de interface do usuário. Além disso, esse padrão de projeto facilita a aplicação de testes de unidades e reutilização 
+de código. O \textit{Model} é o componente não visual que armazena a lógica de negócio e o modelo de dados do domínio da aplicação, pois recebe e envia dados da \textit{ViewModel} 
+para que ela interaja com a \textit{View}. A \textit{View} são os elementos visíveis de interação com o usuário, pois recebem entradas de dados e eventos de \textit{UI}. Por fim, a
+\textit{ViewModel} implementa propriedades e funções para que a \textit{View} se associe aos dados e receba eventos de notificação para renderizar atualizações na camada de \textit{Model} \cite{mvvm-documentation}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.57\textwidth]{img/mvvm-pattern.png}
+    \caption{MVVM. Fonte:\cite{mvvm-documentation}}\label{figMVVM}
+\end{figure}
+
+No Android, a \textit{ViewModel} possui o papel de persistência dos dados quando ocorre mudança de estado na \textit{activity}, visto 
+que o próprio \textit{Framework} disponibiliza uma classe com o mesmo nome. Isso ocorre porque os dados armazenados em variáveis ou componentes visuais são 
+perdidos quando há mudança de estado, pois a tela principal irá passar novamente pelos estados definidos na seção anterior \cite{google-developers-viewmodel}. 
+
 \section{ESP32}
