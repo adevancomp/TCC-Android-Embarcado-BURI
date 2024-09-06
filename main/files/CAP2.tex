@@ -147,8 +147,52 @@ limitados e tem a premissa de que memória livre é memória com desperdício . 
 entre diferentes aplicações sem afetar significativamente o desempenho do seu aparelho \cite{google-developers-memory-killer}. Outro exemplo é o sistema de \textit{wake locks}, que é um serviço de energia que evita 
 a drenagem da bateria em situações de ociosidade \cite{google-developers-wakelock}.
 
-\section{Desenvolvimento Android}
+\section{Desenvolvimento de aplicativos Android}
 
-Android é coisa e tal 
+O Android possui uma extensa documentação, fornecendo os fundamentos para o desenvolvimento de 
+aplicativos de alta qualidade e resilientes. Portanto, essa seção abordará as melhores práticas e recomendações
+de arquitetura para a construção de aplicativos com uma experiência de usuário fluida e consistente. Tais práticas envolvem o profundo
+conhecimento de componentes de aplicativo, fluxos de trabalho e ciclo de vida da camada de visualização. Ao seguir uma arquitetura, 
+o desenvolvedor de \textit{software} consegue melhorar sua produtividade e a qualidade de entregas, pois uma base de código aderente ao 
+padrão escolhido facilita a manutenção, desenvolvimento de novas funcionalidades e promove a colaboração entre equipes \cite{google-developers-guideline}.
 
-\section{ESP32 e NodeMCU}
+\subsection{Recomendação de Arquitetura}
+
+Um princípio muito usado na área de desenvolvimento de software é o chamado \textit{separation of concerns}, ou separação de responsabilidades. Esse conceito, no ecossistema Android,
+atua na divisão do sistema em partes menores, específicas para uma determinada função e com um objetivo bem definido. Por exemplo, não misturar lógica de 
+negócio ou acesso aos dados na camada de visualização (UI), tornando-a  responsável apenas pela interação com o usuário. Diante disso, a documentação recomenda a separação em (pelo menos)
+duas camadas principais: \textit{UI} e \textit{Data}. A camada de \textit{UI} é responsável por exibir os dados do aplicativo, refletindo a mudança na tela em resposta às
+interações do usuário (como cliques ou pressionamento de botões) ou a eventos externos (como a resposta de uma requisição de rede). Por sua vez, a camada \textit{Data} fornece à camada de \textit{UI} 
+um acesso simplificado aos dados, além de abrigar a lógica de negócio e o gerenciamento adequado de cada tipo de dado. Opcionamente, pode-se adicionar uma terceira camada entre as duas chamada de \textit{Domain Layer}.
+Sua função é intermediar a comunicação entre as duas camadas, abstraindo chamadas e eventos em um lugar centralizado \cite{google-developers-guideline}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.73\textwidth]{img/app-android-layers.png}
+    \caption{Camadas de arquitetura (App). Fonte:\cite{google-developers-guideline}}\label{figAppLayer}
+\end{figure}
+
+\subsection{Ciclo de vida da atividade}
+
+O \textit{Activity lifecycle} (ciclo de vida de uma atividade) descreve todos os estados pelos quais uma activity passa, do momento em que é criada
+até quando é destruída. Uma \textit{activity} é uma classe que fornece uma janela para o aplicativo desenhar sua interface de usuário, pois um projeto Android 
+inicia sempre com uma \textit{activity}. O ciclo de vida de uma \textit{activity} passa por cinco etapas: 
+\textit{initialized}, \textit{created}, \textit{started}, \textit{resumed}, \textit{destroyed}. A seguir, será explicado o que ocorre em cada 
+uma delas e suas especificidades.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.37\textwidth]{img/activity-lifecycle.png}
+    \caption{Ciclo de vida de uma \textit{activity}. Fonte:\cite{google-developers-activity-lifecycle}}\label{figActivityLifeCycle}
+\end{figure}
+
+Quando a \textit{activity} é criada pelo sistema, o estado \textit{created} é ativado. Nesse estágio, os recursos da interface gráfica 
+são inicializados, porém, a janela ainda não está disponível ao usuário. A partir do estado \textit{started}, os componentes da \textit{activity} são exibidos e a tela se torna visível, porém sem interação.
+O estado \textit{resumed} é o aplicativo em primeiro plano, recebendo interações com o usuário em pleno exercício de suas funções. No entanto, se o usuário realizar uma ação que tire 
+o foco do aplicativo (como verificar um e-mail após receber uma notificação), a \textit{activity} entrará no estado de pausa (paused).
+Caso o usuário volte ao aplicativo, a \textit{activity} retoma os estados \textit{started} e \textit{resumed}, restaurando a interação. No entanto, se o usuário não retornar e a \textit{activity} for fechada, 
+ela passará para o estado \textit{destroyed}, encerrando seu ciclo de vida.
+
+\subsection{Arquitetura MVVM}
+
+\section{ESP32}
