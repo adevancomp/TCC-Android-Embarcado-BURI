@@ -212,3 +212,21 @@ que o próprio \textit{Framework} disponibiliza uma classe com o mesmo nome. Iss
 perdidos quando há mudança de estado, pois a tela principal irá passar novamente pelos estados definidos na seção anterior \cite{google-developers-viewmodel}. 
 
 \section{ESP32}
+
+ESP32 é uma família de microcontroladores desenvolvida pela empresa Espressif Systems rica em recursos como conectividade Wi-Fi e Bluetooth projetado para aplicações de IoT. 
+Está presente em soluções de automação, por apresentar vantagens como: design robusto, ao poder operar entre diferentes níveis de temperatura; 
+baixo consumo de energia, onde a placa dispõe de recursos modernos como modos de baixo consumo de energia e controle dinâmico; interface de fácil 
+integração com outros componentes eletrônicos e PCBs; assim como um poderoso chip integrado que atua como processador para outros sistemas de automação, 
+tanto no contexto industrial quanto residencial. Restrito não somente ao \textit{hardware}, o projeto conta com uma enorme variedade 
+de projetos de código aberto, incluindo bibliotecas, ferramentas, IDEs e SDKs para a construção de soluções IoT usando a placa de desenvolvimento embarcado esp32 \cite{esp32-espressif-documentation}. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.57\textwidth]{img/esp32-comparation-table.png}
+    \caption{Comparativo entre placas de desenvolvimento. Fonte:\cite{esp32-comparation-table}}\label{figTableEsp}
+\end{figure}
+
+De acordo com a tabela, o esp32 é \textbf{dual-core}, ou seja, possui dois processadores, tem Wi-Fi e Bluetooth 
+integrados e executa programas de 32 bits com memória RAM de 512KB. Portanto, a escolha do esp32 para o desenvolvimento 
+do trabalho tem fundamento na robustez do dispositivo em relação aos outros citados, por permitir rodar programas maiores e lidar com mais variáveis simultaneamente (paralelismo), 
+essencial para sistemas embarcados que lidam com grandes volumes de dados ou que necessitam de respostas rápidas, sendo esse o caso do sistema em construção. 
