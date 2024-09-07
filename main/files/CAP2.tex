@@ -1,6 +1,6 @@
 \chapter{Fundamentação Teórica}
 
-Este capítulo detalha os principais conceitos e tecnologias aplicados no projeto: Internet das Coisas, sistemas distribuídos, protocolo HTTP, AOSP, desenvolvimento Android e ESP32 com NodeMCU. Portanto, 
+Este capítulo detalha os principais conceitos e tecnologias aplicados no projeto: Internet das Coisas, sistemas distribuídos, protocolo HTTP, AOSP, desenvolvimento Android, ESP32, exposição ao monóxido de carbono e trabalhos relacionados. Portanto, 
 a seguinte seção aborda como os conceitos citados contribuíram para o desenvolvimento deste trabalho de conclusão de curso, possibilitando
 ao leitor uma visão geral das competências necessárias em sua execução. 
 
@@ -172,7 +172,7 @@ Sua função é intermediar a comunicação entre as duas camadas, abstraindo ch
     \caption{Camadas de arquitetura (App). Fonte:\cite{google-developers-guideline}}\label{figAppLayer}
 \end{figure}
 
-\subsection{Ciclo de vida da atividade}
+\subsection{Ciclo de vida da atividade}\label{ciclo-de-vida}
 
 O \textit{Activity lifecycle} (ciclo de vida de uma atividade) descreve todos os estados pelos quais uma activity passa, do momento em que é criada
 até quando é destruída. Uma \textit{activity} é uma classe que fornece uma janela para o aplicativo desenhar sua interface de usuário, pois um projeto Android 
@@ -207,9 +207,14 @@ para que ela interaja com a \textit{View}. A \textit{View} são os elementos vis
     \caption{MVVM. Fonte:\cite{mvvm-documentation}}\label{figMVVM}
 \end{figure}
 
-No Android, a \textit{ViewModel} possui o papel de persistência dos dados quando ocorre mudança de estado na \textit{activity}, visto 
-que o próprio \textit{Framework} disponibiliza uma classe com o mesmo nome. Isso ocorre porque os dados armazenados em variáveis ou componentes visuais são 
-perdidos quando há mudança de estado, pois a tela principal irá passar novamente pelos estados definidos na seção anterior \cite{google-developers-viewmodel}. 
+No Android, a \textit{ViewModel} possui o papel de persistência de dados quando ocorre mudança 
+de estado na tela. Essas mudanças de estado são dinâmicas, como a rotação de tela ou troca de aplicativo após notificação, e, por isso, 
+podem resultar em perda de dados armazenados em variáveis ou componentes visuais. A classe \textit{ViewModel}, fornecida pelo próprio 
+\textit{Framework} Android, é desenvolvida para manter os dados resilientes às mudanças da interface gráfica, garantindo que informações significativas, como entradas de 
+formulário e respostas de um \textit{backend}, permaneçam preservados durante a recriação da tela e componentes. Todo \textit{ViewModel} é gerenciado por um objeto 
+que implementa a interface \textit{ViewModelStoreOwner}, pois seu estado é preservado durante os estados de \textit{paused}, \textit{stoped} e \textit{started} do seu \textit{Owner}, sendo destruído
+juntamente com a tela, porém fechando todas suas operações com segurança. Portanto, ele funciona como um intermediário entre os dados (\textit{model}) e
+os elementos visuais (\textit{view}), aderente às especificidades do ciclo de vida de uma aplicação android \cite{google-developers-viewmodel}.
 
 \section{ESP32}
 
@@ -230,3 +235,42 @@ De acordo com a tabela, o esp32 é \textbf{dual-core}, ou seja, possui dois proc
 integrados e executa programas de 32 bits com memória RAM de 512KB. Portanto, a escolha do esp32 para o desenvolvimento 
 do trabalho tem fundamento na robustez do dispositivo em relação aos outros citados, por permitir rodar programas maiores e lidar com mais variáveis simultaneamente (paralelismo), 
 essencial para sistemas embarcados que lidam com grandes volumes de dados ou que necessitam de respostas rápidas, sendo esse o caso do sistema em construção. 
+
+\section{Exposição ao monóxido de carbono: riscos e consequências}
+
+O monóxido de carbono (CO) é um gás tóxico, incolor e inodoro, que resulta da combustão incompleta. A intoxicação por esse gás ocorre porque ele se liga preferencialmente à hemoglobina, a proteína 
+responsável pelo transporte de oxigênio no sangue, impedindo a distribuição adequada de oxigênio pelo corpo. Como consequência, a hemoglobina se 
+torna incapaz de liberar o oxigênio eficientemente nos tecidos, levando a níveis tóxicos de monóxido de carbono no sangue. Isso provoca um aumento na ventilação 
+pulmonar na tentativa de compensar a falta de oxigênio, o que agrava os sintomas. O quadro clínico é inespecífico e pode incluir náuseas, aumento da 
+frequência respiratória, além de, em casos mais graves, lesões cerebrais e arritmias cardíacas.
+
+Para o diagnóstico, é importante considerar o histórico de exposição a ambientes com potencial risco, como pacientes que estiveram em locais de incêndio. Na medição 
+da carboxiemoglobina (COHb) presente no sangue, o paciente pode estar assintomático ou apresentar baixos níveis da substância devido ao curto tempo de exposição, porém somente a medição da taxa de COHb é 
+ineficiente para obter informação do nível de lesão causado. No entanto, um eletrocardiograma é um exame eficaz para detectar anormalidades em casos de exposição significativa ao CO. Uma vez detectada 
+a intoxicação por monóxido de carbono, o paciente é submetido à terapia com suplementação de oxigênio (O\textsubscript{2}), suporte ventilatório e monitoramento de arritmias cardíacas \cite{carbon-monoxide-poisoning-varon}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{COHb \%} & \textbf{Sintomas} \\
+        \hline
+        10 & Assintomático ou pode ter dor de cabeça \\
+        \hline
+        20 & Tontura, náusea, dispneia \\
+        \hline
+        30 & Distúrbios visuais \\
+        \hline
+        40 & Confusão, síncope \\
+        \hline
+        50 & Convulsões e coma \\
+        \hline
+        >= 60 & Disfunção cardiopulmonar e morte \\
+        \hline
+    \end{tabular}
+    \caption{Sintomas de Envenenamento Agudo por CO baseados nos níveis de COHb. Fonte: Retirado e traduzido de \cite{carbon-monoxide-poisoning-varon}}
+\end{table}
+
+\section{Trabalhos relacionados}
+
+Os trabalhos relacionados e tal 
