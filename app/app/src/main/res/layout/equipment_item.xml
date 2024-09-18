@@ -32,7 +32,7 @@
 
             <TextView
                 android:id="@+id/tvEquipmentName"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:textColor="#0B2C27"
@@ -40,12 +40,13 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/tvEquipmentId"
                 app:layout_constraintStart_toEndOf="@id/tvLabelName"
+                app:layout_constraintEnd_toStartOf="@id/ivEquipmentIcon"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Casa 1" />
 
             <TextView
                 android:id="@+id/tvLabelName"
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@string/hint_nome"
@@ -59,7 +60,7 @@
 
             <TextView
                 android:id="@+id/tvEquipmentId"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:textColor="#0B2C27"
@@ -74,7 +75,7 @@
 
             <TextView
                 android:id="@+id/tvLabelId"
-                android:layout_width="100dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@string/hint_id"
@@ -83,6 +84,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tvEquipmentId"
                 app:layout_constraintEnd_toStartOf="@id/tvEquipmentId"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvEquipmentId" />
 
             <ImageView
