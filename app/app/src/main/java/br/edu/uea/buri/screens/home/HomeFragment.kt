@@ -20,6 +20,7 @@ import br.edu.uea.buri.data.database.entity.UserWithEquipments
 import br.edu.uea.buri.databinding.FragmentHomeBinding
 import br.edu.uea.buri.screens.MainViewModel
 import br.edu.uea.buri.screens.home.adapter.EquipmentAdapter
+import br.edu.uea.buri.screens.home.repository.BluetoothEsp32Repository
 import br.edu.uea.buri.screens.home.viewmodel.HomeState
 import br.edu.uea.buri.screens.home.viewmodel.HomeViewModel
 import com.google.android.material.button.MaterialButton
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
     private val binding: FragmentHomeBinding get() = _binding!!
     private val mainViewModel: MainViewModel by activityViewModels()
     private val homeViewModel: HomeViewModel by viewModels()
+    @Inject lateinit var bluetoothEsp32Repository: BluetoothEsp32Repository
     private lateinit var adapter: EquipmentAdapter
     private lateinit var btCreateEquipment: FloatingActionButton
 
@@ -98,6 +100,11 @@ class HomeFragment : Fragment() {
         val recyclerView = binding.rvEquipmentList
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        viewLifecycleOwner.lifecycleScope.launch {
+            Log.i("BURI","Entrou no create connection")
+            bluetoothEsp32Repository.createConnectionWithEsp32()
+            Log.i("BURI","Saiu do create connection")
+        }
     }
 
     override fun onDestroyView() {

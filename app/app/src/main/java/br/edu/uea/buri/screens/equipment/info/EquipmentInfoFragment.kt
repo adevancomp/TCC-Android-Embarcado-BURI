@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +18,7 @@ import br.edu.uea.buri.databinding.FragmentEquipmentInfoBinding
 import br.edu.uea.buri.domain.measurement.Measurement
 import br.edu.uea.buri.screens.equipment.info.viewmodel.EqpInfoViewModel
 import br.edu.uea.buri.screens.equipment.info.viewmodel.EqpInfoViewModelFactory
+import br.edu.uea.buri.screens.home.repository.BluetoothEsp32Repository
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -40,10 +42,12 @@ class EquipmentInfoFragment : Fragment()  {
     private lateinit var tvTemperatureEquipmentName: TextView
     private lateinit var tvTemperatureValue: TextView
     private lateinit var tvCollectionDateValue: TextView
+    private lateinit var switchIsOnline: SwitchCompat
     private val args by navArgs<EquipmentInfoFragmentArgs>()
     @Inject lateinit var buriApi: BuriApi
+    @Inject lateinit var bluetoothEsp32Repository: BluetoothEsp32Repository
     private val infoViewModel by viewModels<EqpInfoViewModel> {
-        EqpInfoViewModelFactory(buriApi,args.equipment.id)
+        EqpInfoViewModelFactory(buriApi,args.equipment.id, bluetoothEsp32Repository)
     }
 
     override fun onCreateView(
@@ -120,10 +124,17 @@ class EquipmentInfoFragment : Fragment()  {
         tvTemperatureValue = binding.tvTemperatureValue
 
         tvCollectionDateValue = binding.tvCollectionDateValue
+        switchIsOnline = binding.swtIsOnline
     }
 
     private fun setupListeners(){
-
+        switchIsOnline.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked){
+                infoViewModel.changeForOnline()
+            } else {
+                infoViewModel.changeForOffline()
+            }
+        }
     }
 
     override fun onDestroyView() {
