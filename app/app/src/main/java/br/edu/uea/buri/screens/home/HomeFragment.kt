@@ -103,6 +103,7 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             Log.i("BURI","Entrou no create connection")
             bluetoothEsp32Repository.createConnectionWithEsp32()
+            bluetoothEsp32Repository.getMeasurement()
             Log.i("BURI","Saiu do create connection")
         }
     }

@@ -6,12 +6,12 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
+import br.edu.uea.buri.domain.measurement.Measurement
+import br.edu.uea.buri.domain.measurement.RawMeasurement
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
 import java.io.InputStream
@@ -25,9 +25,8 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
     private var esp32Device : BluetoothDevice? = null
 
     suspend fun createConnectionWithEsp32() : Boolean {
-        var isSuccess: Boolean = false
+        var isSuccess = false
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            // Android 12+ (API 31+)
             if (ActivityCompat.checkSelfPermission(
                     context,
                     Manifest.permission.BLUETOOTH_CONNECT
@@ -39,22 +38,18 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
         if(isEsp32connected()){
             esp32Device?.let { device : BluetoothDevice ->
                 try {
-
-                    val buffer = ByteArray(1024)  // Buffer para armazenar os dados recebidos
-                    var bytes: Int  // Número de bytes lidos
-                    var inputStream: InputStream
-
                     bluetoothSocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"))
                     bluetoothAdapter?.cancelDiscovery()
-                    bluetoothSocket?.connect()
-                    inputStream = bluetoothSocket!!.inputStream
+                    bluetoothSocket?.let {
+                        if(!it.isConnected){
+                            Log.i("BURI","Não tinha um blueetooth socket conectado ainda")
+                            it.connect()
+                        }else{
+                            Log.i("BURI","o bluetooth socket já estava conectado")
+                        }
+                    }
                     isSuccess = true
-                    Log.d("BURI", "Conexão com ESP32 bem-sucedida!")
-                    bytes = inputStream.read(buffer)
-                    val receivedMessage = String(buffer, 0, bytes)
-
-                    // Loga a mensagem recebida
-                    Log.d("BURI", "Dados recebidos do ESP32: $receivedMessage")
+                    Log.i("BURI","Conectou no esp32")
                 } catch (e: IOException){
                     Log.e("BURI","Não foi possível conectar ao ESP32")
                     try {
@@ -68,13 +63,10 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
         return isSuccess
     }
 
-    fun isEsp32connected() : Boolean {
-        //Responde se o esp32 está conectado no bluetooth
+    private fun isEsp32connected() : Boolean {
         bluetoothAdapter?.let { adapter ->
-            Log.i("BURI","Ta ai")
-            //Dispositivo suporta bluetooth
+            Log.i("BURI","Tem suporte bluetooth")
             if(adapter.isEnabled){
-                //Bluetooth está ligado
                 Log.i("BURI","Habilitado")
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     // Android 12+ (API 31+)
@@ -84,17 +76,16 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                             Manifest.permission.BLUETOOTH_CONNECT
                         ) != PackageManager.PERMISSION_GRANTED
                     ) {
-                        Log.i("BURI","não tinha pessoal")
+                        Log.i("BURI","não tinha permissão")
                         return false
                     }
                 }
-                Log.i("BURI","seguiu a vida")
                 val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter.bondedDevices
                 Log.i("BURI","Quantidade : $pairedDevices")
                 pairedDevices?.forEach { device: BluetoothDevice ->
                     Log.i("Buri","Address ${device.address}")
                     if(device.address == ESP32_MAC_ADDRESS){
-                        Log.i("BURI","achou o Buri esp32")
+                        Log.i("BURI","achou o Buri Hardware")
                         esp32Device = device
                         return true
                     }
@@ -104,9 +95,24 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
         return false
     }
 
+    fun getMeasurement() : RawMeasurement? {
+        var data : RawMeasurement? = null
+        try {
+            bluetoothSocket?.inputStream?.let {
+                stream: InputStream ->
+                    val buffer = ByteArray(200)
+                    val bytes = stream.read(buffer)
+                    val receivedMessage = String(buffer, 0, bytes)
+
+                    Log.d("BURI", "Dados recebidos do ESP32: $receivedMessage")
+            }
+        } catch (e: IOException){
+            Log.e("BURI", "Erro de leitura no InputStream: ${e.message}")
+        }
+        return data
+    }
+
     companion object {
-        //const val ESP32_MAC_ADDRESS = "C8:2E:18:67:4F:A8"
-        //C8:2E:18:67:4F:AA MAC ADDRESS que o android fisico me mostrou
         const val ESP32_MAC_ADDRESS = "C8:2E:18:67:4F:AA"
         const val ESP32_NAME = "Buri-Hardware"
     }
