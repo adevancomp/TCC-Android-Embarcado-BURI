@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +44,10 @@ class EquipmentInfoFragment : Fragment()  {
     private lateinit var tvTemperatureEquipmentName: TextView
     private lateinit var tvTemperatureValue: TextView
     private lateinit var tvCollectionDateValue: TextView
+    private lateinit var tvErrorMessage: TextView
+    private lateinit var tvMonoxideTitle: TextView
+    private lateinit var cardCO: ConstraintLayout
+    private lateinit var cardTemperature: ConstraintLayout
     private lateinit var switchIsOnline: SwitchCompat
     private val args by navArgs<EquipmentInfoFragmentArgs>()
     @Inject lateinit var buriApi: BuriApi
@@ -72,6 +78,26 @@ class EquipmentInfoFragment : Fragment()  {
     }
 
     private fun updateUI(state: EqpInfoViewModel.InfoState){
+        if(state.isErrorMessageVisible){
+            tvErrorMessage.visibility = View.VISIBLE
+            tvErrorMessage.text = state.errorMessage
+
+            airHumidityPieChart.visibility = View.GONE
+            cardCO.visibility = View.GONE
+
+            cardTemperature.visibility = View.GONE
+            tvMonoxideTitle.visibility = View.GONE
+        } else {
+            tvErrorMessage.visibility = View.GONE
+            tvErrorMessage.text = ""
+
+            airHumidityPieChart.visibility = View.VISIBLE
+            cardCO.visibility = View.VISIBLE
+
+            cardCO.visibility = View.VISIBLE
+            cardTemperature.visibility = View.VISIBLE
+            tvMonoxideTitle.visibility = View.VISIBLE
+        }
         airHumidityPieChart.clear()
         state.measurement?.let {
             measurement: Measurement ->
@@ -124,6 +150,10 @@ class EquipmentInfoFragment : Fragment()  {
         tvTemperatureValue = binding.tvTemperatureValue
 
         tvCollectionDateValue = binding.tvCollectionDateValue
+        tvErrorMessage = binding.tvErrorMessage
+        cardCO = binding.clCardCO
+        cardTemperature = binding.clCardTemperature
+        tvMonoxideTitle = binding.tvMonoxideTitle
         switchIsOnline = binding.swtIsOnline
     }
 

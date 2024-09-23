@@ -36,7 +36,6 @@ class HomeFragment : Fragment() {
     private val binding: FragmentHomeBinding get() = _binding!!
     private val mainViewModel: MainViewModel by activityViewModels()
     private val homeViewModel: HomeViewModel by viewModels()
-    @Inject lateinit var bluetoothEsp32Repository: BluetoothEsp32Repository
     private lateinit var adapter: EquipmentAdapter
     private lateinit var btCreateEquipment: FloatingActionButton
 
@@ -100,12 +99,6 @@ class HomeFragment : Fragment() {
         val recyclerView = binding.rvEquipmentList
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        viewLifecycleOwner.lifecycleScope.launch {
-            Log.i("BURI","Entrou no create connection")
-            bluetoothEsp32Repository.createConnectionWithEsp32()
-            bluetoothEsp32Repository.getMeasurement()
-            Log.i("BURI","Saiu do create connection")
-        }
     }
 
     override fun onDestroyView() {

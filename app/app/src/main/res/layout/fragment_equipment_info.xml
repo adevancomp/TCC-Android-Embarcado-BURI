@@ -12,9 +12,9 @@
         android:layout_margin="16dp"
         android:checked="true"
         android:text="@string/hint_switch_online"
+        app:layout_constraintBottom_toBottomOf="@id/tvAirHumidityTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvAirHumidityTitle"
-        app:layout_constraintBottom_toBottomOf="@id/tvAirHumidityTitle"/>
+        app:layout_constraintTop_toTopOf="@id/tvAirHumidityTitle" />
 
     <TextView
         android:id="@+id/tvAirHumidityTitle"
@@ -182,5 +182,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Deu erro" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

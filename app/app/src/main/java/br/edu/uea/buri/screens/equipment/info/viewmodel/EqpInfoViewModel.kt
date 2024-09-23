@@ -8,6 +8,8 @@ import br.edu.uea.buri.data.pages.MeasurementPage
 import br.edu.uea.buri.domain.equipment.Equipment
 import br.edu.uea.buri.domain.measurement.Measurement
 import br.edu.uea.buri.screens.home.repository.BluetoothEsp32Repository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,26 +26,34 @@ class EqpInfoViewModel (
     val state : StateFlow<InfoState> = _state
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             while (true){
                 val measurement: Measurement? = fetchLastMeasurement()
                 measurement?.let {
                     _state.value  = InfoState.Success(it, _state.value.isOnline)
-                    delay(60000)
+                    delay(90000)
                 }
             }
         }
     }
 
     private suspend fun fetchLastMeasurement() : Measurement?{
-        var measurement: Measurement? = null
-        /*val pageResponse: Response<MeasurementPage> =
-            buriApi.getAllMeasurementsByEquipmentId(equipmentId, 0, 1)
-        if(pageResponse.isSuccessful){
-            measurement = pageResponse.body()?.measurements?.firstOrNull()
+        val measurement: Measurement? = if(state.value.isOnline){
+            val pageResponse : Response<MeasurementPage> =
+                buriApi.getAllMeasurementsByEquipmentId(equipmentId,0,1)
+            if(pageResponse.isSuccessful){
+                pageResponse.body()?.measurements?.firstOrNull()
+            } else {
+                _state.value = InfoState.Failed(pageResponse.code().toString(),_state.value.isOnline)
+                null
+            }
         } else {
-            _state.value = InfoState.Failed(pageResponse.code().toString(),_state.value.isOnline)
-        }*/
+            val measurementLasted = buriBluetoothRepo.getMeasurement()
+            if(buriBluetoothRepo.isError.value == true){
+                _state.value = InfoState.Failed("Erro no bluetooth",_state.value.isOnline)
+            }
+            measurementLasted?.toMeasurement()
+        }
         return measurement
     }
 

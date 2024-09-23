@@ -10,6 +10,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import br.edu.uea.buri.domain.measurement.Measurement
 import br.edu.uea.buri.domain.measurement.RawMeasurement
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -23,6 +25,8 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
     private val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter
     private var bluetoothSocket: BluetoothSocket? = null
     private var esp32Device : BluetoothDevice? = null
+    private var _isError : MutableLiveData<Boolean> = MutableLiveData(false)
+    val isError : LiveData<Boolean> = _isError
 
     suspend fun createConnectionWithEsp32() : Boolean {
         var isSuccess = false
@@ -32,6 +36,7 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                     Manifest.permission.BLUETOOTH_CONNECT
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
+                _isError.value = true
                 return false
             }
         }
@@ -49,12 +54,15 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                         }
                     }
                     isSuccess = true
+                    _isError.value = false
                     Log.i("BURI","Conectou no esp32")
                 } catch (e: IOException){
                     Log.e("BURI","Não foi possível conectar ao ESP32")
+                    _isError.value = true
                     try {
                         bluetoothSocket?.close()
                     } catch (closeException: IOException) {
+                        _isError.value = true
                         Log.e("BURI", "Não foi possível fechar o socket após falha de conexão", closeException)
                     }
                 }
@@ -77,6 +85,7 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                         ) != PackageManager.PERMISSION_GRANTED
                     ) {
                         Log.i("BURI","não tinha permissão")
+                        _isError.value = true
                         return false
                     }
                 }
@@ -87,6 +96,7 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                     if(device.address == ESP32_MAC_ADDRESS){
                         Log.i("BURI","achou o Buri Hardware")
                         esp32Device = device
+                        _isError.value = false
                         return true
                     }
                 }
@@ -95,8 +105,9 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
         return false
     }
 
-    fun getMeasurement() : RawMeasurement? {
+    suspend fun getMeasurement() : RawMeasurement? {
         var data : RawMeasurement? = null
+        Log.i("BURI","Entrou em getMeasurement()")
         try {
             bluetoothSocket?.inputStream?.let {
                 stream: InputStream ->
@@ -107,8 +118,10 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                     Log.d("BURI", "Dados recebidos do ESP32: $receivedMessage")
             }
         } catch (e: IOException){
+            _isError.value = true
             Log.e("BURI", "Erro de leitura no InputStream: ${e.message}")
         }
+        Log.i("BURI","Está saindo de  getMeasurement()")
         return data
     }
 
