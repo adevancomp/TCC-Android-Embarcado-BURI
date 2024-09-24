@@ -60,7 +60,7 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                     Log.i("BURI","Conectou no esp32")
                 } catch (e: IOException){
                     Log.e("BURI","Não foi possível conectar ao ESP32 ${e.message}")
-                    _isError.postValue(true)
+                    //_isError.postValue(true)
                     try {
                         bluetoothSocket?.close()
                     } catch (closeException: IOException) {

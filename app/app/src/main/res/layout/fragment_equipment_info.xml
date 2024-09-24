@@ -11,10 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:checked="true"
+        android:padding="8dp"
         android:text="@string/hint_switch_online"
         app:layout_constraintBottom_toBottomOf="@id/tvAirHumidityTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvAirHumidityTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvAirHumidityTitle" />
 
     <TextView
         android:id="@+id/tvAirHumidityTitle"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24sp"
         android:layout_marginBottom="16dp"
+        android:paddingBottom="10dp"
         android:text="@string/title_air"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
