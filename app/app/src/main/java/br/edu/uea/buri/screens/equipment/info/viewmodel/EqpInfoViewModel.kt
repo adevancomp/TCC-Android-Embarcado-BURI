@@ -1,6 +1,7 @@
 package br.edu.uea.buri.screens.equipment.info.viewmodel
 
 import android.icu.text.IDNA.Info
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.uea.buri.data.BuriApi
@@ -31,7 +32,7 @@ class EqpInfoViewModel (
                 val measurement: Measurement? = fetchLastMeasurement()
                 measurement?.let {
                     _state.value  = InfoState.Success(it, _state.value.isOnline)
-                    delay(90000)
+                    delay(120000)
                 }
             }
         }

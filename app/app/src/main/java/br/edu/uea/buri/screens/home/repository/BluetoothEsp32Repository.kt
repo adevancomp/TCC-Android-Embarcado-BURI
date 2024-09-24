@@ -15,8 +15,10 @@ import androidx.lifecycle.MutableLiveData
 import br.edu.uea.buri.domain.measurement.Measurement
 import br.edu.uea.buri.domain.measurement.RawMeasurement
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
+import java.math.BigDecimal
 import java.util.UUID
 import javax.inject.Inject
 
@@ -36,7 +38,7 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                     Manifest.permission.BLUETOOTH_CONNECT
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                _isError.value = true
+                _isError.postValue(true)
                 return false
             }
         }
@@ -54,15 +56,15 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                         }
                     }
                     isSuccess = true
-                    _isError.value = false
+                    _isError.postValue(false)
                     Log.i("BURI","Conectou no esp32")
                 } catch (e: IOException){
-                    Log.e("BURI","Não foi possível conectar ao ESP32")
-                    _isError.value = true
+                    Log.e("BURI","Não foi possível conectar ao ESP32 ${e.message}")
+                    _isError.postValue(true)
                     try {
                         bluetoothSocket?.close()
                     } catch (closeException: IOException) {
-                        _isError.value = true
+                        _isError.postValue(true)
                         Log.e("BURI", "Não foi possível fechar o socket após falha de conexão", closeException)
                     }
                 }
@@ -85,7 +87,7 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                         ) != PackageManager.PERMISSION_GRANTED
                     ) {
                         Log.i("BURI","não tinha permissão")
-                        _isError.value = true
+                        _isError.postValue(true)
                         return false
                     }
                 }
@@ -96,7 +98,7 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                     if(device.address == ESP32_MAC_ADDRESS){
                         Log.i("BURI","achou o Buri Hardware")
                         esp32Device = device
-                        _isError.value = false
+                        _isError.postValue(false)
                         return true
                     }
                 }
@@ -107,21 +109,35 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
 
     suspend fun getMeasurement() : RawMeasurement? {
         var data : RawMeasurement? = null
-        Log.i("BURI","Entrou em getMeasurement()")
-        try {
-            bluetoothSocket?.inputStream?.let {
-                stream: InputStream ->
+        if(createConnectionWithEsp32()){
+            try {
+                Log.i("BURI","socket: $bluetoothSocket")
+                bluetoothSocket?.inputStream?.let {
+                        stream: InputStream ->
+
                     val buffer = ByteArray(200)
                     val bytes = stream.read(buffer)
                     val receivedMessage = String(buffer, 0, bytes)
 
                     Log.d("BURI", "Dados recebidos do ESP32: $receivedMessage")
+                    try {
+                        val jsonObject = JSONObject(receivedMessage)
+                        data = RawMeasurement(
+                            co = BigDecimal(jsonObject.getString("co")),
+                            air = BigDecimal(jsonObject.getString("airH")),
+                            tmp = BigDecimal(jsonObject.getString("temp")),
+                            collectionDate = "",
+                            equipmentId = jsonObject.getString("equipmentId")
+                        )
+                    } catch (e: Exception){
+                        Log.e("BURI", "Erro ao desserializar JSON recebido por bluetooth: ${e.message}")
+                    }
+                }
+            } catch (e: IOException){
+                _isError.postValue(true)
+                Log.e("BURI", "Erro de leitura no InputStream: ${e.message}")
             }
-        } catch (e: IOException){
-            _isError.value = true
-            Log.e("BURI", "Erro de leitura no InputStream: ${e.message}")
         }
-        Log.i("BURI","Está saindo de  getMeasurement()")
         return data
     }
 

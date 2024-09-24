@@ -105,7 +105,7 @@ class EquipmentInfoFragment : Fragment()  {
                     air ->
                         val entries = mutableListOf<PieEntry>()
                         entries.add(PieEntry(air.setScale(2,RoundingMode.HALF_UP).toFloat(), "Umidade"))
-                        entries.add(PieEntry(1 - air.setScale(2,RoundingMode.HALF_UP).toFloat(), "Outros (Ar)"))
+                        entries.add(PieEntry(100 - air.setScale(2,RoundingMode.HALF_UP).toFloat(), "Outros (Ar)"))
 
                         val dataSet = PieDataSet(entries, " ")
                         dataSet.valueTextColor = Color.parseColor("#000000")

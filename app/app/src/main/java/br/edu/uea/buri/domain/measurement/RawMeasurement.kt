@@ -8,7 +8,7 @@ data class RawMeasurement(
     val co: BigDecimal?,
     val air: BigDecimal?,
     val tmp: BigDecimal?,
-    val collectionDate: ZonedDateTime,
+    val collectionDate: String,
     val equipmentId: String
 ) {
     fun toMeasurement() = Measurement(
@@ -16,7 +16,7 @@ data class RawMeasurement(
         co = this.co,
         air = this.air,
         tmp = this.tmp,
-        collectionDate = ZonedDateTime.now(ZoneId.of("Amazonas/Manaus")), // Offline mode
+        collectionDate = ZonedDateTime.now(ZoneId.of("America/Manaus")), // Offline mode
         equipmentId = this.equipmentId
     )
 }
