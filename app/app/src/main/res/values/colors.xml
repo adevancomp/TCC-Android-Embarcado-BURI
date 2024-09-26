@@ -14,5 +14,6 @@
     <color name="dark_yellow_secondary">#F9A825</color>
     <color name="dark_yellow_secondary_dark">#F57F17</color>
     <color name="card_content">#C4DFF4</color>
+    <color name="color_red">#EB829F</color>
 
 </resources>

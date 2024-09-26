@@ -114,7 +114,7 @@ class EquipmentRegisterFragment : Fragment() {
                     Toast.makeText(requireContext(),"URL copiada para a área de transferência",Toast.LENGTH_SHORT).show()
                 }
                 .setBackgroundTint(
-                    ContextCompat.getColor(requireContext(),R.color.blue_accent)
+                    ContextCompat.getColor(requireContext(),R.color.color_red)
                 ).show()
         }
         btOwner.setOnClickListener {

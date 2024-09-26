@@ -1,15 +1,11 @@
 package br.edu.uea.buri.screens.equipment.info.viewmodel
 
-import android.icu.text.IDNA.Info
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.uea.buri.data.BuriApi
 import br.edu.uea.buri.data.pages.MeasurementPage
-import br.edu.uea.buri.domain.equipment.Equipment
 import br.edu.uea.buri.domain.measurement.Measurement
 import br.edu.uea.buri.screens.home.repository.BluetoothEsp32Repository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,10 +46,12 @@ class EqpInfoViewModel (
             }
         } else {
             val measurementLasted = buriBluetoothRepo.getMeasurement()
-            if(buriBluetoothRepo.isError.value == true){
+            if(buriBluetoothRepo.isError.value == true || measurementLasted==null || measurementLasted.toMeasurement().equipmentId != equipmentId) {
                 _state.value = InfoState.Failed("Erro no bluetooth",_state.value.isOnline)
+                return null
+            } else{
+                measurementLasted.toMeasurement()
             }
-            measurementLasted?.toMeasurement()
         }
         return measurement
     }

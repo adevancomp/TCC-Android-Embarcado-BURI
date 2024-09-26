@@ -64,7 +64,7 @@ class LoginFragment : Fragment() {
                         ContextCompat.getColor(requireContext(),R.color.black)
                     )
                     .setBackgroundTint(
-                        ContextCompat.getColor(requireContext(),R.color.blue_accent)
+                        ContextCompat.getColor(requireContext(),R.color.color_red)
                     ).show()
             }
             if(state.isAuthenticated) {
