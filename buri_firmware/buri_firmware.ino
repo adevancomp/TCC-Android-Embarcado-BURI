@@ -1,7 +1,6 @@
 #include <WiFiManager.h>
 #include <NTPClient.h>
 #include <SPIFFS.h>
-//#include <HTTPClient.h> Temporariamente substituido pela WifiClient
 #include <WiFiClientSecure.h>
 #include <DHT.h>
 #include <ArduinoJson.h>
@@ -26,9 +25,7 @@ bool should_save_config = false;                       // Variável para saber s
 DHT dht_sensor(DHT_PIN,DHT_TYPE);
 
 WiFiUDP ntpUDP;
-//HTTPClient http; Temporariamente substituido pela WifiClient
 NTPClient timeClient(ntpUDP,"pool.ntp.org",-14400,6000);
-WiFiClientSecure client;
 
 BluetoothSerial serial_bt;
 
@@ -59,7 +56,6 @@ void setup() {
   pinMode(MQ7_PIN,INPUT);
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonPressedISR, RISING);
   WiFiManager wm;
-  SPIFFS.remove("/config.json");
   bool res;
   if (!serial_bt.begin("Buri-Hardware")){
     Serial.println("LOG:Erro ao iniciar o Bluetooth.");
@@ -80,7 +76,6 @@ void setup() {
       size_t size = configFile.size();
       std::unique_ptr<char[]> buf(new char[size]);
       configFile.readBytes(buf.get(),size);
-      //StaticJsonDocument<json_capacity> json;
       auto deserializeError = deserializeJson(json_config,buf.get());
       serializeJson(json_config,Serial); // Mostrado o json lido no serial (apenas pra verificação, comentar depois)
       if (!deserializeError){
@@ -100,7 +95,7 @@ void setup() {
   if(!res){
     Serial.println("LOG:Failed to connect Wifi");
   } else {
-    Serial.println("LOG:COnnected");
+    Serial.println("LOG:Connected Wifi");
     timeClient.begin();  
   }
 
@@ -108,7 +103,6 @@ void setup() {
     strcpy(id,cst_eqpId.getValue());
     strcpy(BASE_URL,cst_apiUrl.getValue());
     Serial.println("LOG:Saving config");
-    //StaticJsonDocument<json_capacity> json;
     json_config["id"] = id;
     json_config["url"] = BASE_URL;
     File configFile = SPIFFS.open("/config.json","w");
