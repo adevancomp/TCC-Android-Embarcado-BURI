@@ -1,17 +1,28 @@
 \chapter{Fundamentação Teórica}
 
-Este capítulo detalha os principais conceitos e tecnologias aplicados no projeto: Internet das Coisas, sistemas distribuídos, protocolo HTTP, AOSP, desenvolvimento Android, ESP32, exposição ao monóxido de carbono e trabalhos relacionados. Portanto, 
-a seguinte seção aborda como os conceitos citados contribuíram para o desenvolvimento deste trabalho de conclusão de curso, possibilitando
-ao leitor uma visão geral das competências necessárias em sua execução. 
+Este capítulo aborda em detalhes os principais conceitos e tecnologias que fundamentam o projeto, incluindo temas como Internet das Coisas (\textit{IoT}), Sistemas Distribuídos, 
+redes de comunicação como Wi-Fi e Bluetooth, protocolo de comunicação HTTP, desenvolvimento de software para a plataforma Android, características do microcontrolador ESP32, monitoramento de 
+exposição ao monóxido de carbono e trabalhos relacionados. Todos os tópicos citados possuem papel crucial no desenvolvimento da solução proposta no trabalho de conclusão de curso. Dessa forma, o
+objetivo é fornecer ao leitor uma visão abrangente das competências técnicas e teóricas aplicadas em sua execução.
 
 \section{Internet das Coisas}
 
-O termo \textit{Internet das Coisas} (\textit{IoT}, da expressão em inglês \textit{Internet of Things}) foi utilizado primeiramente em 1999 pelo então pesquisador do \textit{Massachusetts Institute of Technology} (MIT) Kevin Asthon em uma apresentação na Procter \& Gamble (P\&G) sobre a tecnologia do \textit{Radio Frequency Identification} (RFID). O RFID é uma tecnologia utilizada para a identificação e rastreamento de objetos, animais ou pessoas via ondas de rádio. Portanto, Asthon pontuou a possibilidade de utilizar tal ferramenta para gerenciar a cadeia de suprimentos da empresa, pois sua capacidade de ler vários emissores simultaneamente, sem a necessidade de linha de visão direta entre o leitor e a tag (ao contrário da tecnologia de códigos de barras) torna o monitoramento de cada produto nos distintos pontos de transporte mais fino e mensurável. A ideia do autor 
-é que os próprios objetos tenham a capacidade de gerar os dados e reagir aos estímulos do ambiente \cite{iot-first-definition}.
+O termo \textit{Internet das Coisas} (\textit{IoT}, da expressão em inglês \textit{Internet of Things}) foi utilizado primeiramente em 1999 pelo então pesquisador do \textit{Massachusetts Institute of Technology} (MIT) Kevin Asthon em 
+uma apresentação na Procter \& Gamble (P\&G) sobre a tecnologia do \textit{Radio Frequency Identification} (RFID). O RFID é uma tecnologia utilizada para a identificação e rastreamento de objetos, animais ou pessoas 
+via ondas de rádio. Portanto, Asthon pontuou a possibilidade de utilizar tal ferramenta para gerenciar a cadeia de suprimentos da empresa, pois sua capacidade de ler vários emissores simultaneamente, sem a necessidade de linha de visão direta entre o leitor 
+e a tag (ao contrário do códigos de barras) torna o monitoramento de cada produto nos distintos pontos de transporte mais preciso. A ideia do autor consiste na responsabilidade dos próprios objetos sobre a coleta de dados
+e reação aos estímulos do ambiente, pois os computadores podem reduzir custos e o desperdício apenas tomando decisões com base na sua própria observação do mundo externo \cite{iot-first-definition}.
 
-\textit{IoT} possui muitas definições. Embora não haja um consenso convergente para uma definição única, podemos discutir sobre seu impacto na sociedade atual e aspectos importantes que toda solução na área possui. No livro \textit{The Internet  of Things}, escrito por Samuel Greengard, o tema é abordado como um evento disruptivo, onde a linha que separa o humano e a tecnologia se torna cada vez menos visível, porém o texto aborda não somente a capacidade de conexão entre as máquinas, e sim a autonomia e "inteligência" cada vez maior dos sistemas embarcados \cite[pp. 17]{book-iot}. Essa visão de tecnologia integrada no cotidiano é o conceito que o autor Mark Weiser aborda no seu artigo denominadao \textit{The Computer for the 21st Century}. A computação ubíqua é o processo de tornar os computadores ``invisíveis'' aos nossos olhos, desenvolvendo a comunicação com tais ferramentas o mais próximo possível da forma humana, ou seja, o dispositivo tem conexão com a rede e responde aos estímulos do usuário por interfaces naturais, por exemplo, a fala e gestos com as mãos \cite{ubiquitous-computing}.
+\textit{IoT} possui muitas definições. Embora não haja um consenso para uma definição única, podemos discutir sobre seu impacto na sociedade atual e aspectos importantes que toda solução na área possui. No livro \textit{The Internet  of Things}, escrito por 
+Samuel Greengard, o tema é abordado como um evento disruptivo, onde a linha que separa o humano e a tecnologia se torna cada vez menos visível, porém o texto aborda não somente a capacidade de conexão entre as máquinas, e sim a autonomia 
+e ``inteligência'' crescente dos sistemas embarcados \cite[pp. 17]{book-iot}. Essa visão de tecnologia integrada no cotidiano é o conceito que o autor Mark Weiser aborda no seu artigo denominadao \textit{The Computer for the 21st Century}. A computação ubíqua 
+é o processo de tornar os computadores ``invisíveis'' aos nossos olhos, desenvolvendo a comunicação com tais ferramentas o mais próximo possível da forma humana, ou seja, o dispositivo tem conexão com a rede e responde aos estímulos do usuário por 
+interfaces naturais, por exemplo, a fala e gestos com as mãos \cite{ubiquitous-computing}.
 
-Portanto, o significado mais comum de \textit{IoT} talvez seja a de dispositivos eletrônicos conectados na internet, permitindo enviar e receber dados do ambiente real. No entanto, apenas conectar dispositivos não é uma solução em Internet das Coisas, pois essa área envolve o uso de protocolos de comunicação, eletrônica de baixo consumo energético, plataformas em nuvens e outras inúmeras áreas do conhecimento. Os dados coletados de sensores atuam como combustível para a execução de um fluxo de tomada de decisão \cite{iot-cycle}. 
+Portanto, o significado mais comum de \textit{IoT} talvez seja a de dispositivos eletrônicos conectados na internet, permitindo 
+enviar e receber dados do ambiente real. No entanto, apenas conectar dispositivos não é uma solução em Internet das Coisas, pois essa 
+área envolve o uso de protocolos de comunicação, eletrônica de baixo consumo energético, plataformas em nuvens e outras inúmeras 
+áreas do conhecimento. Os dados coletados de sensores atuam como combustível para a execução de um fluxo de tomada de decisão \cite{iot-cycle}. 
 
 \begin{figure}[ht]
     \centering
@@ -19,10 +30,9 @@ Portanto, o significado mais comum de \textit{IoT} talvez seja a de dispositivos
     \caption{Ciclo de IoT. Fonte:\cite{iot-cycle}}\label{figIoTCycle}
 \end{figure}
 
-Atualmente, a coleta de dados e uso de ferramentas de análise são o principal recursos de empresas competitivas no gerenciamento de suas atividades. Com o avanço da área de telecomunicações, as organizações têm potencial de transformar grandes volumes de dados em \textit{insights} poderosos, que orientam a tomada de decisões da equipe de gestão. Portanto, a Internet das Coisas representa uma tendência forte e disruptiva na sociedade.
-
-Por exemplo, a Amazon\textsuperscript{\textregistered}, uma das maiores empresas de comércio eletrônico no mundo, anunciou em 2022 o lançamento do robô \textit{Sparrow}, cuja função é manipular objetos em esteiras e realizar o empacotamento
-com destreza comparável à de seres humanos. Em suas fábricas, existe um crescente uso de tecnologias de ponta, como robôs autônomos e inteligência artificial, para maximizar as suas entregas em um mercado competitivo \cite{amazon-robos}.
+Atualmente, a coleta de dados e o uso de ferramentas de análise são os principais recursos de empresas competitivas no gerenciamento de suas atividades. Com o 
+avanço da área de telecomunicações, as organizações têm potencial de transformar grandes volumes de dados em \textit{insights} poderosos, que orientam a tomada de 
+decisões da equipe de gestão, em busca de eficiência. Portanto, a Internet das Coisas representa uma tendência forte e disruptiva na sociedade.
 
 \section{Sistemas Distribuídos}
 
@@ -106,46 +116,6 @@ na evolução do sistema, uma vez que o modelo suporta comunicação com múltip
     \includegraphics[width=.45\textwidth]{img/api-design.png}
     \caption{Example de design de API para microsserviços. Fonte:\cite{example-design-api}}\label{figAPIDesign}
 \end{figure}
-
-\section{AOSP}
-
-O Android é um Sistema Operacional de código aberto com foco em dispositivos móveis, como, por exemplo, \textit{smartphones} e \textit{tables}, baseado na kernel do Linux. 
-Liderado pela empresa Google\textsuperscript{\textregistered}, o \textit{Android Open Source Project} (AOSP) é o projeto de código aberto que provê o código-fonte 
-do Android e todas as ferramentas necessárias para a construção de personalizações na plataforma, assim como têm o papel de garantir compatibilidade entre as 
-versões do projeto e centralizar as contribuições de desenvolvedores do mundo inteiro \cite{aosp-documentation}. O AOSP utiliza uma arquitetura multicamada
-na comunicação com o \textit{hardware}, pois o design modular permite flexibilidade, escalabilidade e facilidade de manutenção para que o seu uso em diferentes dispositivos tenha o foco
-em otimização no uso de recursos. 
-
-A seguir, será detalhada a estrutura interna do AOSP, destacando o funcionamento de suas camadas e como elas se interligam para otimizar o desempenho e a
-compatibilidade com diferentes dispositivos. Essa análise vai explorar como a arquitetura multicamada do AOSP facilita a personalização, a manutenção e o
-desenvolvimento contínuo do sistema operacional Android, assim como discutir a colaboração entre desenvolvedores para garantir sua evolução.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=.55\textwidth]{img/android_stack_720.png}
-    \caption{Arquitetura do AOSP. Fonte:\cite{aosp-documentation}}\label{figArchAOSP}
-\end{figure}
-
-A camada de nível mais alto em abstração é a de \textit{Framework}. Sua função é atuar como porta de entrada para o Sistema Operacional, assim como
-estabelecer a comunicação do usuário, por meio de aplicativos ou interação com a interface do Android, com o dispositivo físico por \textit{API} (Application Programming Interface).
-Portanto, essa camada provê serviços e funções para desenvolvedores de \textit{software}, por exemplo, manipular a câmera, lanterna ou solicitar acesso à internet. Logo abaixo, existe 
-a camada \textit{System Services}, responsável por gerenciar componentes modulares com foco específico. Um exemplo é o \textit{Window Manager}, pois seu papel é gerenciar as janelas e o modo de exibição na tela, 
-enquanto o \textit{Media Server} oferece interfaces padronizadas para a utilização de multimídia, como a câmera e áudio.
-
-O \textit{Android Runtime} é o atual ambiente de execução (máquina virtual Java) usado pelo Android, substituindo o antigo \textit{Dalvik}. 
-Portanto, todos os aplicativos são executados nessa camada e compilados em \textit{bytecode} para execução na máquina virtual. Em seguida,
-o próximo nível é a HAL (\textit{Hardware Abstraction Layer}), a camada de abstração de hardware disponibiliza a definição 
-de uma interface e padrão de acesso para os componentes de hardware, pois os desenvolvedores da camada de \textit{Framework} podem acessar 
-esses dispositivos de maneira simplificada, sem preocupação com detalhes de implementação, \textit{drivers} e bibliotecas específicas de cada fabricante. A 
-\textit{Native Daemons and Libraries} é a camada que expõe funcionalidades de bibliotecas nativas escritas em C/C++ para aplicativos via camada de \textit{Framework} \cite{google-developers-architecture}. 
-Essa possibilidade é útil na manipulação de funções de baixo nível e desenvolvimento de extensões para a plataforma, por exemplo, em dispositivos mais específicos, como uma 
-máquina de pagamento, que necessita do uso de um sistema de impressão.
-
-Ao final, o \textit{Linux Kernel} representa o Sistema Operacional, de fato, em sua pura essência. É interessante destacar que o Android utiliza 
-uma versão do Linux com algumas adições especiais, como o \textit{low memory killer}, que é um sistema de gerenciamento de memória mais agressivo, pois trabalha com recursos 
-limitados e tem a premissa de que memória livre é memória com desperdício . Diante disso, o \textit{kernel} trabalha com os apps em segundo plano, permitindo que o usuário navegue 
-entre diferentes aplicações sem afetar significativamente o desempenho do seu aparelho \cite{google-developers-memory-killer}. Outro exemplo é o sistema de \textit{wake locks}, que é um serviço de energia que evita 
-a drenagem da bateria em situações de ociosidade \cite{google-developers-wakelock}.
 
 \section{Desenvolvimento de aplicativos Android}
 
