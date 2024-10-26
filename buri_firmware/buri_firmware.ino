@@ -117,7 +117,7 @@ void setup() {
 }
 
 void loop() {
-  delay(1000);
+  delay(200);
   dht_values = dht_sensor.readHumidity();
   if(isnan(dht_values)){
     measurement["airH"] = nullptr;
