@@ -1,7 +1,6 @@
 #include <WiFiManager.h>
 #include <NTPClient.h>
 #include <SPIFFS.h>
-#include <WiFiClientSecure.h>
 #include <DHT.h>
 #include <ArduinoJson.h>
 #include <BluetoothSerial.h>
@@ -13,10 +12,9 @@
 #define BUTTON_TIME_TL 100
 
 const size_t json_capacity = JSON_OBJECT_SIZE(5)+20;      // 80 + 20 -> 100
-const size_t json_config_capacity = JSON_OBJECT_SIZE(2);  // 32
 StaticJsonDocument<json_capacity> measurement;            // Objeto json de medição atual dos sensores
 String measurementSerialized;
-StaticJsonDocument<json_config_capacity> json_config;     // Objeto json para armazenar as configurações do sistema
+DynamicJsonDocument json_config(JSON_OBJECT_SIZE(2));
 
 char id[7]="";                                          // 6 caracteres do id do equipamento + 1 pra \0
 char BASE_URL[48]="";                                  // 47 caracteres pro link + 1 para \0
@@ -28,6 +26,8 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP,"pool.ntp.org",-14400,6000);
 
 BluetoothSerial serial_bt;
+
+WiFiClient wifiClient;
 
 char PATH_SAVE_MEASUREMENT[18]="/auth/measurement";
 
@@ -69,7 +69,7 @@ void setup() {
   wm.addParameter(&cst_apiUrl);
   res = wm.autoConnect("Buri-Hardware","123456789");
   if(SPIFFS.begin(true)){
-    Serial.println("LOG:Mounted");
+    Serial.println("LOG:Mounted");   
     File configFile = SPIFFS.open("/config.json","r");
     if(configFile){
       Serial.println("LOG:Opened");
@@ -135,6 +135,30 @@ void loop() {
     //Começo do código online
     
     Serial.println("Log:Modo online");
+    String formattedDate = timeClient.getFormattedDate();
+    measurement["collectionDate"] = formattedDate.substring(0,formattedDate.length() -1) + "-04:00";
+    measurement["equipmentId"] = String(id);
+    //Serial.println("Meu id "+String(id));
+    serializeJson(measurement, measurementSerialized);
+    //serializeJson(measurement,Serial);
+    if(wifiClient.connect(String(BASE_URL).substring(8).c_str(), 80)){
+      Serial.println("Conectou no servidor da API");
+      wifiClient.println("POST "+String(PATH_SAVE_MEASUREMENT)+" HTTP/1.0");
+      wifiClient.println("Host: "+String(BASE_URL).substring(8));
+      wifiClient.println("Content-Type: application/json");
+      wifiClient.print("Content-Length: ");
+      wifiClient.println(strlen(measurementSerialized.c_str()));
+      wifiClient.println();
+      wifiClient.println(measurementSerialized);
+      while (wifiClient.connected()) {
+        if (wifiClient.available()) {
+          String response = wifiClient.readString();
+          Serial.println("Resposta do servidor: ");
+          Serial.println(response);
+          wifiClient.stop();
+        }
+      }
+    }
 
     //Fim do codigo online
   } else {
