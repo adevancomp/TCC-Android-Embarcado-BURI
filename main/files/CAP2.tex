@@ -19,7 +19,7 @@ e ``inteligência'' crescente dos sistemas embarcados \cite[pp. 17]{book-iot}. E
 é o processo de tornar os computadores ``invisíveis'' aos nossos olhos, desenvolvendo a comunicação com tais ferramentas o mais próximo possível da forma humana, ou seja, o dispositivo tem conexão com a rede e responde aos estímulos do usuário por 
 interfaces naturais, por exemplo, a fala e gestos com as mãos \cite{ubiquitous-computing}.
 
-Portanto, o significado mais comum de \textit{IoT} talvez seja a de dispositivos eletrônicos conectados na internet, permitindo 
+Portanto, o significado mais comum de \textit{IoT} talvez seja o de dispositivos eletrônicos conectados na internet, permitindo 
 enviar e receber dados do ambiente real. No entanto, apenas conectar dispositivos não é uma solução em Internet das Coisas, pois essa 
 área envolve o uso de protocolos de comunicação, eletrônica de baixo consumo energético, plataformas em nuvens e outras inúmeras 
 áreas do conhecimento. Os dados coletados de sensores atuam como combustível para a execução de um fluxo de tomada de decisão \cite{iot-cycle}. 
@@ -63,8 +63,32 @@ permite que sistemas se comuniquem e troquem mensagens por protocolos, sendo est
 implementações utilizadas no sistema BURI: Wi-Fi e Bluetooth. A primeira tecnologia tem aplicação em redes locais de velocidade alta em residências e locais públicos. Porém, a segunda trata-se de uma comunicação direta entre dois 
 dispositivos e possui um alcance muito menor, assim como um baixo consumo de energia.
 
-Por se tratar de um sistema crítico, uma vez que envolve detecção de gases asfixiantes, o sistema proposto deve ser tolerante à falha. Portanto, a rede Wi-Fi tem como papel o acesso à Internet e armazenamento do histórico de dados, enquanto o 
+Por se tratar de um sistema crítico, visto que envolve detecção de gases asfixiantes, o sistema proposto deve ser tolerante à falha. Portanto, a rede Wi-Fi tem como papel o acesso à Internet e armazenamento do histórico de dados, enquanto o 
 Bluetooth realiza a transmissão de dados em tempo real para o dispositivo mais próximo, ou seja, o celular do usuário com o aplicativo móvel.
+
+\subsection{Wi-Fi}
+
+A rede Wi-Fi, inicialmente designada como a \textbf{LAN sem fio IEE 802.11}, é uma tecnologia de comunicação 
+que permite aos hospedeiros sem fio acesso a redes maiores por uma infraestrutura baseada em pontos de acesso (\textit{access point} - AP). Em termos 
+de arquitetura, o hospedeiro móvel realiza uma varredura e encontra APs disponíveis através do envio periódico de quadros de sinalização por parte dos pontos, contendo o identificador da 
+rede SSID (do inglês, \textit{Service Set Identifier}) e o endereço MAC do AP. Em seguida, o usuário escolhe um desses pontos para 
+se associar, solicitando entrada na sub-rede e obtendo um IP \cite{redeskurose2010}. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.42\textwidth]{img/wifi-design.png}
+    \caption{Arquitetura de rede LAN IEE 802.11. Fonte:\cite{redeskurose2010}}\label{figWifi}
+\end{figure}
+
+Apesar das vantagens, como a flexibilidade de conexão na internet de vários dispositivos sem a necessidade 
+de fio e alta banda de transmissão, esse tipo de rede sem fio também possui desafios técnicos. Entre as diferenças 
+em comparação com um enlace com fio, temos: redução na intensidade do sinal eletromagnético devido aos obstáculos físicos 
+como paredes, portas e eletrodomésticos; interferência com outras ondas de rádio no meio de propagação, pois o ruído de fontes
+externas impacta na taxa de transmissão e banda do canal de comunicação; corrupção dos bits do pacote transmitido, gerando 
+o uso de mecanismos de códigos de correção. Por exemplo, a relação sinal-ruído (SNR) é um valor numérico em decibéis (dB) que informa 
+ao receptor o quão fácil ele consegue retirar a informação do sinal recebido com ruído \cite[pp. 408]{redeskurose2010}.
+
+\section{Bluetooth}
 
 \section{Desenvolvimento de aplicativos Android}
 
