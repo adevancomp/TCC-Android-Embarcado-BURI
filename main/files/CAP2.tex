@@ -60,15 +60,15 @@ importante em sistemas críticos como por exemplo em sistemas de controle aéreo
 
 ``A internet é um subsistema de comunicação único que fornece comunicação entre todos os hosts conectados a ela'' \cite[pp. 96]{sistemas-distribuidos-coulouris2013}. Portanto, uma rede de computadores 
 permite que sistemas se comuniquem e troquem mensagens por protocolos, sendo estes um conjunto específico de regras para o envio e recebimento de dados. No contexto de redes locais sem fio, esta seção trata de duas 
-implementações utilizadas no sistema BURI: Wi-Fi e Bluetooth. A primeira tecnologia tem aplicação em redes locais de velocidade alta em residências e locais públicos. Porém, a segunda trata-se de uma comunicação direta entre dois 
+implementações utilizadas no sistema BURI: Wi-Fi\textsuperscript{\textregistered} e Bluetooth\textsuperscript{\textregistered}. A primeira tecnologia tem aplicação em redes locais de velocidade alta em residências e locais públicos. Porém, a segunda trata-se de uma comunicação direta entre dois 
 dispositivos e possui um alcance muito menor, assim como um baixo consumo de energia.
 
-Por se tratar de um sistema crítico, visto que envolve detecção de gases asfixiantes, o sistema proposto deve ser tolerante à falha. Portanto, a rede Wi-Fi tem como papel o acesso à Internet e armazenamento do histórico de dados, enquanto o 
-Bluetooth realiza a transmissão de dados em tempo real para o dispositivo mais próximo, ou seja, o celular do usuário com o aplicativo móvel.
+Por se tratar de um sistema crítico, visto que envolve detecção de gases asfixiantes, o sistema proposto deve ser tolerante à falha. Portanto, a rede Wi-Fi\textsuperscript{\textregistered} tem como papel o acesso à Internet e armazenamento do histórico de dados, enquanto o 
+Bluetooth\textsuperscript{\textregistered} realiza a transmissão de dados em tempo real para o dispositivo mais próximo, ou seja, o celular do usuário com o aplicativo móvel.
 
 \subsection{Wi-Fi}
 
-A rede Wi-Fi, inicialmente designada como a \textbf{LAN sem fio IEE 802.11}, é uma tecnologia de comunicação 
+A rede Wi-Fi\textsuperscript{\textregistered}, inicialmente designada como a \textbf{LAN sem fio IEE 802.11}, é uma tecnologia de comunicação 
 que permite aos hospedeiros sem fio acesso a redes maiores por uma infraestrutura baseada em pontos de acesso (\textit{access point} - AP). Em termos 
 de arquitetura, o hospedeiro móvel realiza uma varredura e encontra APs disponíveis através do envio periódico de quadros de sinalização por parte dos pontos, contendo o identificador da 
 rede SSID (do inglês, \textit{Service Set Identifier}) e o endereço MAC do AP. Em seguida, o usuário escolhe um desses pontos para 
@@ -89,6 +89,11 @@ o uso de mecanismos de códigos de correção. Por exemplo, a relação sinal-ru
 ao receptor o quão fácil ele consegue retirar a informação do sinal recebido com ruído \cite[pp. 408]{redeskurose2010}.
 
 \section{Bluetooth}
+
+``Bluetooth é uma tecnologia de rede pessoal sem fio que surgiu a partir da necessidade de
+conectar telefones móveis a PDAs, notebooks e outros equipamentos pessoais sem fios'' \cite[pp. 138]{sistemas-distribuidos-coulouris2013}. A tecnologia
+possui como restrições o baixo consumo de energia e uso na comunicação entre dispositivos portáteis, pois, diferente do Wi-Fi\textsuperscript{\textregistered}, o Bluetooth\textsuperscript{\textregistered} 
+necessita de menor largura de banda e alcance de transmissão. O Bluetooth
 
 \section{Desenvolvimento de aplicativos Android}
 
