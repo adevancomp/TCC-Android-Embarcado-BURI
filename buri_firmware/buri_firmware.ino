@@ -13,29 +13,29 @@
 
 const size_t json_capacity = JSON_OBJECT_SIZE(5)+20;      // 80 + 20 -> 100
 StaticJsonDocument<json_capacity> measurement;            // Objeto json de medição atual dos sensores
-String measurementSerialized;
-DynamicJsonDocument json_config(JSON_OBJECT_SIZE(2));
+String measurementSerialized;                             // String do json para envio na API
+DynamicJsonDocument json_config(JSON_OBJECT_SIZE(2));     // Objeto json de configuração
 
-char id[7]="";                                          // 6 caracteres do id do equipamento + 1 pra \0
-char BASE_URL[48]="";                                  // 47 caracteres pro link + 1 para \0
-bool should_save_config = false;                       // Variável para saber se houve alterações no Wifi Manager
+char id[7]="";                                            // 6 caracteres do id do equipamento + 1 pra \0
+char BASE_URL[48]="";                                     // 47 caracteres pro link + 1 para \0
+bool should_save_config = false;                          // Variável para saber se houve alterações no Wifi Manager
 
-DHT dht_sensor(DHT_PIN,DHT_TYPE);
+DHT dht_sensor(DHT_PIN,DHT_TYPE);                         // Objeto para leitura dos dados do DHT
 
-WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP,"pool.ntp.org",-14400,6000);
+WiFiUDP ntpUDP;                                           // Objeto de comunicação UDP para troca de dados no servidor NTP
+NTPClient timeClient(ntpUDP,"pool.ntp.org",-14400,6000);  // (objeto UDP, nome do servidor NTP, -4h sobre o GMT, intervalo de atualização)
 
-BluetoothSerial serial_bt;
+BluetoothSerial serial_bt;                                // Interface serial para comunicação por blueetooth
 
-WiFiClient wifiClient;
+WiFiClient wifiClient;                                    // Cliente Wifi para envio de dados para API por HTTP
 
-char PATH_SAVE_MEASUREMENT[18]="/auth/measurement";
+char PATH_SAVE_MEASUREMENT[18]="/auth/measurement";       // Rota no Buri API para envio de dados
 
-volatile boolean mode_is_online = true;
+volatile boolean mode_is_online = true;                   // Variável que controle o modo de operação do dispositivo online(true) offline(false)
 
-float dht_values = 0.0;
+float dht_values = 0.0;                                   // Variável que recebe os dados do sendor DHT
 
-unsigned long button_last_press = 0;  // Marca o último instante que o botão foi pressionado (debouncing)
+unsigned long button_last_press = 0;                      // Marca o último instante que o botão foi pressionado (debouncing)
 
 void saveConfigCallback(){
   Serial.println("LOG:Should save config");
@@ -138,9 +138,7 @@ void loop() {
     String formattedDate = timeClient.getFormattedDate();
     measurement["collectionDate"] = formattedDate.substring(0,formattedDate.length() -1) + "-04:00";
     measurement["equipmentId"] = String(id);
-    //Serial.println("Meu id "+String(id));
     serializeJson(measurement, measurementSerialized);
-    //serializeJson(measurement,Serial);
     if(wifiClient.connect(String(BASE_URL).substring(8).c_str(), 80)){
       Serial.println("Conectou no servidor da API");
       wifiClient.println("POST "+String(PATH_SAVE_MEASUREMENT)+" HTTP/1.0");
