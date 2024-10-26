@@ -52,71 +52,19 @@ Nesse contexto, um cliente, que pode ser um processo ou aplicativo, realiza uma 
 ao receber essa solicitação, desencadeia uma série de operações internas, que podem incluir desde a autenticação do cliente até a busca de dados em um banco de dados distribuído. Em seguida, o servidor 
 retorna o resultado ao cliente em espera, completando o ciclo de comunicação do tipo requisição e resposta \cite[pp. 16]{sistemas-distribuidos-coulouris2013}.
 
-\section{HTTP: Fundamentos e Impacto na Web}
+Outro conceito importante é o de tolerância à falha. Essa característica permite um sistema continuar operando mesmo diante da falha de um ou mais 
+componentes internos. Ou seja, é a capacidade do sistema distribuído em identificar e isolar seus defeitos a fim de preservar o seu estado global, pois essa propriedade é 
+importante em sistemas críticos como por exemplo em sistemas de controle aéreo ou financeiros, onde interrupções podem levar a graves consequências e prejuízos \cite[pp. 528]{sistemas-distribuidos-coulouris2013}.
 
-O HTTP (do inglês \textit{HyperText Transfer Protocol}) é o protocolo pertencente à camada de aplicação
-responsável por definir a estrutura de mensagens HTTP e a forma do programa cliente e do programa servidor 
-trocarem suas mensagens individuais. Seu funcionamento obedece à arquitetura cliente-servidor, ou seja, o
-usuário (geralmente um navegador Web) envia uma requisição ao servidor, que deverá processá-la e responder 
-com um resultado, denominado resposta. O exemplo descrito é o uso de navegadores para requisitar uma página web, porém 
-o protocolo HTTP é extensível, pois a comunicação descrita se aplica ao acesso dos mais variados tipos de recursos, graças a
-um conceito denominado URL (Uniform Resource Locator), responsável por identificar de maneira única um objeto na internet \cite[pp. 72]{redes-kurose2010}.
+\section{Redes de Computadores}
 
-\subsection{Padrão de mensagem HTTP}
+``A internet é um subsistema de comunicação único que fornece comunicação entre todos os hosts conectados a ela'' \cite[pp. 96]{sistemas-distribuidos-coulouris2013}. Portanto, uma rede de computadores 
+permite que sistemas se comuniquem e troquem mensagens por protocolos, sendo estes um conjunto específico de regras para o envio e recebimento de dados. No contexto de redes locais sem fio, esta seção trata de duas 
+implementações utilizadas no sistema BURI: Wi-Fi e Bluetooth. A primeira tecnologia tem aplicação em redes locais de velocidade alta em residências e locais públicos. Porém, a segunda trata-se de uma comunicação direta entre dois 
+dispositivos e possui um alcance muito menor, assim como um baixo consumo de energia.
 
-No protocolo, existem dois tipos de mensagem: requisição e resposta. Na mensagem de requisição, temos o elemento
-chamado \textbf{método}, esse campo define qual a ação que o usuário deseja executar, sendo comum o uso de verbos
-como GET, POST, HEAD, PUT e DELETE. Por exemplo, ao realizar o preeenchimento de um formulário de cadastro do site, o
-navegador web realiza uma requisição do tipo POST ao servidor, pois sua intenção é a criação de um recurso,
-neste caso, a nova conta. A ação é executada sobre um \textbf{caminho}, que corresponde à organização interna dos recursos 
-dentro do servidor, por exemplo, as informações sobre produtos estão no caminho ``/product''. O \textbf{cabeçalho} contém informações como: preferência de linguagem,
-credenciais de acesso, tipo de conteúdo na mensagem, entre outros. Por fim, o último campo é o \textbf{corpo da mensagem}, 
-onde ficam armazenados os dados \cite[pp. 77]{redes-kurose2010}.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=.55\textwidth]{img/mensagem-http-solicitação.png}
-    \caption{Padrão de mensagem de solicitação HTTP. Fonte:\cite{redes-kurose2010}}\label{figMessageRequest}
-\end{figure}
-
-A mensagem de resposta é constituída de 3 componentes principais: linha de estado, linha de cabeçalho e corpo de entidade. Na \textbf{linha de estado}, um campo
-interessante é o \textit{status code}, número pré-definido que indica se o resultado da requisição foi bem-sucedido, ou não, assim como o motivo. No \textbf{cabeçalho}
-são adicionadas pelo servidor informações como o tipo do objeto e seu tamanho em bytes. Por último, o \textbf{corpo da mensagem} em si, contendo os dados solicitados \cite[pp. 78]{redes-kurose2010}.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=.55\textwidth]{img/mensagem-http-resposta.png}
-    \caption{Padrão de mensagem de resposta HTTP. Fonte:\cite{redes-kurose2010}}\label{figMessageResponse}
-\end{figure}
-
-\subsection{API}
-
-API é o acrônimo de \textit{Application programming interface}, cuja função é estabelecer um conjunto de padrões e funções
-para que diferentes sistemas de software possam se comunicar, executar ações e trocar dados \cite{api-definition}. Por exemplo, a biblioteca
-\textit{OpenGL} foi construída como uma API de computação gráfica, responsável por renderizar e modelar objetos no espaço tridimensional independente
-de dispositivos de \textit{hardware} \cite{opengl-example}. Outra API bastante utilizada é a \textit{Google Maps API}, pois é um serviço da empresa Google\textsuperscript{\textregistered} 
-para acessar dados de geolocalização muito utilizado em sites de hotéis, divulgação de lojas e uso pessoal para encontrar lugares \cite{google-maps-example}. Portanto, API é um recurso 
-prático, pois é transparente ao desenvolvedor de software, porém, sem a necessidade de conhecer os procedimentos internos.
-
-O padrão REST (Representational State Transfer) é um estilo de arquitetura de sistemas web 
-que provê acesso uniforme aos recursos de um servidor, por meio de uma interface coerente que aplica uma mudança de
-estado através das operações básicas do protocolo HTTP, com importância maior aos dados do que a operação e baixo acoplamento entre sistemas. 
-Além disso, essa interface de comunicação de sistemas via HTTP garante que cada recurso seja acessível por
-uma URL e a interação da API, seja \textit{stateless}, ou seja, a requisição contém toda a informação necessária
-para sua execução pelo servidor \cite[pp. 384--386]{sistemas-distribuidos-coulouris2013}. 
-
-Portanto, o desenvolvimento de uma API no padrão REST é útil para a integração entre diferentes sistemas e  padronização das mensagens 
-utilizando o protocolo HTTP. As principais vantagens na escolha do REST são: interoperabilidade, onde o 
-dispositivo eletrônico envia os dados obtidos e o aplicativo Android consome os eventos, realizando a 
-gestão da conta do usuário, com todas essas operações na API comunicadas de maneira uniforme; independência 
-de estado, já que o dispositivo pode perder a conexão, mas ao restabelecê-la, deve garantir a comunicação correta; e simplicidade 
-na evolução do sistema, uma vez que o modelo suporta comunicação com múltiplos clientes.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=.45\textwidth]{img/api-design.png}
-    \caption{Example de design de API para microsserviços. Fonte:\cite{example-design-api}}\label{figAPIDesign}
-\end{figure}
+Por se tratar de um sistema crítico, uma vez que envolve detecção de gases asfixiantes, o sistema proposto deve ser tolerante à falha. Portanto, a rede Wi-Fi tem como papel o acesso à Internet e armazenamento do histórico de dados, enquanto o 
+Bluetooth realiza a transmissão de dados em tempo real para o dispositivo mais próximo, ou seja, o celular do usuário com o aplicativo móvel.
 
 \section{Desenvolvimento de aplicativos Android}
 
