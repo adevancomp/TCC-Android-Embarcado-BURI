@@ -93,7 +93,24 @@ ao receptor o quão fácil ele consegue retirar a informação do sinal recebido
 ``Bluetooth é uma tecnologia de rede pessoal sem fio que surgiu a partir da necessidade de
 conectar telefones móveis a PDAs, notebooks e outros equipamentos pessoais sem fios'' \cite[pp. 138]{sistemas-distribuidos-coulouris2013}. A tecnologia
 possui como restrições o baixo consumo de energia e uso na comunicação entre dispositivos portáteis, pois, diferente do Wi-Fi\textsuperscript{\textregistered}, o Bluetooth\textsuperscript{\textregistered} 
-necessita de menor largura de banda e alcance de transmissão. O Bluetooth
+necessita de menor largura de banda e alcance de transmissão. No começo, o padrão realizava transporte de voz no meio digital com dispositivos de baixo consumo. Atualmente, seu uso em todo o mundo é para conectar 
+dispositivos eletrônicos como mouses sem fio, teclados, fones de ouvido e demais dispositivos móveis. A conexão ocorre pelo ``emparelhamento'', processo onde dois dispositivos 
+trocam informações, como a chave de segurança do outro ou a comparação de número (PIN), e salvam os dados para o uso em conexões futuras \cite{blueetoothIntel}. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.48\textwidth]{img/blueetooth-comunication.png}
+    \caption{Descrição do funcionamento do Bluetooth. Fonte:\cite{bluetoothDocumentation}}\label{figBluetooth}
+\end{figure}
+
+O Bluetooth\textsuperscript{\textregistered} é implementado em duas formas: \textit{Basic Rate} (BR) e \textit{Low Energy} (LE). A diferença entre eles é que o sistema LE
+possui recursos para menor consumo de corrente, baixa complexidade e custo para dispositivos cujo funcionamento tem restrição energética. O \textit{Bluetooth core system} 
+organiza-se em um \textit{host} e um ou vários \textit{controllers}, onde o \textit{host} é o componente responsável 
+por gerenciar os níveis acima da HCI (\textit{Host Controller Interface}) e abaixo dos perfis de aplicação externos ao protocolo. Por outro lado, o \textit{controller} 
+lida com as camadas inferiores da pilha Bluetooth\textsuperscript{\textregistered}, como o controle do \textit{hardware} no envio e recebimento de sinais via ondas de rádio. Portanto, o 
+HCI funciona como uma ponte entre os dois sistemas e atribui característica modular ao processo. A figura \ref{figBluetooth} mostra as principais configurações: um \textit{host} com um \textit{controller} LE; 
+um \textit{host} e um \textit{controller} BR/EDR, com rádio, banda de base e um gerenciador de links e, por fim, um esquema de configuração que junta ambas as implementações de Blueetooth para o dispositivo atuar inerente 
+ao modo de implementação dos dispositivos alvo de conexão \cite{bluetoothDocumentation}.
 
 \section{Desenvolvimento de aplicativos Android}
 
