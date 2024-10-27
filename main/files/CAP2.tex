@@ -88,7 +88,7 @@ externas impacta na taxa de transmissão e banda do canal de comunicação; corr
 o uso de mecanismos de códigos de correção. Por exemplo, a relação sinal-ruído (SNR) é um valor numérico em decibéis (dB) que informa 
 ao receptor o quão fácil ele consegue retirar a informação do sinal recebido com ruído \cite[pp. 408]{redeskurose2010}.
 
-\section{Bluetooth}
+\subsection{Bluetooth}
 
 ``Bluetooth é uma tecnologia de rede pessoal sem fio que surgiu a partir da necessidade de
 conectar telefones móveis a PDAs, notebooks e outros equipamentos pessoais sem fios'' \cite[pp. 138]{sistemas-distribuidos-coulouris2013}. A tecnologia
@@ -112,6 +112,41 @@ HCI funciona como uma ponte entre os dois sistemas e atribui característica mod
 um \textit{host} e um \textit{controller} BR/EDR, com rádio, banda de base e um gerenciador de links e, por fim, um esquema de configuração que junta ambas as implementações de Blueetooth para o dispositivo atuar inerente 
 ao modo de implementação dos dispositivos alvo de conexão \cite{bluetoothDocumentation}.
 
+\subsection{HTTP}
+
+O HTTP (em inglês, \textit{HyperText Transfer Protocol}) é o protocolo pertencente à camada de aplicação responsável por definir a estrutura de mensagens HTTP e a forma do programa cliente e do programa servidor 
+trocarem informações. O protocolo obedece à arquitetura cliente-servidor, ou seja, o cliente (geralmente um navegador Web) envia uma requisição ao servidor, que deverá processá-la e responder com um resultado, denominado resposta. O HTTP é um protocolo extensível, pois 
+as solicitações de recursos poder ser realizadas em diversos formatos, como mídias, textos, áudios e muitos mais. A identificação na web de cada recurso é realizada pelo conceito de URL (em inglês, \textit{Uniform Resource Locator}) responsável por identificar de maneira única um objeto na internet \cite[pp. 72]{redeskurose2010}
+
+Sobre o padrão de mensagens, o protocolo HTTP define o conjunto de requisição e resposta. Na mensagem de requisição, temos o elemento
+chamado \textbf{método}, esse campo define qual a ação que o usuário deseja executar, sendo comum o uso de verbos
+como GET, POST, HEAD, PUT e DELETE. Por exemplo, ao realizar o preeenchimento de um formulário de cadastro do site, o
+navegador web realiza uma requisição do tipo POST ao servidor, pois sua intenção é a criação de um recurso,
+neste caso, a nova conta. A ação é executada sobre um \textbf{caminho} único, que corresponde à organização interna dos recursos 
+dentro do servidor, por exemplo, as informações sobre produtos estão no caminho ``/product''. O \textbf{cabeçalho} contém informações como: preferência de linguagem do objeto cliente,
+credenciais de acesso para autenticação e autorização, tipo de conteúdo na mensagem, entre outros. Por fim, o último campo é o \textbf{corpo da mensagem}, 
+onde ficam armazenados os dados \cite[pp. 77]{redeskurose2010}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.55\textwidth]{img/mensagem-http-solicitação.png}
+    \caption{Padrão de mensagem de solicitação HTTP. Fonte:\cite{redeskurose2010}}\label{figMessageRequest}
+\end{figure}
+
+A mensagem de resposta é constituída de 3 componentes principais: linha de estado, linha de cabeçalho e corpo de entidade. Na \textbf{linha de estado}, um campo
+interessante é o \textit{status code}, número pré-definido que indica se o resultado da requisição foi bem-sucedido, ou não, assim como o motivo. No \textbf{cabeçalho}
+são adicionadas pelo servidor informações como o tipo do objeto e seu tamanho em bytes. Por último, o \textbf{corpo da mensagem} em si, contendo os dados solicitados \cite[pp. 78]{redeskurose2010}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.55\textwidth]{img/mensagem-http-resposta.png}
+    \caption{Padrão de mensagem de resposta HTTP. Fonte:\cite{redeskurose2010}}\label{figMessageResponse}
+\end{figure}
+
+Dessa forma, o padrão HTTP assegura, independente de tecnologia, interação e comunicação entre clientes e servidores em todas as 
+etapas de comunicação. A internet é um grande exemplo de sistema em módulos, contribuindo para o desenvolvimento de aplicações web e 
+interoperabilidade nos mais diversos sistemas de computação.
+
 \section{Desenvolvimento de aplicativos Android}
 
 O Android possui uma extensa documentação, fornecendo os fundamentos para o desenvolvimento de 
@@ -119,21 +154,21 @@ aplicativos de alta qualidade e resilientes. Portanto, essa seção abordará as
 de arquitetura para a construção de aplicativos com uma experiência de usuário fluida e consistente. Tais práticas envolvem o profundo
 conhecimento de componentes de aplicativo, fluxos de trabalho e ciclo de vida da camada de visualização. Ao seguir uma arquitetura, 
 o desenvolvedor de \textit{software} consegue melhorar sua produtividade e a qualidade de entregas, pois uma base de código aderente ao 
-padrão escolhido facilita a manutenção, desenvolvimento de novas funcionalidades e promove a colaboração entre equipes \cite{google-developers-guideline}.
+padrão escolhido facilita a manutenção, o desenvolvimento de novas funcionalidades e promove a colaboração entre equipes \cite{google-developers-guideline}.
 
 \subsection{Recomendação de Arquitetura}
 
 Um princípio muito usado na área de desenvolvimento de software é o chamado \textit{separation of concerns}, ou separação de responsabilidades. Esse conceito, no ecossistema Android,
-atua na divisão do sistema em partes menores, específicas para uma determinada função e com um objetivo bem definido. Por exemplo, não misturar lógica de 
-negócio ou acesso aos dados na camada de visualização (UI), tornando-a  responsável apenas pela interação com o usuário. Diante disso, a documentação recomenda a separação em (pelo menos)
+atua na divisão do sistema em partes menores, específicas para uma determinada função e com objetivo bem definido. Por exemplo, não misturar lógica de 
+negócio ou acesso aos dados na camada de visualização (UI), tornando-a  responsável apenas pela interação com o usuário e renderização de componentes nativos. Diante disso, a documentação recomenda a separação em (pelo menos)
 duas camadas principais: \textit{UI} e \textit{Data}. A camada de \textit{UI} é responsável por exibir os dados do aplicativo, refletindo a mudança na tela em resposta às
 interações do usuário (como cliques ou pressionamento de botões) ou a eventos externos (como a resposta de uma requisição de rede). Por sua vez, a camada \textit{Data} fornece à camada de \textit{UI} 
-um acesso simplificado aos dados, além de abrigar a lógica de negócio e o gerenciamento adequado de cada tipo de dado. Opcionamente, pode-se adicionar uma terceira camada entre as duas chamada de \textit{Domain Layer}.
-Sua função é intermediar a comunicação entre as duas camadas, abstraindo chamadas e eventos em um lugar centralizado \cite{google-developers-guideline}.
+um acesso simplificado aos dados, além de abrigar a lógica de negócio e o gerenciamento adequado de cada tipo de dado. Opcionalmente, pode-se adicionar uma terceira camada entre as duas, chamada de \textit{Domain Layer}.
+Sua função é intermediar a comunicação entre as camadas, abstraindo chamadas e eventos em um único lugar \cite{google-developers-guideline}.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=.73\textwidth]{img/app-android-layers.png}
+    \includegraphics[width=.63\textwidth]{img/app-android-layers.png}
     \caption{Camadas de arquitetura (App). Fonte:\cite{google-developers-guideline}}\label{figAppLayer}
 \end{figure}
 
@@ -142,12 +177,12 @@ Sua função é intermediar a comunicação entre as duas camadas, abstraindo ch
 O \textit{Activity lifecycle} (ciclo de vida de uma atividade) descreve todos os estados pelos quais uma activity passa, do momento em que é criada
 até quando é destruída. Uma \textit{activity} é uma classe que fornece uma janela para o aplicativo desenhar sua interface de usuário, pois um projeto Android 
 inicia sempre com uma \textit{activity}. O ciclo de vida de uma \textit{activity} passa por cinco etapas: 
-\textit{initialized}, \textit{created}, \textit{started}, \textit{resumed}, \textit{destroyed}. A seguir, será explicado o que ocorre em cada 
-uma delas e suas especificidades.
+\textit{initialized}, \textit{created}, \textit{started}, \textit{resumed}, \textit{destroyed}. A seguir, será explicado em detalhes
+cada estado atingido.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=.37\textwidth]{img/activity-lifecycle.png}
+    \includegraphics[width=.44\textwidth]{img/activity-lifecycle.png}
     \caption{Ciclo de vida de uma \textit{activity}. Fonte:\cite{google-developers-activity-lifecycle}}\label{figActivityLifeCycle}
 \end{figure}
 
@@ -164,12 +199,13 @@ O Model-View-ViewModel (MVVM) é um padrão de projeto de software criado por en
 cuja função é separar a lógica de software da configuração de interface do usuário. Além disso, esse padrão de projeto facilita a aplicação de testes de unidades e reutilização 
 de código. O \textit{Model} é o componente não visual que armazena a lógica de negócio e o modelo de dados do domínio da aplicação, pois recebe e envia dados da \textit{ViewModel} 
 para que ela interaja com a \textit{View}. A \textit{View} são os elementos visíveis de interação com o usuário, pois recebem entradas de dados e eventos de \textit{UI}. Por fim, a
-\textit{ViewModel} implementa propriedades e funções para que a \textit{View} se associe aos dados e receba eventos de notificação para renderizar atualizações na camada de \textit{Model} \cite{mvvm-documentation}.
+\textit{ViewModel} implementa propriedades e funções para que a \textit{View} se associe aos dados e receba eventos de notificação para renderizar atualizações na camada de \textit{Model}, pois
+sua ação é desacoplar o código entre os dois componentes \cite{mvvm-documentation}.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=.57\textwidth]{img/mvvm-pattern.png}
-    \caption{MVVM. Fonte:\cite{mvvm-documentation}}\label{figMVVM}
+    \includegraphics[width=.87\textwidth]{img/mvvm-pattern.png}
+    \caption{Arquitetura MVVM. Fonte:\cite{mvvm-documentation}}\label{figMVVM}
 \end{figure}
 
 No Android, a \textit{ViewModel} possui o papel de persistência de dados quando ocorre mudança 
