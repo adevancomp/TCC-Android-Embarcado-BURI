@@ -293,3 +293,11 @@ em ambientes internos utilizando o protocolo MQTT e serviços da AWS. O módulo 
 nuvem para uma visualização em tempo real. O sistema alerta o usuário caso a qualidade do ar seja inadequada. Na arquitetura utilizada, os microcontroladores ficam espalhados 
 pelo ambiente e enviam seus dados para o dispositivo central (\textit{Raspberry Pi}), pois o computador têm acesso ao servidor da AWS IoT e envia os dados coletados via protocolo MQTT.
 
+No trabalho \textit{AirWorld} \cite{UFAMAirWorld} a solução proposta é um aplicativo móvel informativo de qualidade do ar para ambientes públicos, pois 
+sua interface informa dados do ambiente atual e orienta a prática de atividades físicas ou lazer. Os sensores utilizados foram o DHT11 para umidade do ar e temperatura, MQ7 para identificação do gás monoxído de 
+carbono e, por último, o MQ-135 para dióxido de carbono, alcóol e outras substâncias tóxicas. Portanto, na arquitetura os dados são lidos pelo microcontrolador 
+\textit{Lora ESP32 Heltec}, que envia para o \textit{Firebase} armazenar e exibir os dados no aplicativo Android. 
+
+Além disso, o projeto possui tela de ajuda. A interface oferece ao usuário conhecimento sobre a qualidade do ar, poluentes que afetam sua composição e diretrizes de órgãos como a OMS sobre 
+como identificar níveis de poluição com base nos parâmetros medidos pelo protótipo de \textit{hardware}. Portanto, a solução demonstra preocupação com às necessidades públicas, pois ao integrar 
+no aplicativo os dados de ambiente em tempo real e informativos sobre saúde, o sistema promove conscientização e segurança nas práticas diárias de atividades físicas.
