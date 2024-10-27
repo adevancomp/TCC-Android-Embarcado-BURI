@@ -274,3 +274,22 @@ a intoxicação por monóxido de carbono, o paciente é submetido à terapia com
 
 \section{Trabalhos relacionados}
 
+O uso de sistemas embarcados na resolução de problemas de monitoramento de ambiente e prevenção 
+de acidentes detêm uma ampla literatura disponível, justificando o uso de IoT em diversos setores 
+presentes na sociedade, como, por exemplo, indústria, agricultura e residência. Portanto, esta seção 
+discutirá soluções que compõe a base para o desenvolvimento do presente trabalho.
+
+O trabalho de Sá possui foco no uso de dispositivos na área de IoT para a prevenção de incêndios em ambientes residenciais \cite{uea-iot-deteccao-incendio}. 
+O protótipo desenvolvido é uma solução web para monitoramento de variáveis com uso do módulo NodeMCU ESP12, pois o microcontrolador envia dados de temperatura, gás inflamável e de 
+fumaça por rede Wi-Fi para o backend da aplicação, feito em MySQL e PHP. No componente de hardware, os sensores utilizados foram o BM280 (Sensor de temperatura digital) e
+MQ2 (Sensor de gás/fumaça), assim como o atuador do tipo válvula para acionar o desligamento de gás de cozinha em situação de vazamento, evitando incêndio ou minimizando seus efeitos.
+
+No contexto de proteção e acomodação dos componentes eletrônicos, foi confeccionado um \textit{case} personalizado por impressão 3D, o que conferiu acabamento 
+e proteção ao protótipo. A autora também desenvolveu uma placa de circuito impresso (PCB), onde montou os sensores, atuadores e a conexão com o microcontrolador. Por fim, realizaram-se 
+diversos testes e simulações, incluindo a simulação de fumaça, em que o dispositivo foi colocado na caixa com fumaça confinada, além de testes com variação de temperatura e queima de papel para acionamento do alarme. 
+
+Semelhante ao anterior, o trabalho intitulado ``Indoor Air Quality Monitoring on AWS Using MQTT Protocol'' \cite{iot-monitoring-on-aws} mostra o desenvolvimento de um módulo de monitoramento da qualidade do ar 
+em ambientes internos utilizando o protocolo MQTT e serviços da AWS. O módulo proposto utiliza sensores para medir a qualidade do ar interno, incluindo CO\textsubscript{2}, O\textsubscript{2} e poeira, com os dados sendo enviados e armazenados na 
+nuvem para uma visualização em tempo real. O sistema alerta o usuário caso a qualidade do ar seja inadequada. Na arquitetura utilizada, os microcontroladores ficam espalhados 
+pelo ambiente e enviam seus dados para o dispositivo central (\textit{Raspberry Pi}), pois o computador têm acesso ao servidor da AWS IoT e envia os dados coletados via protocolo MQTT.
+
