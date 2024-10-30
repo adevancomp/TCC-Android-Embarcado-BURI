@@ -301,3 +301,18 @@ carbono e, por último, o MQ-135 para dióxido de carbono, alcóol e outras subs
 Além disso, o projeto possui tela de ajuda. A interface oferece ao usuário conhecimento sobre a qualidade do ar, poluentes que afetam sua composição e diretrizes de órgãos como a OMS sobre 
 como identificar níveis de poluição com base nos parâmetros medidos pelo protótipo de \textit{hardware}. Portanto, a solução demonstra preocupação com às necessidades públicas, pois ao integrar 
 no aplicativo os dados de ambiente em tempo real e informativos sobre saúde, o sistema promove conscientização e segurança nas práticas diárias de atividades físicas.
+
+O protótipo construído no ``Intelligent based novel embedded system based IoT enabled air
+pollution monitoring system'' \cite{tbRelacionado4NovelEmbeddedSystem} abordou o uso de \textit{hardware} e \textit{software} na implementação 
+de uma solução para monitoramento da poluição ar usando o conceito de \textit{fog computing}, ou seja, computação em névoa. De acordo com os autores, o conceito de 
+\textit{fog computing} é uma estratégia adotada para o dispositivo de IoT responsável pela coleta dos dados também possuir a ação de processamento do grande volume de variáveis coletados e, 
+em seguida, enviar para o servidor na nuvem uma representação geral do estado, pois reduz a latência e economiza banda de rede.
+
+O funcionamento do projeto é estruturado em três camadas principais: \textit{device}, \textit{fog} e \textit{cloud}. Na camada \textit{device}, 
+a unidade de processamento central é um \textit{Raspberry Pi}, que atua como controlador principal. Em relação à \textit{fog layer}, estão os microcontroladores ESP 8266, responsáveis por receber, processar e 
+enviar os dados dos sensores para o nó mais próximo ou a nuvem diretamente. O nó foi projetado para uso de seis sensores, sendo eles: GP2Y1014AU0F, DSM501, MQ-7, GSNT11, SO2-AF,
+e MiCS2610-11, permitindo monitorar gases como $PM_{10}$, ${PM_{2.5}}$, CO, $NO_{2}$, $SO_{2}$ e $O_{3}$. No entanto, a adição do DHT11 para medição de temperatura e umidade do ar é justificada 
+pela dependência que alguns sensores de gás possuem em relação à temperatura, no processo de calibração. A energia é fornecida pela bateria de 9V, onde o módulo de controle converte a tensão para 5V e 3V, conforme a 
+necessidade de cada componente. Na \textit{cloud}, o servidor HTTP fornece APIs para os clientes consultarem todos os dados de qualidade do ar, por exemplo, o aplicativo Android com 
+gráficos das medições de cada variável medida e o histórico do mês.
+
