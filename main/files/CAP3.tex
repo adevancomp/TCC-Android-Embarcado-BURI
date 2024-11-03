@@ -73,7 +73,38 @@ algum dispositivo de automação residencial. Portanto, a solução da proposta 
 
 O sistema foi modelado segundo o padrão C4-model \cite{c4-model}. O C4 é um conjunto de ferramentas visuais usado para 
 o desenvolvedor de software comunicar a arquitetura do sistema, semelhante a um mapa, com os quatro níveis de detalhamento: \textit{context}, 
-\textit{container}, \textit{component} e \textit{code}. 
+\textit{container}, \textit{component} e \textit{code}. Na figura \ref{figContextDiagram} observa-se o diagrama de contexto, onde é demonstrado 
+que o usuário doméstico têm acesso ao sistema BURI por meio de comunicação via protocolo HTTP e por Bluetooth\textsuperscript{\textregistered}. Em seguida, o 
+sistema de monitoramento utiliza a ferramenta ngrok \cite{ngrok} na criação de um túnel HTTP, permitindo a API do \textit{backend} ser acessível tanto pelo equipamento 
+embarcado quanto pelo aplicativo Android na internet. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.87\textwidth]{img/context-diagram.png}
+    \caption{Diagrama de contexto. Fonte:Autor}\label{figContextDiagram}
+\end{figure}
+
+O próximo diagrama é o de \textit{container}. Seu objetivo é detalhar como a aplicação é composta em termos de contêineres, ou seja, os elementos implantáveis e componentes de software 
+para o pleno funcionamento do projeto. Em relação ao desenvolvimento de software, o projeto se divide em três módulos: servidor, aplicativo e banco de dados. O servidor cuida das regras
+de negócio, como cadastro de usuários, dispositivos e login, mas também têm responsabilidade no armazenamento de medições do equipamento embarcado, pois opera sob o protocolo HTTP para o envio 
+de alerta em casos de dados extremos.
+
+A segunda parte é o aplicativo Android. O módulo é a interface do sistema com o usuário doméstico, pois todo o fluxo de informação entre os 
+diferentes componentes são fonte para a visualização no \textit{smartphone} do indivíduo. Entre suas funcionalidades, destaca-se: monitoramento em tempo real, configuração do dispositivo físico, 
+criação de conta, recebimento de notificações de alerta e informativo sobre as consequênciais de inalação de CO em períodos prolongados.
+
+Por último, o Banco de Dados como responsável por armazenar todas as informações do sistema de monitoramento. Os dados de medição são organizados por dispositivo, onde 
+cada um realiza o monitoramento de temperatura, umidade do ar e concentração de monóxido de carbono. Além disso, a estrutura de dados é otimizada para registrar tanto eventos críticos quanto 
+medições dentro dos parâmetros normais.
+
+Sobre o \textit{hardware}, o sistema utiliza o ESP32 como núcleo do dispositivo embarcado, juntamente com os sensores DHT22 para medição de temperatura e umidade do ar e o MQ-7 para 
+detecção de concentrações de monóxido de carbono (CO). O microcontrolador atua no recebimento e envio de dados desses sensores e gerencia a comunicação com o servidor e o aplicativo Android. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.94\textwidth]{img/conteiner-diagram.png}
+    \caption{Diagrama de container. Fonte:Autor}\label{figConteinerDiagram}
+\end{figure}
 
 \section{Particionamento (Hw/Sw)}\label{fase3}
 
