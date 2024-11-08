@@ -56,6 +56,7 @@ class LoginFragment : Fragment() {
         loginViewModel.state.observe(viewLifecycleOwner){ state ->
             binding.pbCls.isVisible = state.isProgressVisible
             if(state.isErrorMessageVisible){
+                Log.e("BURI",state.errorMessage ?: "ERROR NO LOGIN")
                 Snackbar.make(
                     binding.btLogin,
                     state.errorMessage ?: "Erro no Login",

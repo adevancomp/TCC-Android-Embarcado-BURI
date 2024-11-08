@@ -107,6 +107,8 @@ class EquipmentRegisterFragment : Fragment() {
                 Snackbar.LENGTH_LONG
             ).setTextColor(
                 ContextCompat.getColor(requireContext(), R.color.black)
+            ).setActionTextColor(
+                ContextCompat.getColor(requireContext(), R.color.black)
             ).setAction("Copiar URL da API"){
                     val clipBoard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     val clip = ClipData.newPlainText("API URL", BuildConfig.BASE_URL_API)
@@ -114,7 +116,7 @@ class EquipmentRegisterFragment : Fragment() {
                     Toast.makeText(requireContext(),"URL copiada para a área de transferência",Toast.LENGTH_SHORT).show()
                 }
                 .setBackgroundTint(
-                    ContextCompat.getColor(requireContext(),R.color.color_red)
+                    ContextCompat.getColor(requireContext(),R.color.green_primary)
                 ).show()
         }
         btOwner.setOnClickListener {

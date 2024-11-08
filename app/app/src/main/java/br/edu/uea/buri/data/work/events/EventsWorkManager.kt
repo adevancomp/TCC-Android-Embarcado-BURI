@@ -87,6 +87,7 @@ class EventsWorkManager @AssistedInject constructor(
             .setSmallIcon(R.drawable.tasks)
             .setContentTitle("Novo Evento: ${event.type}")
             .setContentText(event.message)
+            .setStyle(NotificationCompat.BigTextStyle().bigText("Mensagem: ${event.message}"))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 

@@ -28,7 +28,7 @@ class EqpInfoViewModel (
                 val measurement: Measurement? = fetchLastMeasurement()
                 measurement?.let {
                     _state.value  = InfoState.Success(it, _state.value.isOnline)
-                    delay(120000)
+                    delay(66000)
                 }
             }
         }
@@ -46,7 +46,7 @@ class EqpInfoViewModel (
             }
         } else {
             val measurementLasted = buriBluetoothRepo.getMeasurement()
-            if(buriBluetoothRepo.isError.value == true || measurementLasted==null || measurementLasted.toMeasurement().equipmentId != equipmentId) {
+            if(buriBluetoothRepo.isError.value == true || measurementLasted==null) {
                 _state.value = InfoState.Failed("Erro no bluetooth",_state.value.isOnline)
                 return null
             } else{

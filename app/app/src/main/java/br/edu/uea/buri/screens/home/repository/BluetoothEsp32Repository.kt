@@ -115,7 +115,7 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                 bluetoothSocket?.inputStream?.let {
                         stream: InputStream ->
 
-                    val buffer = ByteArray(200)
+                    val buffer = ByteArray(100)
                     val bytes = stream.read(buffer)
                     val receivedMessage = String(buffer, 0, bytes)
 
@@ -127,7 +127,7 @@ class BluetoothEsp32Repository @Inject constructor(@ApplicationContext private v
                             air = BigDecimal(jsonObject.getString("airH")),
                             tmp = BigDecimal(jsonObject.getString("temp")),
                             collectionDate = "",
-                            equipmentId = jsonObject.getString("equipmentId")
+                            equipmentId = ""
                         )
                     } catch (e: Exception){
                         Log.e("BURI", "Erro ao desserializar JSON recebido por bluetooth: ${e.message}")
