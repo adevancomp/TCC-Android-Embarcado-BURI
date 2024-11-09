@@ -1,0 +1,29 @@
+@startuml Ecopoints
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_LEFT_RIGHT()
+
+title Diagrama de Componentes (Software) BURI
+
+AddElementTag("1", $bgColor="Green", $borderColor="DarkGreen", $fontColor="White")
+
+Component(app,"Aplicativo","Aplicativo BURI", $tags="1")
+Component(buriHardware,"Buri Hardware","Dispositivo de medição da contaminação do ar", $tags="1")
+
+Enterprise_Boundary(server,"Servidor web"){
+    Component(accountController,"Account Controller","Gerencia autenticação e criação de usuários", $tags="1")
+    Component(eventController,"Event Controller","Dispara eventos críticos com base nos dados de um equipamento", $tags="1")
+    Component(measurementController,"Measurement Controller","Armazena os dados de cada dispositivo em uma banco de dados", $tags="1")
+    ContainerDb(db, "Banco de Dados", "Postgresql 14", $tags="1")
+}
+
+Rel(accountController,db,"Envia dados de usuário para")
+Rel(db,eventController,"Envia dados de medição para")
+Rel(measurementController,db,"Salva dados de medição no")
+Rel(app,server,"Realiza requisições para")
+Rel(buriHardware,measurementController,"envia dados de medição para")
+
+@enduml

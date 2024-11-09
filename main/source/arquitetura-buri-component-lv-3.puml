@@ -1,0 +1,26 @@
+@startuml Ecopoints
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+SHOW_PERSON_PORTRAIT()
+
+title Diagrama de Componentes (Hardware) BURI
+
+AddElementTag("1", $bgColor="Green", $borderColor="DarkGreen", $fontColor="White")
+
+Component(esp32,"Microcontrolador ESP32","Chip responsável pela leitura de sensores e comunicação com o app e servidor", $tags="1")
+Component(server,"Servidor","API de coleta de dados e envio de alerta sobre o ambiente", $tags="1")
+Component(app,"Aplicativo","Aplicativo BURI", $tags="1")
+Component(dht,"DHT11","Sensor de umidade e temperatura do ar", $tags="1")
+Component(mq7,"MQ7","Sensor de monóxido de carbono (CO)", $tags="1")
+Component(led,"LED","Atuador para indicar modo de funcionamento (online/offline)", $tags="1")
+
+Rel(esp32,server,"Envia dados para")
+Rel(esp32,dht,"Lê dados do")
+Rel(esp32,mq7,"Lê dados do")
+Rel(esp32,led,"Envia sinal pra acender/apagar o")
+Rel(esp32,app,"Envia dados para")
+Rel(app,esp32,"Configura o")
+
+@enduml

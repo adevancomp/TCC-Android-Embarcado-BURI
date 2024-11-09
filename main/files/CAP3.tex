@@ -97,7 +97,7 @@ Por último, o Banco de Dados como responsável por armazenar todas as informaç
 cada um realiza o monitoramento de temperatura, umidade do ar e concentração de monóxido de carbono. Além disso, a estrutura de dados é otimizada para registrar tanto eventos críticos quanto 
 medições dentro dos parâmetros normais.
 
-Sobre o \textit{hardware}, o sistema utiliza o ESP32 como núcleo do dispositivo embarcado, juntamente com os sensores DHT22 para medição de temperatura e umidade do ar e o MQ-7 para 
+Sobre o \textit{hardware}, o sistema utiliza o ESP32 como núcleo do dispositivo embarcado, juntamente com os sensores DHT11 para medição de temperatura e umidade do ar e o MQ-7 para 
 detecção de concentrações de monóxido de carbono (CO). O microcontrolador atua no recebimento e envio de dados desses sensores e gerencia a comunicação com o servidor e o aplicativo Android. 
 
 \begin{figure}[ht]
@@ -105,6 +105,8 @@ detecção de concentrações de monóxido de carbono (CO). O microcontrolador a
     \includegraphics[width=.94\textwidth]{img/conteiner-diagram.png}
     \caption{Diagrama de container. Fonte:Autor}\label{figConteinerDiagram}
 \end{figure}
+
+
 
 \section{Particionamento (Hw/Sw)}\label{fase3}
 
