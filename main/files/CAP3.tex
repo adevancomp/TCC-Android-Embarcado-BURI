@@ -98,7 +98,8 @@ cada um realiza o monitoramento de temperatura, umidade do ar e concentração d
 medições dentro dos parâmetros normais.
 
 Sobre o \textit{hardware}, o sistema utiliza o ESP32 como núcleo do dispositivo embarcado, juntamente com os sensores DHT11 para medição de temperatura e umidade do ar e o MQ-7 para 
-detecção de concentrações de monóxido de carbono (CO). O microcontrolador atua no recebimento e envio de dados desses sensores e gerencia a comunicação com o servidor e o aplicativo Android. 
+detecção de concentrações de monóxido de carbono (CO). O microcontrolador atua no recebimento e envio de dados desses sensores e gerencia a comunicação com o servidor e o aplicativo Android. No teste de usabilidade 
+do sistema foi utilizada como fonte de energia elétrica a porta USB do notebook, porém o projeto possui um conector para tomadas domésticas.
 
 \begin{figure}[ht]
     \centering
@@ -106,7 +107,27 @@ detecção de concentrações de monóxido de carbono (CO). O microcontrolador a
     \caption{Diagrama de container. Fonte:Autor}\label{figConteinerDiagram}
 \end{figure}
 
+A próxima camada de abstração é representada pelo diagrama de componentes. Cada componente possui um conjunto de responsabilidades, ou seja, uma tarefa 
+bem definida na arquitetura e também interage com outros componentes mediante interfaces, ou contratos. Dito isso, a primeira representação é o diagrama de componentes do \textit{hardware}, pois ele detalha 
+os sensores utilizados pelo microcontrolador, assim como os atuadores: LED, para sinalização visual do modo de operação do circuito eletrônico; o \textit{push button}, para controle e troca do modo de operação (\textit{online}/\textit{offline}). Portanto, 
+o \textit{hardware} também se comunica com o servidor e o aplicativo Android para envio de dados.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.84\textwidth]{img/component-diagram-hardware.png}
+    \caption{Diagrama de Componente (\textit{Hardware}). Fonte:Autor}\label{figComponentHardware}
+\end{figure}
+
+Por último, será apresentado o diagrama de componentes do \textit{software}. O servidor tem acesso direto ao banco de dados e possui três principais controladores: \textit{Account Controller}, \textit{Measurement Controller} e \textit{Event Controller}. O primeiro 
+gerencia os dados de usuário e seus dispositivos cadastrados, além de configurar o processo de autenticação e \textit{login} via dados de email e senha. Em seguida, o \textit{Measurement Controller} é interface responsável pelo recebimentos dos dados de cada dispositivo eletrônico, assim como 
+o compartilhamento de informação com o aplicativo Android. O \textit{Event Controller} é o principal responsável na emissão de alerta de risco no aplicativo, pois o controlador recebe os dados em tempo real do banco de dados e avalia 
+com base em alguns parâmetros se o ambiente possui comportamento perigoso e cria um novo evento no Banco de Dados.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.94\textwidth]{img/component-diagram-software.png}
+    \caption{Diagrama de Componente (\textit{Software}). Fonte:Autor}\label{figComponentSoftware}
+\end{figure}
 
 \section{Particionamento (Hw/Sw)}\label{fase3}
 
