@@ -3,19 +3,19 @@
 Este capítulo aborda em detalhes os principais conceitos e tecnologias que fundamentam o projeto, incluindo temas como Internet das Coisas (\textit{IoT}), Sistemas Distribuídos, 
 redes de comunicação como Wi-Fi e Bluetooth, protocolo de comunicação HTTP, desenvolvimento de software para a plataforma Android, características do microcontrolador ESP32, monitoramento de 
 exposição ao monóxido de carbono e trabalhos relacionados. Todos os tópicos citados possuem papel crucial no desenvolvimento da solução proposta no trabalho de conclusão de curso. Dessa forma, o
-objetivo é fornecer ao leitor uma visão abrangente das competências técnicas e teóricas aplicadas em sua execução.
+objetivo é fornecer ao leitor uma visão abrangente das competências desenvolvidas em sua execução.
 
 \section{Internet das Coisas}
 
-O termo \textit{Internet das Coisas} (\textit{IoT}, da expressão em inglês \textit{Internet of Things}) foi utilizado primeiramente em 1999 pelo então pesquisador do \textit{Massachusetts Institute of Technology} (MIT) Kevin Asthon em 
+O termo \textit{Internet das Coisas} (\textit{IoT}, da expressão em inglês \textit{Internet of Things}) foi utilizado primeiramente em 1999 pelo então pesquisador do \textit{Massachusetts Institute of Technology} (MIT) Kevin Asthon, em 
 uma apresentação na Procter \& Gamble (P\&G) sobre a tecnologia do \textit{Radio Frequency Identification} (RFID). O RFID é uma tecnologia utilizada para a identificação e rastreamento de objetos, animais ou pessoas 
 via ondas de rádio. Portanto, Asthon pontuou a possibilidade de utilizar tal ferramenta para gerenciar a cadeia de suprimentos da empresa, pois sua capacidade de ler vários emissores simultaneamente, sem a necessidade de linha de visão direta entre o leitor 
 e a tag (ao contrário do códigos de barras) torna o monitoramento de cada produto nos distintos pontos de transporte mais preciso. A ideia do autor consiste na responsabilidade dos próprios objetos sobre a coleta de dados
-e reação aos estímulos do ambiente, pois os computadores podem reduzir custos e o desperdício apenas tomando decisões com base na sua própria observação do mundo externo \cite{iot-first-definition}.
+e reação aos estímulos do ambiente, pois os computadores podem reduzir custos com base em decisões pautadas na observação do mundo exterior \cite{iot-first-definition}.
 
 \textit{IoT} possui muitas definições. Embora não haja um consenso para uma definição única, podemos discutir sobre seu impacto na sociedade atual e aspectos importantes que toda solução na área possui. No livro \textit{The Internet  of Things}, escrito por 
 Samuel Greengard, o tema é abordado como um evento disruptivo, onde a linha que separa o humano e a tecnologia se torna cada vez menos visível, porém o texto aborda não somente a capacidade de conexão entre as máquinas, e sim a autonomia 
-e ``inteligência'' crescente dos sistemas embarcados \cite[pp. 17]{book-iot}. Essa visão de tecnologia integrada no cotidiano é o conceito que o autor Mark Weiser aborda no seu artigo denominadao \textit{The Computer for the 21st Century}. A computação ubíqua 
+e ``inteligência'' crescente dos sistemas embarcados \cite[pp. 17]{book-iot}. Essa visão de tecnologia integrada no cotidiano é o conceito que o autor Mark Weiser aborda no seu artigo, denominado \textit{The Computer for the 21st Century}. A computação ubíqua 
 é o processo de tornar os computadores ``invisíveis'' aos nossos olhos, desenvolvendo a comunicação com tais ferramentas o mais próximo possível da forma humana, ou seja, o dispositivo tem conexão com a rede e responde aos estímulos do usuário por 
 interfaces naturais, por exemplo, a fala e gestos com as mãos \cite{ubiquitous-computing}.
 
@@ -40,12 +40,12 @@ decisões da equipe de gestão, em busca de eficiência. Portanto, a Internet da
 A definição do autor leva em conta dois importantes fatores: o primeiro é a comunicação via rede de computadores, e o segundo está relacionado ao provisionamento de um serviço.
 O mundo atual oferece inúmeros exemplos de sistemas distribuídos atuando no desenvolvimento socioeconômico. A modalidade de educação à distância \cite{mec-ead}, por exemplo, utiliza serviços 
 web e compartilhamento multimídia para levar o ensino de qualidade a pessoas fisicamente distantes dos grandes centros de ensino ou sem infraestrutura escolar adequada, como em comunidades 
-ribeirinhas e regiões rurais. Outro caso é o da telemedicina, onde os sistemas distribuídos permitem que os dados de pacientes e consultas virtuais sejam realizadas com 
-especialistas em diversas áreas da medicina, facilitando exame e diagnóstico de diversas doenças na população residente em regiões de difícil acesso \cite{telemedicina}. A preservação do meio ambiente 
+ribeirinhas e regiões rurais. Outro caso é o da telemedicina, onde os sistemas distribuídos permitem que consultas virtuais seguras sejam realizadas com 
+especialistas em diversas áreas da medicina, facilitando o exame e diagnóstico de doenças na população residente em regiões de difícil acesso \cite{telemedicina}. A preservação do meio ambiente 
 também se beneficia do uso de sistemas distribuídos, pois o ``Curupira'' é um exemplo de sistema de monitoramento para áreas de floresta fechada com o intuito de detectar ameaças de desmatamento. O projeto utiliza 
-uma rede de sensores que enviam sinais de perigo para um roteador central, com área de 15 Km \cite{curupira}.
+uma rede de sensores que enviam sinais de perigo para um roteador central, com área de cobertura de 15 Km \cite{curupira}.
 
-Portanto, o sistema distribuído tem foco no compartilhamento de recursos. Na web, a implementação de arquitetura mais comum é o modelo cliente-servidor, pois
+Portanto, sistema distribuído tem foco no compartilhamento de recursos. Na web, a implementação de arquitetura mais comum é o modelo cliente-servidor, pois
 um número grande de aplicações utiliza essa premissa, por exemplo, plataformas de redes sociais, jogos online e serviços bancários.
 Ao nível do Sistema Operacional, a comunicação entre processos executados em diferentes computadores interligados em rede é essencial para o gerenciamento e acesso aos recursos distribuídos.
 Nesse contexto, um cliente, que pode ser um processo ou aplicativo, realiza uma solicitação ao servidor para acessar ou manipular um recurso, como arquivos, impressoras, ou mesmo capacidade de processamento. O servidor, 
@@ -60,15 +60,15 @@ importante em sistemas críticos como por exemplo em sistemas de controle aéreo
 
 ``A internet é um subsistema de comunicação único que fornece comunicação entre todos os hosts conectados a ela'' \cite[pp. 96]{sistemas-distribuidos-coulouris2013}. Portanto, uma rede de computadores 
 permite que sistemas se comuniquem e troquem mensagens por protocolos, sendo estes um conjunto específico de regras para o envio e recebimento de dados. No contexto de redes locais sem fio, esta seção trata de duas 
-implementações utilizadas no sistema BURI: Wi-Fi\textsuperscript{\textregistered} e Bluetooth\textsuperscript{\textregistered}. A primeira tecnologia tem aplicação em redes locais de velocidade alta em residências e locais públicos. Porém, a segunda trata-se de uma comunicação direta entre dois 
-dispositivos e possui um alcance muito menor, assim como um baixo consumo de energia.
+implementações utilizadas no sistema BURI: Wi-Fi e Bluetooth. A primeira tecnologia tem aplicação em redes locais de velocidade alta em residências e locais públicos. Porém, a segunda trata-se de uma comunicação direta entre dois 
+dispositivos e possui alcance muito menor, assim como baixo consumo de energia.
 
-Por se tratar de um sistema crítico, visto que envolve detecção de gases asfixiantes, o sistema proposto deve ser tolerante à falha. Portanto, a rede Wi-Fi\textsuperscript{\textregistered} tem como papel o acesso à Internet e armazenamento do histórico de dados, enquanto o 
-Bluetooth\textsuperscript{\textregistered} realiza a transmissão de dados em tempo real para o dispositivo mais próximo, ou seja, o celular do usuário com o aplicativo móvel.
+Por se tratar de um sistema crítico, visto que envolve detecção de gases asfixiantes, o sistema proposto deve ser tolerante à falha. Portanto, a rede Wi-Fi tem como papel o acesso à Internet e armazenamento do histórico de dados, enquanto o 
+Bluetooth realiza a transmissão de dados em tempo real para o dispositivo mais próximo, ou seja, o celular do usuário com o aplicativo móvel.
 
 \subsection{Wi-Fi}
 
-A rede Wi-Fi\textsuperscript{\textregistered}, inicialmente designada como a \textbf{LAN sem fio IEE 802.11}, é uma tecnologia de comunicação 
+A rede Wi-Fi, inicialmente designada como a \textbf{LAN sem fio IEE 802.11}, é uma tecnologia de comunicação 
 que permite aos hospedeiros sem fio acesso a redes maiores por uma infraestrutura baseada em pontos de acesso (\textit{access point} - AP). Em termos 
 de arquitetura, o hospedeiro móvel realiza uma varredura e encontra APs disponíveis através do envio periódico de quadros de sinalização por parte dos pontos, contendo o identificador da 
 rede SSID (do inglês, \textit{Service Set Identifier}) e o endereço MAC do AP. Em seguida, o usuário escolhe um desses pontos para 
@@ -92,7 +92,7 @@ ao receptor o quão fácil ele consegue retirar a informação do sinal recebido
 
 ``Bluetooth é uma tecnologia de rede pessoal sem fio que surgiu a partir da necessidade de
 conectar telefones móveis a PDAs, notebooks e outros equipamentos pessoais sem fios'' \cite[pp. 138]{sistemas-distribuidos-coulouris2013}. A tecnologia
-possui como restrições o baixo consumo de energia e uso na comunicação entre dispositivos portáteis, pois, diferente do Wi-Fi\textsuperscript{\textregistered}, o Bluetooth\textsuperscript{\textregistered} 
+possui como restrições o baixo consumo de energia e uso na comunicação entre dispositivos portáteis, pois, diferente do Wi-Fi, o Bluetooth 
 necessita de menor largura de banda e alcance de transmissão. No começo, o padrão realizava transporte de voz no meio digital com dispositivos de baixo consumo. Atualmente, seu uso em todo o mundo é para conectar 
 dispositivos eletrônicos como mouses sem fio, teclados, fones de ouvido e demais dispositivos móveis. A conexão ocorre pelo ``emparelhamento'', processo onde dois dispositivos 
 trocam informações, como a chave de segurança do outro ou a comparação de número (PIN), e salvam os dados para o uso em conexões futuras \cite{blueetoothIntel}. 
@@ -103,11 +103,11 @@ trocam informações, como a chave de segurança do outro ou a comparação de n
     \caption{Descrição do funcionamento do Bluetooth. Fonte:\cite{bluetoothDocumentation}}\label{figBluetooth}
 \end{figure}
 
-O Bluetooth\textsuperscript{\textregistered} é implementado em duas formas: \textit{Basic Rate} (BR) e \textit{Low Energy} (LE). A diferença entre eles é que o sistema LE
+O Bluetooth é implementado em duas formas: \textit{Basic Rate} (BR) e \textit{Low Energy} (LE). A diferença entre eles é que o sistema LE
 possui recursos para menor consumo de corrente, baixa complexidade e custo para dispositivos cujo funcionamento tem restrição energética. O \textit{Bluetooth core system} 
 organiza-se em um \textit{host} e um ou vários \textit{controllers}, onde o \textit{host} é o componente responsável 
 por gerenciar os níveis acima da HCI (\textit{Host Controller Interface}) e abaixo dos perfis de aplicação externos ao protocolo. Por outro lado, o \textit{controller} 
-lida com as camadas inferiores da pilha Bluetooth\textsuperscript{\textregistered}, como o controle do \textit{hardware} no envio e recebimento de sinais via ondas de rádio. Portanto, o 
+lida com as camadas inferiores da pilha Bluetooth, como o controle do \textit{hardware} no envio e recebimento de sinais via ondas de rádio. Portanto, o 
 HCI funciona como uma ponte entre os dois sistemas e atribui característica modular ao processo. A figura \ref{figBluetooth} mostra as principais configurações: um \textit{host} com um \textit{controller} LE; 
 um \textit{host} e um \textit{controller} BR/EDR, com rádio, banda de base e um gerenciador de links e, por fim, um esquema de configuração que junta ambas as implementações de Blueetooth para o dispositivo atuar inerente 
 ao modo de implementação dos dispositivos alvo de conexão \cite{bluetoothDocumentation}.
@@ -116,7 +116,7 @@ ao modo de implementação dos dispositivos alvo de conexão \cite{bluetoothDocu
 
 O HTTP (em inglês, \textit{HyperText Transfer Protocol}) é o protocolo pertencente à camada de aplicação responsável por definir a estrutura de mensagens HTTP e a forma do programa cliente e do programa servidor 
 trocarem informações. O protocolo obedece à arquitetura cliente-servidor, ou seja, o cliente (geralmente um navegador Web) envia uma requisição ao servidor, que deverá processá-la e responder com um resultado, denominado resposta. O HTTP é um protocolo extensível, pois 
-as solicitações de recursos poder ser realizadas em diversos formatos, como mídias, textos, áudios e muitos mais. A identificação na web de cada recurso é realizada pelo conceito de URL (em inglês, \textit{Uniform Resource Locator}) responsável por identificar de maneira única um objeto na internet \cite[pp. 72]{redeskurose2010}
+as solicitações de recursos poder ser realizadas em diversos formatos, como mídias, textos, áudios e muitos mais. A identificação na web de cada recurso é realizada pelo conceito de URL (em inglês, \textit{Uniform Resource Locator}), responsável por identificar de maneira única um objeto na internet \cite[pp. 72]{redeskurose2010}
 
 Sobre o padrão de mensagens, o protocolo HTTP define o conjunto de requisição e resposta. Na mensagem de requisição, temos o elemento
 chamado \textbf{método}, esse campo define qual a ação que o usuário deseja executar, sendo comum o uso de verbos
@@ -151,7 +151,7 @@ interoperabilidade nos mais diversos sistemas de computação.
 
 O Android possui uma extensa documentação, fornecendo os fundamentos para o desenvolvimento de 
 aplicativos de alta qualidade e resilientes. Portanto, essa seção abordará as melhores práticas e recomendações
-de arquitetura para a construção de aplicativos com uma experiência de usuário fluida e consistente. Tais práticas envolvem o profundo
+de arquitetura para a construção de aplicativos. Tais práticas envolvem o profundo
 conhecimento de componentes de aplicativo, fluxos de trabalho e ciclo de vida da camada de visualização. Ao seguir uma arquitetura, 
 o desenvolvedor de \textit{software} consegue melhorar sua produtividade e a qualidade de entregas, pois uma base de código aderente ao 
 padrão escolhido facilita a manutenção, o desenvolvimento de novas funcionalidades e promove a colaboração entre equipes \cite{google-developers-guideline}.
