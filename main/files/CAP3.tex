@@ -1,6 +1,6 @@
 \chapter{Proposta de solução}
 
-Neste capítulo serão apresentados os componentes e procedimentos utilizados na elaboração da proposta de solução, denominada de ``BURI''. Conforme as
+Neste capítulo serão apresentados os componentes e procedimentos utilizados na elaboração da proposta de solução, denominada ``BURI''. Conforme as
 etapas definidas na metodologia, ocorre inicialmente a discussão sobre a fase de pesquisa na Seção \ref{fase1}, seguida pela especificação 
 das funcionalidades e comportamento do sistema BURI, contextualizados na Seção \ref{fase2}. O particionamento e execução de atividades nas áreas de 
 \textit{hardware} e \textit{software} são explicados nas Seções \ref{fase3} e \ref{fase4}, respectivamente. Na Seção \ref{fase5},  o aplicativo Android e o 
@@ -11,31 +11,27 @@ do projeto e guia de instalação na Seção \ref{fase6}.
 
 A primeira fase consiste na compreensão do problema. O objetivo é encontrar trabalhos semelhantes sobre o uso de IoT no monitoramento da qualidade do ar, assim 
 como as consequências fisiológicas de inalação prolongada de monóxido de carbono, e identificar, através de um questionário aplicado aos alunos, as preocupações relacionadas 
-à qualidade do ar no ambiente doméstico.
+ao tema no ambiente doméstico.
 
 Em primeiro lugar, realizou-se uma revisão da literatura para identificar pesquisas no âmbito de tecnologias IoT e monitoramento do ar com foco 
-em prevenção de acidentes, porém foram selecionados cinco trabalhos acadêmicos para o desenvolvimento deste projeto e comparação de funcionalidades. Em destaque, o 
-trabalho de Sá considerou a detecção em tempo real do Gás Liquefeito de Petróleo (GLP) na residência \cite{uea-iot-deteccao-incendio}, atuando na prevenção de incêndio por vazamento de gás e servindo como referência para o desenvolvimento 
-do \textit{hardware} do BURI. Por outro lado, o trabalho ``Intelligent based novel embedded system based IoT enabled
-air pollution monitoring system'' \cite{tbRelacionado4NovelEmbeddedSystem} abordou uma arquitetura de comunicação em rede e processo de calibração de sensores
-fundamental para o desenvolvimento do \textit{software} deste projeto de conclusão de curso.
-
+em prevenção de acidentes, porém foram selecionados cinco trabalhos acadêmicos para o desenvolvimento da proposta e comparação de funcionalidades. 
 Além disso, o estudo da intoxicação por monóxido de carbono visa investigar as consequências para a saúde humana. Portanto, a explicação científica sobre o tema é do 
 artigo ``Carbon monoxide poisoning: a review for clinicians'' \cite{carbon-monoxide-poisoning-varon}, pois o conteúdo inclui 
 explicação técnica e didática do processo de envenenamento, consequências no sistema neurológico e cardiovascular, fontes de contaminação e métodos de tratamento utilizados na medicina.
 
-Por fim, um questionário foi aplicado aos alunos da Escola Superior de Tecnologia da Universidade do Estado do Amazonas (EST/UEA) para coletar informações sobre suas preocupações relacionadas à qualidade do ar no ambiente doméstico.
-A pesquisa buscou identificar as configurações do ambiente residencial desses alunos e avaliar seu nível de conscientização sobre os riscos associados a poluentes no ar. Ao todo, 
-58 estudantes das áreas de Engenharia responderam a este primeiro questionário.
+Por fim, foi aplicado um questionário a um grupo de estudantes da Escola Superior de Tecnologia da Universidade do Estado do Amazonas (EST/UEA), para coletar informações acerca de suas
+preocupações em relação à qualidade do ar no ambiente doméstico. A pesquisa teve como propósito identificar as características do ambiente residencial desses alunos e avaliar seu 
+nível de conscientização sobre os riscos associados aos poluentes atmosféricos. Participaram deste levantamento inicial 58 estudantes matriculados em cursos da área de Engenharia, os quais responderam 
+ao questionário de forma voluntária.
 
-Os resultados obtidos com as respostas trouxeram dados valiosos para a construção do protótipo. Em particular, algumas questões revelaram tendências e 
-preocupações específicas, que serão analisadas a seguir. Segundo a pesquisa, 75,9\% dos estudantes utilizam um \textit{smartphone} com 
-Sistema Operacional Android, pois a tecnologia representa uma importante fonte de acesso à informação e inclusão digital no Brasil \cite{impacto-android-brasil}. Outro aspecto analisado foi 
-a percepção dos alunos em relação à qualidade do ar em suas residências e arredores. Nas respostas discursivas, foram frequentes os relatos sobre a presença de fumaça em dias específicos, 
-atribuída às queimadas recorrentes na região de Manaus. Como relatou um dos alunos: ``a fumaça se tornou um problema pra resolver isso decidimos comprar um umidificador de ar''. 
+As respostas do questionário são relevantes para a construção do protótipo. Como destaque, algumas informações importantes serão analisadas a seguir. Segundo a pesquisa, 
+75,9\% dos estudantes utilizam um \textit{smartphone} com 
+Sistema Operacional Android, pois a tecnologia é fonte de acesso à informação e inclusão digital no Brasil \cite{impacto-android-brasil}. Outro aspecto analisado foi 
+a percepção dos alunos em relação à qualidade do ar em suas residências e arredores. Nas respostas, os relatos sobre a presença de fumaça e dificuldade respiratória em dias específicos foram comuns. Como relatou um dos alunos: ``a fumaça se tornou um problema pra resolver isso decidimos comprar um umidificador de ar''. 
 
-Evidência dos relatos, a Universidade do Estado do Amazonas (UEA) suspende atividades presenciais nos dias 19 e 20 de setembro na capital e interior por causa 
-da alta quantidade de poluentes, pois os índices ultrapassaram a marca de 125 $\mu m/m^{3}$ e um ar de boa qualidade permite a concentração de partículas em  até 25 $\mu m/m^{3}$ \cite{uea-queima-fecha}. 
+Evidência do problema apresentado, a Universidade do Estado do Amazonas (UEA) suspende atividades presenciais nos dias 19 e 20 de setembro na capital e interior por causa 
+da alta quantidade de poluentes, pois os índices ultrapassaram a marca de 125 $\mu m/m^{3}$ e um ar de boa qualidade permite a concentração de partículas em  até 25 $\mu m/m^{3}$ \cite{uea-queima-fecha}. Portanto, 
+o funcionamento de um dispositivo de medição em tempo real com interface para dispositivo móvel representa uma boa alternativa para auxílio do usuário.
 
 \begin{figure}[ht]
     \centering
@@ -43,9 +39,8 @@ da alta quantidade de poluentes, pois os índices ultrapassaram a marca de 125 $
     \caption{Sistemas Operacionais dos \textit{smartphones} dos alunos da EST. Fonte:Autor}\label{figSOsmartphone}
 \end{figure}
 
-A seguir, a figura \ref{figWifiAlunos} ilustra a porcentagem de estudantes com rede Wi-Fi em suas residências. Após essa análise, observou-se que 
-a grande maioria possui acesso à rede Wi-Fi. Esse fator é especialmente relevante para a viabilidade do projeto, uma vez que a conectividade 
-constante permitirá o funcionamento do sistema \textit{online}.
+Sobre o tipo de conexão com a internet, a figura \ref{figWifiAlunos} ilustra a porcentagem de estudantes com rede Wi-Fi em suas residências. De acordo com a pesquia,  
+a maioria dos entrevistados possui acesso à rede Wi-Fi. Esse valor é especialmente útil para a viabilidade do projeto, uma vez que a conectividade permitirá o funcionamento do sistema no modo \textit{online}.
 
 \begin{figure}[ht]
     \centering
@@ -53,81 +48,29 @@ constante permitirá o funcionamento do sistema \textit{online}.
     \caption{Uso de Wi-Fi dos alunos da EST. Fonte:Autor}\label{figWifiAlunos}
 \end{figure}
 
+O último levantamento refere-se às expectativas em relação ao \textit{hardware}, destacando a preocupação com o uso do equipamento. Observou-se que apenas 37,9\% dos 
+alunos já utilizaram algum dispositivo de automação residencial. Dessa forma, a solução proposta deve priorizar configurações simples, voltadas para usuários 
+sem experiência prévia. 
+
+
 \section{Especificação}\label{fase2}
 
 A especificação é a etapa onde são definidas as funcionalidades do sistema embarcado e a modelagem da arquitetura e comunicação entre 
-seus componentes. A partir das respostas ao questionário aplicado aos alunos, foram identificadas as principais funcionalidades esperadas 
-para o sistema BURI, pois o desenvolvimento das especificações do sistema deve garantir que o protótipo final atenda às demandas reais do
-público alvo. A funcionalidade de monitoramento em tempo real recebeu o maior número de votos entre os participantes, porém opções como alerta de risco, fácil instalação e 
-manutenção mínima foram requisitos também muito solicitados no questionário. A justificativa para a preocupação com o uso do equipamento é que apenas 37,9\% dos alunos já usaram 
-algum dispositivo de automação residencial. Portanto, a solução da proposta deve focar em configurações simples para usuários sem experiência.
-%Em segundo, existe a fase de especificação. Ocorre o levantamento de funcionalidades do sistema, com aplicação de questionário 
-%e entrevistas para a compreensão do domínio de problema. Por outro lado, é realizada também a modelagem do circuito 
-%eletrônico, arquitetura do \textit{software} de dados/alerta, fluxo de navegação do aplicativo móvel e, por fim, o 
-%planejamento da comunicação entre o aplicativo e o dispositivo microcontrolador.
+seus componentes. A partir das respostas, foram identificadas as principais funcionalidades 
+para o sistema BURI, pois o desenvolvimento do sistema deve garantir que o protótipo final atenda às demandas reais do
+público alvo. A funcionalidade de monitoramento em tempo real recebeu o maior número de votos (89,7\%) entre os participantes, porém opções como alerta de risco, fácil instalação e 
+manutenção mínima foram requisitos proporcionalmente solicitados no questionário. 
+
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.77\textwidth]{img/graf1-funcionalidades.png}
     \caption{Funcionalidades desejadas do sistema embarcado. Fonte:Autor}\label{figFuncionalidades}
 \end{figure}
 
-O sistema foi modelado segundo o padrão C4-model \cite{c4-model}. O C4 é um conjunto de ferramentas visuais usado para 
-o desenvolvedor de software comunicar a arquitetura do sistema, semelhante a um mapa, com os quatro níveis de detalhamento: \textit{context}, 
-\textit{container}, \textit{component} e \textit{code}. Na figura \ref{figContextDiagram} observa-se o diagrama de contexto, onde é demonstrado 
-que o usuário doméstico têm acesso ao sistema BURI por meio de comunicação via protocolo HTTP e por Bluetooth\textsuperscript{\textregistered}. Em seguida, o 
-sistema de monitoramento utiliza a ferramenta ngrok \cite{ngrok} na criação de um túnel HTTP, permitindo a API do \textit{backend} ser acessível tanto pelo equipamento 
-embarcado quanto pelo aplicativo Android na internet. 
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=.87\textwidth]{img/context-diagram.png}
-    \caption{Diagrama de contexto. Fonte:Autor}\label{figContextDiagram}
-\end{figure}
-
-O próximo diagrama é o de \textit{container}. Seu objetivo é detalhar como a aplicação é composta em termos de contêineres, ou seja, os elementos implantáveis e componentes de software 
-para o pleno funcionamento do projeto. Em relação ao desenvolvimento de software, o projeto se divide em três módulos: servidor, aplicativo e banco de dados. O servidor cuida das regras
-de negócio, como cadastro de usuários, dispositivos e login, mas também têm responsabilidade no armazenamento de medições do equipamento embarcado, pois opera sob o protocolo HTTP para o envio 
-de alerta em casos de dados extremos.
-
-A segunda parte é o aplicativo Android. O módulo é a interface do sistema com o usuário doméstico, pois todo o fluxo de informação entre os 
-diferentes componentes são fonte para a visualização no \textit{smartphone} do indivíduo. Entre suas funcionalidades, destaca-se: monitoramento em tempo real, configuração do dispositivo físico, 
-criação de conta, recebimento de notificações de alerta e informativo sobre as consequênciais de inalação de CO em períodos prolongados.
-
-Por último, o Banco de Dados como responsável por armazenar todas as informações do sistema de monitoramento. Os dados de medição são organizados por dispositivo, onde 
-cada um realiza o monitoramento de temperatura, umidade do ar e concentração de monóxido de carbono. Além disso, a estrutura de dados é otimizada para registrar tanto eventos críticos quanto 
-medições dentro dos parâmetros normais.
-
-Sobre o \textit{hardware}, o sistema utiliza o ESP32 como núcleo do dispositivo embarcado, juntamente com os sensores DHT11 para medição de temperatura e umidade do ar e o MQ-7 para 
-detecção de concentrações de monóxido de carbono (CO). O microcontrolador atua no recebimento e envio de dados desses sensores e gerencia a comunicação com o servidor e o aplicativo Android. No teste de usabilidade 
-do sistema foi utilizada como fonte de energia elétrica a porta USB do notebook, porém o projeto possui um conector para tomadas domésticas.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=.94\textwidth]{img/conteiner-diagram.png}
-    \caption{Diagrama de container. Fonte:Autor}\label{figConteinerDiagram}
-\end{figure}
-
-A próxima camada de abstração é representada pelo diagrama de componentes. Cada componente possui um conjunto de responsabilidades, ou seja, uma tarefa 
-bem definida na arquitetura e também interage com outros componentes mediante interfaces, ou contratos. Dito isso, a primeira representação é o diagrama de componentes do \textit{hardware}, pois ele detalha 
-os sensores utilizados pelo microcontrolador, assim como os atuadores: LED, para sinalização visual do modo de operação do circuito eletrônico; o \textit{push button}, para controle e troca do modo de operação (\textit{online}/\textit{offline}). Portanto, 
-o \textit{hardware} também se comunica com o servidor e o aplicativo Android para envio de dados.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=.84\textwidth]{img/component-diagram-hardware.png}
-    \caption{Diagrama de Componente (\textit{Hardware}). Fonte:Autor}\label{figComponentHardware}
-\end{figure}
-
-Por último, será apresentado o diagrama de componentes do \textit{software}. O servidor tem acesso direto ao banco de dados e possui três principais controladores: \textit{Account Controller}, \textit{Measurement Controller} e \textit{Event Controller}. O primeiro 
-gerencia os dados de usuário e seus dispositivos cadastrados, além de configurar o processo de autenticação e \textit{login} via dados de email e senha. Em seguida, o \textit{Measurement Controller} é interface responsável pelo recebimentos dos dados de cada dispositivo eletrônico, assim como 
-o compartilhamento de informação com o aplicativo Android. O \textit{Event Controller} é o principal responsável na emissão de alerta de risco no aplicativo, pois o controlador recebe os dados em tempo real do banco de dados e avalia 
-com base em alguns parâmetros se o ambiente possui comportamento perigoso e cria um novo evento no Banco de Dados.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=.94\textwidth]{img/component-diagram-software.png}
-    \caption{Diagrama de Componente (\textit{Software}). Fonte:Autor}\label{figComponentSoftware}
-\end{figure}
+Com base nas sugestões dos estudantes e considerando o prazo de entrega do trabalho de conclusão de curso, o escopo da proposta de solução contempla a 
+implementação das seguintes funcionalidades: modo \textit{online} e \textit{offline}, monitoramento em tempo real, alerta de risco por notificação e processo de instalação facilitado.
+As funcionalidades apresentadas tem o objetivo de equilibrar a expectativa dos usuários e a viabilidade técnica, pois a estrutura considera os recursos disponíveis e o prazo definido no 
+cronograma.
 
 \section{Particionamento (Hw/Sw)}\label{fase3}
 
