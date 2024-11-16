@@ -126,11 +126,6 @@ com base em alguns parâmetros, se o ambiente possui comportamento perigoso, ger
     \caption{Diagrama de Componente (\textit{Software}). Fonte:Autor}\label{figComponentSoftware}
 \end{figure}
 
-%O particionamento em componentes de \textit{hardware} e \textit{software} (Hw/Sw) marca o início do processo iterativo. O terceiro 
-%processo identifica as funcionalidades do escopo e considera a dependência entre os serviços que as camadas do sistema oferecem. Com isso, 
-%o fluxo define as atividades necessárias para a entrega da funcionalidade descrita em fases anteriores. Além da definição, a lista de atividades passa 
-%por um refinamento para eliminar ambiguidade e inconsistência.
-
 \section{Particionamento (Hw/Sw)}\label{fase3}
 
 Após a conclusão da especificação, inicia-se o particionamento das atividades. Esse processo envolve a divisão do trabalho em tarefas menores, facilitando 
@@ -159,7 +154,28 @@ eletrônicos do sistema, garantindo os requisitos definidos na especificação. 
     \item Configuração dos modos \textit{online} e \textit{offline};
 \end{itemize}
 
+A construção da proposta é o resultado da junção entre as duas áreas. Porém, desenvolver o sistema embarcado 
+na metodologia iterativo e incremental exige o conhecimento prévio da dependência de serviços entre as partes, assim como o uso de protocolos 
+de comunicação do início ao fim do projeto. Dito isso, a figura \ref{figTarefasMetodologia} ilustra a organização das tarefas de HW e SW, considerando 
+a integração entre os componentes logicamente dependentes dentro de cada iteração.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.44\textwidth]{img/tarefas-metodologia.png}
+    \caption{Organização de tarefas. Fonte:Autor}\label{figTarefasMetodologia}
+\end{figure}
+
 \section{Execução de Atividades}\label{fase4}
+
+Esta seção tem em vista detalhar os procedimentos adotados para a execução das atividades estabelecidas na etapa anterior. O desenvolvimento 
+integrado de \textit{hardware} e \textit{software} exige uma abordagem iterativa, na qual funcionalidades específicas de uma área são projetadas para interagir com 
+a outra, garantindo o sucesso na implementação do sistema.
+
+\subsection{Primeira iteração}\label{ExecAtv1It}
+
+\subsection{Segunda iteração}\label{ExecAtv2It}
+
+\subsection{Terceira iteração}\label{ExecAtv3It}
 
 \section{Testes de aceitação}\label{fase5}
 
