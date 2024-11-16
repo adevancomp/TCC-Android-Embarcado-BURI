@@ -173,6 +173,86 @@ a outra, garantindo o sucesso na implementação do sistema.
 
 \subsection{Primeira iteração}\label{ExecAtv1It}
 
+A primeira atividade de \textit{software} diz respeito ao Banco de Dados, pois as informações de toda a aplicação 
+precisam de registro e persistência. ``Um banco de dados representa algum aspecto do mundo real, às vezes chamado de minimundo ou de universo de discurso'' \cite[pp. 3]{banco-de-dados-navathe2014}. Assim como na engenharia de \textit{software}, o projeto 
+de um banco de dados surge na análise de requisitos, pois nela são definidas as restrições e propriedades de cada conceito do mundo real cuja abstração 
+deve ser persistida para futuras consultas. Portanto, o sistema BURI utiliza o Banco de Dados relacional \textit{PostgreSQL} e implementa a construção de tabelas 
+via ORM (do inglês, \textit{Object Relational Mapper}), pois é uma técnica que permite o mapeamento dos objetos com os dados armazenados no sistema de banco de dados \cite{hibernate-documentation}. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.45\textwidth]{img/event-class-kotlin.png}
+    \hfill
+    \includegraphics[width=0.42\textwidth]{img/event-table-postgres.png}
+    \caption{Mapeamento Objeto Relacional da classe Evento. Fonte: Autor}\label{figJpaEvent}
+\end{figure}
+
+Por outro lado, o \textit{Java Persistence API}, também conhecido pela sigla JPA, é uma camada 
+de abstração do \textit{framework} para persistência de dados \cite{spring-data-jpa-documentation}. Seu papel 
+é simplificar a operação com banco de dados relacionais, pois os desenvolvedores de \textit{software} utilizam objetos Java 
+em vez de instruções SQL diretamente. Além disso, o projeto define um padrão de mapeamento de objetos para tabelas com base em anotações e
+oferece recursos avançados de consulta via implementações do padrão de projeto \textit{Repository}. O esquema de Banco de Dados resultou na criação das 
+tabelas e relacionamentos ilustrados na figura \ref{figSchemaBuriDB}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.54\textwidth]{img/buri_schema_bd.png}
+    \caption{Esquema do Banco de Dados BURI. Fonte:Autor}\label{figSchemaBuriDB}
+\end{figure}
+
+No modelo, o usuário pode obter vários dispositivos e cada dispositivo tem a responsabilidade de atualizar as tabelas de medição e evento 
+a partir da conexão por Wi-Fi com o servidor. Porém, o servidor possui uma rotina de verificação da medição atual antes de inserir no banco de dados 
+para o sistema poder identificar se os valores registrados correspondem a um evento crítico ou não. 
+
+A atividade de \textit{hardware} desta etapa consiste na pesquisa e estudo dos componentes eletrônicos. Conforme as variáveis de interesse deste trabalho de 
+conclusão de curso, os sensores de medição escolhidos foram o DHT11 e o MQ-7, os mesmos utilizados no trabalho acadêmico \textit{AirWorld} \cite{UFAMAirWorld}. Uma vez definido os sensores, 
+o próximo passo consiste na escolha do microcontrolador, pois ele será responsável por gerenciar as leituras dos sensores, processar os dados e comunicar-se com o servidor para armazenar as medições.
+
+O ESP32 foi escolhido devido à sua versatilidade, ao possuir conectividade Wi-Fi e Bluetooth integradas, o que facilita a comunicação sem fio com outros componentes do sistema de monitoramento. Além disso, destaca-se 
+pela robustez e poder de processamento, ao oferecer maior velocidade de processamento em comparação com outras opções, o que é essencial para o desempenho do sistema. Outro destaque é a economia, já que o microcontrolador 
+é relativamente acessível, quando comparado a outras placas de desenvolvimento com funcionalidades semelhantes, tornando-o ideal para o desenvolvimento rápido de aplicações, pois a análise da figura \ref{figTableEsp} fundamenta a decisão.
+
+Em seguida, foi realizada a aquisição dos materiais necessários para o desenvolvimento do projeto, incluindo os sensores, o microcontrolador e outros componentes eletrônicos essenciais para a implementação do circuito. A aquisição dos itens 
+otimizou os recursos financeiros e atendeu às especificações técnicas do projeto embarcado. Para tanto, são apresentados a seguir os custos da solução proposta na tabela \ref{tabPrecoHardware}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Quantidade} & \textbf{Nome do componente} & \textbf{Custo R\$} \\
+        \hline
+        1 & DHT11 - Sensor de umidade e temperatura & 15,50 \\
+        \hline
+        1 & MQ-7 - Sensor de monóxido de carbono & 32,00 \\
+        \hline
+        1 & WROOM-32 ESP32S - 30 Pinos & 58,00 \\
+        \hline
+        1 & Resistor 30 Ohms 5\% & 0,20 \\
+        \hline
+        1 & Resitor 200 kOhms 5\% & 0,40 \\
+        \hline
+        1 & LED difuso verde 5mm & 0,40 \\
+        \hline
+        1 & Botão \textit{push button} chave táctil & 0,25 \\
+        \hline
+        10 & 1 Kit Jumper Macho-Fêmea & 5,00 \\
+        \hline
+        10 & 1 Kit Jumper Fêmea-Fêmea & 5,00 \\
+        \hline
+        10 & 1 Kit Jumper Macho-Macho & 5,00 \\
+        \hline
+        1 & Cabo de Dados USB V8 Micro USB & 9,50 \\
+        \hline
+        \textbf{--} & \textbf{Custo Total} & \textbf{131,25} \\
+        \hline
+    \end{tabular}
+    \caption{Custo total de componentes eletrônicos para a prototipação do \textit{hardware}. Os preços são de lojas em Manaus no período de abril a julho de 2024. Fonte: Autor.}\label{tabPrecoHardware}
+\end{table}
+
+O DHT11 é um sensor de leitura digital comumente utilizado em projetos de automação para medir temperatura e umidade do ar. O dispositivo possui um rigoroso processo de calibração, assim como 
+tamanho reduzido e baixo consumo de energia. Composto por quatro pinos: VCC, responsável pela alimentação do sensor (3.3V ou 5V); GND, que conecta ao sinal terra do circuito; DATA, responsável pela trasmissão 
+de dados digitais; e NC, um pino sem utilidade.
+
 \subsection{Segunda iteração}\label{ExecAtv2It}
 
 \subsection{Terceira iteração}\label{ExecAtv3It}
