@@ -69,10 +69,95 @@ manutenção mínima foram requisitos proporcionalmente solicitados no question�
 
 Com base nas sugestões dos estudantes e considerando o prazo de entrega do trabalho de conclusão de curso, o escopo da proposta de solução contempla a 
 implementação das seguintes funcionalidades: modo \textit{online} e \textit{offline}, monitoramento em tempo real, alerta de risco por notificação e processo de instalação facilitado.
-As funcionalidades apresentadas tem o objetivo de equilibrar a expectativa dos usuários e a viabilidade técnica, pois a estrutura considera os recursos disponíveis e o prazo definido no 
+As funcionalidades apresentadas têm o objetivo de equilibrar a expectativa dos usuários com a viabilidade técnica, pois a estrutura considera os recursos disponíveis e o prazo definido no 
 cronograma.
 
+O próximo passo da especificação é a modelagem de arquitetura do sistema, e para isso o projeto usa o padrão C4-model \cite{c4-model}. O C4 é um conjunto de ferramentas visuais usado pelo 
+desenvolvedor de software na comunicação da arquitetura do sistema, semelhante a um mapa, com quatro níveis de detalhamento: \textit{context}, \textit{container}, \textit{component} e \textit{code}. A figura \ref{figContextDiagram} é o 
+diagrama de contexto, por mostrar a comunicação via protocolo HTTP ou Blueetooth do usuário doméstico com a aplicação. A implementação do sistema tem como serviço externo a ferramenta Ngrok \cite{ngrok}, pois o uso do túnel HTTP e \textit{link} estático permite a API do \textit{backend} ser acessível tanto pelo equipamento 
+embarcado quanto pelo aplicativo Android na internet.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.87\textwidth]{img/context-diagram.png}
+    \caption{Diagrama de contexto. Fonte:Autor}\label{figContextDiagram}
+\end{figure}
+
+O próximo diagrama é o de \textit{container}. Seu propósito é demonstrar o funcionamento da aplicação em termos de contêineres, ou seja, os elementos implantáveis
+e componentes de software necessários para o pleno funcionamento do projeto. Na área de desenvolvimento de \textit{software}, o projeto possui três módulos principais: servidor, 
+aplicativo e banco de dados. O servidor cuida das regras de negócio, como cadastro de usuários, dispositivos e login, mas também tem responsabilidade no 
+armazenamento de medições do equipamento embarcado, cujo resultado é base para registro de eventos extremos. A segunda parte é o aplicativo Android. O módulo é a interface do sistema com o usuário doméstico, pois todo o fluxo de informação entre os 
+diferentes componentes são fonte de dados para a visualização no \textit{smartphone} do indivíduo.
+
+Por último, o Banco de Dados é responsável por armazenar todas as informações do sistema de monitoramento. Os dados de medição são organizados por dispositivo, onde 
+cada um realiza o monitoramento de temperatura, umidade do ar e concentração de monóxido de carbono. Além disso, a estrutura de dados é otimizada para registrar tanto eventos críticos quanto 
+medições dentro dos parâmetros normais.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.94\textwidth]{img/conteiner-diagram.png}
+    \caption{Diagrama de container. Fonte:Autor}\label{figConteinerDiagram}
+\end{figure}
+
+Sobre o \textit{hardware}, o sistema utiliza o dispositivo ESP32, juntamente com os sensores DHT11, para medição de temperatura e umidade do ar, e o MQ-7, para 
+detecção de concentração de monóxido de carbono (CO). O microcontrolador atua no recebimento e envio de dados desses sensores e gerência da comunicação com o servidor ou aplicativo Android, mas seu funcionamento depende da energia da porta USB do 
+notebook.
+
+A próxima camada de abstração é o diagrama de componentes, no qual cada componente é responsável por um conjunto de tarefas bem definidas. Esses componentes interagem entre si por meio de interfaces ou contratos, 
+garantindo a comunicação estruturada entre eles. A primeira representação é o diagrama de componentes do \textit{hardware}, pois ele detalha os sensores utilizados pelo microcontrolador, assim como 
+os atuadores LED, usado na sinalização visual do modo de operação do circuito eletrônico, e o \textit{push button}, pois aciona a troca do modo de operação (\textit{online}/\textit{offline}) do dispositivo. Portanto, 
+o \textit{hardware} também se comunica com o servidor e o aplicativo Android para envio de dados.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.88\textwidth]{img/component-diagram-hardware.png}
+    \caption{Diagrama de Componente (\textit{Hardware}). Fonte:Autor}\label{figComponentHardware}
+\end{figure}
+
+Por último, será apresentado o diagrama de componentes do \textit{software}. O servidor tem acesso direto ao banco de dados e possui três principais controladores: \textit{Account Controller}, \textit{Measurement Controller} e \textit{Event Controller}. 
+
+O primeiro gerencia os dados de usuário e seus dispositivos cadastrados, além de configurar o processo de autenticação e \textit{login} via dados de email e senha. Em seguida, o \textit{Measurement Controller} é interface de recebimento dos dados de cada dispositivo eletrônico, assim como 
+o compartilhamento de informação com o aplicativo Android. O \textit{Event Controller} é o principal responsável na emissão de alerta de risco no aplicativo, pois o controlador recebe os dados em tempo real do banco de dados e avalia, 
+com base em alguns parâmetros, se o ambiente possui comportamento perigoso, gerando o registro de um novo evento no banco de dados.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.94\textwidth]{img/component-diagram-software.png}
+    \caption{Diagrama de Componente (\textit{Software}). Fonte:Autor}\label{figComponentSoftware}
+\end{figure}
+
+%O particionamento em componentes de \textit{hardware} e \textit{software} (Hw/Sw) marca o início do processo iterativo. O terceiro 
+%processo identifica as funcionalidades do escopo e considera a dependência entre os serviços que as camadas do sistema oferecem. Com isso, 
+%o fluxo define as atividades necessárias para a entrega da funcionalidade descrita em fases anteriores. Além da definição, a lista de atividades passa 
+%por um refinamento para eliminar ambiguidade e inconsistência.
+
 \section{Particionamento (Hw/Sw)}\label{fase3}
+
+Após a conclusão da especificação, inicia-se o particionamento das atividades. Esse processo envolve a divisão do trabalho em tarefas menores, facilitando 
+a organização, a alocação de recursos e a mensuração do progresso durante a fase de desenvolvimento. Portanto, as atividades de \textit{software} (Sw) são definidas de acordo 
+com a lista a seguir.
+
+\begin{itemize}
+    \item Desenvolvimento da modelagem e implantação do Banco de Dados;
+    \item Implementação da API:
+    \begin{itemize}
+        \item Rota de gerenciamento de conta de usuário;
+        \item Rota de Medição em tempo real por dispositivo;
+        \item Rota de Eventos do ambiente;
+    \end{itemize}
+    \item Desenvolvimento do Aplicativo Android;
+    \item Codificação do \textit{firmware} no ESP32;
+\end{itemize}
+
+Além das atividades de \textit{software}, o particionamento abrange também as atividades relacionadas ao \textit{hardware} (Hw). Essas atividades focam na concepção, desenvolvimento e montagem dos componentes 
+eletrônicos do sistema, garantindo os requisitos definidos na especificação. As atividades de \textit{hardware} são descritas a seguir:
+
+\begin{itemize}
+    \item Escolha e estudo dos componentes eletrônicos;
+    \item Implementação do controle do LED por botão;
+    \item Montagem do circuito e verificação de leitura dos sensores;
+    \item Configuração dos modos \textit{online} e \textit{offline};
+\end{itemize}
 
 \section{Execução de Atividades}\label{fase4}
 
