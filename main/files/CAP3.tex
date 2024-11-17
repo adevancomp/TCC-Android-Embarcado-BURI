@@ -45,7 +45,7 @@ a maioria dos entrevistados possui acesso à rede Wi-Fi. Esse valor é especialm
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.67\textwidth]{img/graf1-wifi.png}
-    \caption{Uso de Wi-Fi dos alunos da EST. Fonte:Autor}\label{figWifiAlunos}
+    \caption{Uso de Wi-Fi dos alunos da EST. Fonte: Autor.}\label{figWifiAlunos}
 \end{figure}
 
 O último levantamento refere-se às expectativas em relação ao \textit{hardware}, destacando a preocupação com o uso do equipamento. Observou-se que apenas 37,9\% dos 
@@ -64,7 +64,7 @@ manutenção mínima foram requisitos proporcionalmente solicitados no question�
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.77\textwidth]{img/graf1-funcionalidades.png}
-    \caption{Funcionalidades desejadas do sistema embarcado. Fonte:Autor}\label{figFuncionalidades}
+    \caption{Funcionalidades desejadas do sistema embarcado. Fonte: Autor.}\label{figFuncionalidades}
 \end{figure}
 
 Com base nas sugestões dos estudantes e considerando o prazo de entrega do trabalho de conclusão de curso, o escopo da proposta de solução contempla a 
@@ -80,7 +80,7 @@ embarcado quanto pelo aplicativo Android na internet.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.87\textwidth]{img/context-diagram.png}
-    \caption{Diagrama de contexto. Fonte:Autor}\label{figContextDiagram}
+    \caption{Diagrama de contexto. Fonte: Autor.}\label{figContextDiagram}
 \end{figure}
 
 O próximo diagrama é o de \textit{container}. Seu propósito é demonstrar o funcionamento da aplicação em termos de contêineres, ou seja, os elementos implantáveis
@@ -96,7 +96,7 @@ medições dentro dos parâmetros normais.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.94\textwidth]{img/conteiner-diagram.png}
-    \caption{Diagrama de container. Fonte:Autor}\label{figConteinerDiagram}
+    \caption{Diagrama de container. Fonte: Autor.}\label{figConteinerDiagram}
 \end{figure}
 
 Sobre o \textit{hardware}, o sistema utiliza o dispositivo ESP32, juntamente com os sensores DHT11, para medição de temperatura e umidade do ar, e o MQ-7, para 
@@ -111,7 +111,7 @@ o \textit{hardware} também se comunica com o servidor e o aplicativo Android pa
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.88\textwidth]{img/component-diagram-hardware.png}
-    \caption{Diagrama de Componente (\textit{Hardware}). Fonte:Autor}\label{figComponentHardware}
+    \caption{Diagrama de Componente (\textit{Hardware}). Fonte: Autor.}\label{figComponentHardware}
 \end{figure}
 
 Por último, será apresentado o diagrama de componentes do \textit{software}. O servidor tem acesso direto ao banco de dados e possui três principais controladores: \textit{Account Controller}, \textit{Measurement Controller} e \textit{Event Controller}. 
@@ -123,7 +123,7 @@ com base em alguns parâmetros, se o ambiente possui comportamento perigoso, ger
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.94\textwidth]{img/component-diagram-software.png}
-    \caption{Diagrama de Componente (\textit{Software}). Fonte:Autor}\label{figComponentSoftware}
+    \caption{Diagrama de Componente (\textit{Software}). Fonte: Autor.}\label{figComponentSoftware}
 \end{figure}
 
 \section{Particionamento (Hw/Sw)}\label{fase3}
@@ -162,7 +162,7 @@ a integração entre os componentes logicamente dependentes dentro de cada itera
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.44\textwidth]{img/tarefas-metodologia.png}
-    \caption{Organização de tarefas. Fonte:Autor}\label{figTarefasMetodologia}
+    \caption{Organização de tarefas. Fonte: Autor.}\label{figTarefasMetodologia}
 \end{figure}
 
 \section{Execução de Atividades}\label{fase4}
@@ -184,7 +184,7 @@ via ORM (do inglês, \textit{Object Relational Mapper}), pois é uma técnica qu
     \includegraphics[width=0.45\textwidth]{img/event-class-kotlin.png}
     \hfill
     \includegraphics[width=0.42\textwidth]{img/event-table-postgres.png}
-    \caption{Mapeamento Objeto Relacional da classe Evento. Fonte: Autor}\label{figJpaEvent}
+    \caption{Mapeamento Objeto Relacional da classe Evento. Fonte: Autor.}\label{figJpaEvent}
 \end{figure}
 
 Por outro lado, o \textit{Java Persistence API}, também conhecido pela sigla JPA, é uma camada 
@@ -197,7 +197,7 @@ tabelas e relacionamentos ilustrados na figura \ref{figSchemaBuriDB}.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.54\textwidth]{img/buri_schema_bd.png}
-    \caption{Esquema do Banco de Dados BURI. Fonte:Autor}\label{figSchemaBuriDB}
+    \caption{Esquema do Banco de Dados BURI. Fonte: Autor.}\label{figSchemaBuriDB}
 \end{figure}
 
 No modelo, o usuário pode obter vários dispositivos e cada dispositivo tem a responsabilidade de atualizar as tabelas de medição e evento 
@@ -212,7 +212,7 @@ O ESP32 foi escolhido devido à sua versatilidade, ao possuir conectividade Wi-F
 pela robustez e poder de processamento, ao oferecer maior velocidade de processamento em comparação com outras opções, o que é essencial para o desempenho do sistema. Outro destaque é a economia, já que o microcontrolador 
 é relativamente acessível, quando comparado a outras placas de desenvolvimento com funcionalidades semelhantes, tornando-o ideal para o desenvolvimento rápido de aplicações, pois a análise da figura \ref{figTableEsp} fundamenta a decisão.
 
-Em seguida, foi realizada a aquisição dos materiais necessários para o desenvolvimento do projeto, incluindo os sensores, o microcontrolador e outros componentes eletrônicos essenciais para a implementação do circuito. A aquisição dos itens 
+Em seguida, foi realizada a aquisição dos materiais necessários para o desenvolvimento do projeto, incluindo os sensores, o microcontrolador e outros componentes eletrônicos essenciais para a implementação do circuito. A compra dos itens 
 otimizou os recursos financeiros e atendeu às especificações técnicas do projeto embarcado. Para tanto, são apresentados a seguir os custos da solução proposta na tabela \ref{tabPrecoHardware}.
 
 \begin{table}[h!]
@@ -229,7 +229,7 @@ otimizou os recursos financeiros e atendeu às especificações técnicas do pro
         \hline
         1 & Resistor 30 Ohms 5\% & 0,20 \\
         \hline
-        1 & Resitor 200 kOhms 5\% & 0,40 \\
+        1 & Resistor 200 kOhms 5\% & 0,40 \\
         \hline
         1 & LED difuso verde 5mm & 0,40 \\
         \hline
@@ -251,9 +251,9 @@ otimizou os recursos financeiros e atendeu às especificações técnicas do pro
     \caption{Custo total de componentes eletrônicos para a prototipação do \textit{hardware}. Os preços são de lojas em Manaus no período de abril a julho de 2024. Fonte: Autor.}\label{tabPrecoHardware}
 \end{table}
 
-O DHT11 é um sensor de leitura digital comumente utilizado em projetos de automação para medir temperatura e umidade do ar. O dispositivo possui um rigoroso processo de calibração, assim como 
-tamanho reduzido e baixo consumo de energia. Composto por quatro pinos: VCC, responsável pela alimentação do sensor (3.3V ou 5V); GND, que conecta ao sinal terra do circuito; DATA, responsável pela trasmissão 
-de dados digitais; e NC, um pino sem utilidade.
+%O DHT11 é um sensor de leitura digital comumente utilizado em projetos de automação para medir temperatura e umidade do ar. O dispositivo possui um rigoroso processo de calibração, assim como 
+%tamanho reduzido e baixo consumo de energia. Composto por quatro pinos: VCC, responsável pela alimentação do sensor (3.3V ou 5V); GND, que conecta ao sinal terra do circuito; DATA, responsável pela trasmissão 
+%de dados digitais; e NC, um pino sem utilidade.
 
 \subsection{Segunda iteração}\label{ExecAtv2It}
 
