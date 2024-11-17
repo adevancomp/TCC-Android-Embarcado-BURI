@@ -217,6 +217,7 @@ otimizou os recursos financeiros e atendeu às especificações técnicas do pro
 
 \begin{table}[h!]
     \centering
+    \caption{Custo total de componentes eletrônicos para a prototipação do \textit{hardware}. Os preços são de lojas em Manaus no período de abril a julho de 2024. Fonte: Autor.}\label{tabPrecoHardware}
     \begin{tabular}{|c|c|c|}
         \hline
         \textbf{Quantidade} & \textbf{Nome do componente} & \textbf{Custo R\$} \\
@@ -248,12 +249,17 @@ otimizou os recursos financeiros e atendeu às especificações técnicas do pro
         \textbf{--} & \textbf{Custo Total} & \textbf{146,25} \\
         \hline
     \end{tabular}
-    \caption{Custo total de componentes eletrônicos para a prototipação do \textit{hardware}. Os preços são de lojas em Manaus no período de abril a julho de 2024. Fonte: Autor.}\label{tabPrecoHardware}
 \end{table}
 
-%O DHT11 é um sensor de leitura digital comumente utilizado em projetos de automação para medir temperatura e umidade do ar. O dispositivo possui um rigoroso processo de calibração, assim como 
-%tamanho reduzido e baixo consumo de energia. Composto por quatro pinos: VCC, responsável pela alimentação do sensor (3.3V ou 5V); GND, que conecta ao sinal terra do circuito; DATA, responsável pela trasmissão 
-%de dados digitais; e NC, um pino sem utilidade.
+O DHT11 é um sensor com leitura digital comumente usado em projetos de automação para medição de temperatura e umidade do ar. O dispositivo 
+tem quatro pinos: \textbf{VCC}, responsável pela alimentação do sensor (3.3V a 5V); \textbf{GND}, que conecta ao sinal terra de referência do circuito; \textbf{DATA}, onde ocorre a transmissão 
+de dados digitais; e \textbf{NC}, um pino específico sem utilidade \cite{dht11-documentation}. Por conta de suas características, como a capacidade de fornecer leituras confiáveis em condições normais de ambiente, como 
+temperatura de 0 a 50°C e umidade do ar na faixa de 20 a 90\%, ele é a solução ideal para a aplicação em ambiente doméstico do sistema de monitoramento da contaminação do ar.
+
+O segundo sensor utilizado no projeto é o MQ-7, sensível à presença de monóxido de carbono (CO) e amplamente empregado em equipamentos industriais e automotivos. Ele possui quatro 
+pinos, sendo dois deles (\textit{VCC} e \textit{GND}) destinados ao controle de energia e os outros dois à leitura de dados, sendo o pino \textbf{AO} para valores analógicos e o pino \textbf{D0} para saídas digitais. 
+O processo de calibração envolve a exposição do sensor a um ambiente limpo, seguido de um ambiente com concentração elevada de CO, para permitir o ajuste dos valores analógicos com a concentração de monóxido 
+de carbono conhecida pela curva de resistência do dispositivo eletrônico \cite{mq7-documentation}.
 
 \subsection{Segunda iteração}\label{ExecAtv2It}
 
