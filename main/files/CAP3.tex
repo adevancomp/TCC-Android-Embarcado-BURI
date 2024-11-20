@@ -263,6 +263,67 @@ de carbono conhecida pela curva de resistência do dispositivo eletrônico \cite
 
 \subsection{Segunda iteração}\label{ExecAtv2It}
 
+A iteração atual concentra as principais atividades do desenvolvimento do projeto: implementação da API, 
+desenvolvimento do aplicativo Android, montagem do circuito e leitura dos sensores, implementação do sistema de LED-botão. A API (Application Programming Interface) funciona como um contrato 
+entre diferentes componentes de \textit{software}, permitindo a comunicação de dados e o compartilhamento de recursos. Por sua vez, o padrão 
+arquitetural REST é um estilo para a construção de APIs que utiliza o protocolo de comunicação HTTP. Esse padrão usa verbos como 
+GET, PUT, HEAD e DELETE para interagir com os recursos, identificados de forma única via URIs (\textit{Uniform Resource Identifiers}) \cite{api-definition}.
+
+O servidor \textit{backend} do sistema embarcado é uma API REST construída sob o \textit{framework} Java Spring \cite{spring-boot-documentation}. A escolha 
+do \textit{framework} baseia-se na recomendação do Google\textsuperscript{\textregistered} sobre o uso da linguagem Kotlin para desenvolvimento de aplicativos Android \cite{android-developers}.
+O Kotlin é uma linguagem orientada a objetos, concisa e interoperável com a linguagem de programação Java \cite{kotlin-documentation}. Portanto, a característica \textit{full stack}, ou seja, a 
+capacidade de construir aplicações completas, desde o servidor e banco de dados até o componente gráfico da solução (telas), motivou a adoção da linguagem Kotlin para o desenvolvimento do sistema BURI.
+
+A primeira rota da API é a \textit{AuthResource}. Identificada pelo prefixo ``/auth'', sua função é realizar o cadastro de novos usuários 
+do sistema e realizar a autenticação (login) com base nas credenciais de email e senha fornecidas no cabeçalho da requisição HTTP, assim como 
+fornecer acesso para o dispositivo eletrônico salvar as medições obtidas no ambiente em questão. Por fim, o recurso \textit{generateId} consiste no \textit{endpoint} de geração 
+automático de IDs de equipamentos, pois cada aparelho possui um identificador de 6 caracteres aleatoriamente escolhidos no conjunto de letras do alfabeto e números decimais. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.74\textwidth]{img/swagger-auth-resource.png}
+    \caption{Rota de autenticação (\textit{Swagger Documentation API}). Fonte: Autor.}\label{figSwaggerAut}
+\end{figure}
+
+Após finalizada a etapa de autenticação da API, a próxima tarefa é implementar o código no aplicativo Android 
+para realizar o cadastro e login na plataforma. Com o Android Studio, ambiente de desenvolvimento integrado oficial do Android, o projeto 
+foi construído em módulos, sendo o \textit{package} data responsável pelo envio e tratamento de dados do aplicativo. Portanto, com o auxílio do cliente HTTP Retrofit \cite{retrofit}, 
+a interface BuriApi implementou os métodos identificados na figura \ref{figRetrofitAndroid}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.74\textwidth]{img/retrofit-buri-api-auth.png}
+    \caption{Métodos de consumo da API no aplicativo Android. Fonte: Autor.}\label{figRetrofitAndroid}
+\end{figure}
+
+Em seguida realizou-se a implementação das seguintes telas do aplicativo: login, cadastro e lista de dispositivos. O aplicativo 
+tem o propósito de facilitar a interação do usuário com a aplicação de monitoramento da contaminação do ar, pois ele se conecta 
+tanto com o dispositivo quanto ao servidor via redes sem fio para mostrar dados em tempo real da concentração de monóxido de carbono. Como resultado das 
+atividades realizadas, foi concluída com sucesso a primeira integração do sistema, conectando o servidor ao aplicativo Android nas 
+funcionalidades de login e cadastro. 
+
+Na área de \textit{hardware}, o circuito de troca do modo operacional é baseado no acionamento do \textit{push button}. Ao ser 
+pressionado, o estado do dispositivo embarcado alterna entre os modos \textit{online} e \textit{offline}. O \textit{push button} 
+tem duas configurações principais: normalmente aberto ou fechado. Essa diferença tem fundamento na estabilidade do nível lógico do botão 
+quando não pressionado, pois, no caso de normalmente aberto o nível lógico é \textbf{ALTO} e muda para \textbf{BAIXO} no instante de acionamento \cite{arduino-docs}.
+
+Ainda nessa tarefa, é preciso escrever o \textit{firmware} do ESP32 para interagir corretamente com o botão e o LED. O microcontrolador configura a 
+leitura de GPIO via interrupção com o uso de uma variável global booleana (verdadeiro ou falso). Essa variável controla o fluxo de execução do programa principal 
+e interage com LED, pois se o valor armazenado for verdadeiro, então o LED é ligado.
+
+A figura \ref{figPushButtonFirmware} ilustra o trecho de código responsável pelo controle do modo operacional. A função principal 
+executa pelo ESP é a \textit{loop}, porém a primeira função executa é a \textit{setup}, onde o pino de leitura conectado 
+no botão é definido como entrada de dados e, em seguida, associado a uma função de atualização da variável global do sistema. Por fim, a função \textit{loop} 
+verifica o valor atual da variável através de uma estrutura condicional para execução de tarefas distintas. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.58\textwidth]{img/push-button-firrmware.png}
+    \caption{\textit{firmware} para controle do LED e \textit{push button}. Fonte: Autor.}\label{figPushButtonFirmware}
+\end{figure}
+
+O próximo desafio do escopo de \textit{hardware} na segunda iteração é a montagem e leitura dos sensores DHT11 e MQ7.
+
 \subsection{Terceira iteração}\label{ExecAtv3It}
 
 \section{Testes de aceitação}\label{fase5}
