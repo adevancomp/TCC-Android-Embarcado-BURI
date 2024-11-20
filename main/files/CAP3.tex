@@ -312,7 +312,7 @@ leitura de GPIO via interrupção com o uso de uma variável global booleana (ve
 e interage com LED, pois se o valor armazenado for verdadeiro, então o LED é ligado.
 
 A figura \ref{figPushButtonFirmware} ilustra o trecho de código responsável pelo controle do modo operacional. A função principal 
-executa pelo ESP é a \textit{loop}, porém a primeira função executa é a \textit{setup}, onde o pino de leitura conectado 
+executada pelo ESP é a \textit{loop}, porém a primeira função chamada é a \textit{setup}, onde o pino de leitura conectado 
 no botão é definido como entrada de dados e, em seguida, associado a uma função de atualização da variável global do sistema. Por fim, a função \textit{loop} 
 verifica o valor atual da variável através de uma estrutura condicional para execução de tarefas distintas. 
 
