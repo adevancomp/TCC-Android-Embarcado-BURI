@@ -309,20 +309,29 @@ quando não pressionado, pois, no caso de normalmente aberto o nível lógico é
 
 Ainda nessa tarefa, é preciso escrever o \textit{firmware} do ESP32 para interagir corretamente com o botão e o LED. O microcontrolador configura a 
 leitura de GPIO via interrupção com o uso de uma variável global booleana (verdadeiro ou falso). Essa variável controla o fluxo de execução do programa principal 
-e interage com LED, pois se o valor armazenado for verdadeiro, então o LED é ligado.
-
-A figura \ref{figPushButtonFirmware} ilustra o trecho de código responsável pelo controle do modo operacional. A função principal 
-executada pelo ESP é a \textit{loop}, porém a primeira função chamada é a \textit{setup}, onde o pino de leitura conectado 
+e interage com LED, pois se o valor armazenado for verdadeiro, então o LED é ligado. A figura \ref{figPushButtonFirmware} ilustra o trecho de código responsável pelo controle do modo operacional, onde a função principal 
+executada pelo ESP é a \textit{loop}, porém a primeira função chamada é a \textit{setup}, cujo pino de leitura conectado 
 no botão é definido como entrada de dados e, em seguida, associado a uma função de atualização da variável global do sistema. Por fim, a função \textit{loop} 
 verifica o valor atual da variável através de uma estrutura condicional para execução de tarefas distintas. 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=.58\textwidth]{img/push-button-firrmware.png}
+    \includegraphics[width=.62\textwidth]{img/push-button-firrmware.png}
     \caption{\textit{firmware} para controle do LED e \textit{push button}. Fonte: Autor.}\label{figPushButtonFirmware}
 \end{figure}
 
-O próximo desafio do escopo de \textit{hardware} na segunda iteração é a montagem e leitura dos sensores DHT11 e MQ7.
+O próximo desafio do escopo de \textit{hardware} na segunda iteração é a montagem e leitura dos sensores DHT11 e MQ7. De acordo 
+com as informações obtidas na Seção \ref{ExecAtv1It}, projetou-se o esquemático do circuito eletrônico formado pelo microcontrolador ESP32, sensores e conexões na matriz de contato. 
+Após a modelagem, ocorre a montagem do dispositivo físico e a execução de programas individuais para leitura dos sensores, a fim de verificar a 
+integridade das informações e o pleno funcionamento do protótipo.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.68\textwidth]{img/buri_esquematico.png}
+    \caption{Esquemático do protótipo BURI \textit{Hardware}. Fonte: Autor.}\label{figSchematicBuriHardware}
+\end{figure}
+
+
 
 \subsection{Terceira iteração}\label{ExecAtv3It}
 
