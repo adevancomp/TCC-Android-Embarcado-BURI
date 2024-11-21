@@ -323,7 +323,8 @@ verifica o valor atual da variável através de uma estrutura condicional para e
 O próximo desafio do escopo de \textit{hardware} na segunda iteração é a montagem e leitura dos sensores DHT11 e MQ7. De acordo 
 com as informações obtidas na Seção \ref{ExecAtv1It}, projetou-se o esquemático do circuito eletrônico formado pelo microcontrolador ESP32, sensores e conexões na matriz de contato. 
 Após a modelagem, ocorre a montagem do dispositivo físico e a execução de programas individuais para leitura dos sensores, a fim de verificar a 
-integridade das informações e o pleno funcionamento do protótipo.
+integridade das informações e o pleno funcionamento do protótipo. O ESP32 consome energia pela conexão Micro USB entre o cabo e a porta do notebook, pois 
+no desenvolvimento do projeto os logs do microcontrolador são monitorados constantemente. 
 
 \begin{figure}[ht]
     \centering
@@ -331,7 +332,7 @@ integridade das informações e o pleno funcionamento do protótipo.
     \caption{Esquemático do protótipo BURI \textit{Hardware}. Fonte: Autor.}\label{figSchematicBuriHardware}
 \end{figure}
 
-
+Por fim, a finalização da API (servidor).  
 
 \subsection{Terceira iteração}\label{ExecAtv3It}
 
