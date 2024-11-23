@@ -323,7 +323,7 @@ verifica o valor atual da variável através de uma estrutura condicional para e
 O próximo desafio do escopo de \textit{hardware} na segunda iteração é a montagem e leitura dos sensores DHT11 e MQ7. De acordo 
 com as informações obtidas na Seção \ref{ExecAtv1It}, projetou-se o esquemático do circuito eletrônico formado pelo microcontrolador ESP32, sensores e conexões na matriz de contato. 
 Após a modelagem, ocorre a montagem do dispositivo físico e a execução de programas individuais para leitura dos sensores, a fim de verificar a 
-integridade das informações e o pleno funcionamento do protótipo. O ESP32 consome energia pela conexão Micro USB entre o cabo e a porta do notebook, pois 
+integridade das informações e o pleno funcionamento do protótipo. O ESP32 consome energia pela conexão Micro USB com a porta do notebook, pois 
 no desenvolvimento do projeto os logs do microcontrolador são monitorados constantemente. 
 
 \begin{figure}[ht]
@@ -332,7 +332,47 @@ no desenvolvimento do projeto os logs do microcontrolador são monitorados const
     \caption{Esquemático do protótipo BURI \textit{Hardware}. Fonte: Autor.}\label{figSchematicBuriHardware}
 \end{figure}
 
-Por fim, a finalização da API (servidor).  
+Por fim, a última atividade de \textit{software} termina com a implementação da API e publicação do servidor.  
+Para o controle das medições, a rota ``/measurement'' recebe as informações de temperatura e umidade do ar, concentração de monóxido 
+e id do equipamento, porém, antes de salvar no Banco de Dados, ocorre uma verificação no conjunto de dados para o envio de 
+novos eventos do dispositivo. Por exemplo, a tabela \ref{tabEfeitosCO} mostra os sintomas causados em seres humanos devido exposição ao 
+monóxido de carbono.
+
+\begin{table}[h!]
+    \caption{Sintomas de exposição ao monóxido de carbono. Fonte: Retirado de \cite{seguranca-contra-incendios}}\label{tabEfeitosCO}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Concentração (PPM)} & \textbf{SINTOMAS}\\
+            \hline
+            35 & nenhum sintoma adverso dentro de 8 horas de exposição \\
+            \hline
+            200 & dor de cabeça após 2 a 3 horas de exposição \\
+            \hline
+            400 & dor de cabeça e náusea após 1 a 2 horas de exposição\\
+            \hline
+            800 & dor de cabeça, náusea e distúrbios após 45 minutos de exposição; morte em até 2 horas de exposição \\
+            \hline
+            1000 & perda de consciência \\
+            \hline
+            1600 & dor de cabeça, náusea e distúrbios após 5 a 10 minutos de exposição, perda de consciência após 30 minutos de exposição \\
+            \hline
+            12800 & efeitos fisiológicos imediatos, perda da consciência e risco de vida após 1 a 3 minutos de exposição \\
+            \hline
+        \end{tabular}
+    }
+\end{table}
+
+Com base nas informações coletadas, o sistema de monitoramento avalia o estado atual do ambiente e registra um novo evento na 
+tabela de Eventos, incluindo a mensagem de aviso correspondente. O aplicativo Android consulta regularmente o servidor para notificar 
+o usuário sobre essas ocorrências. Entre as três variáveis monitoradas, o servidor prioriza os eventos relacionados ao monóxido de 
+carbono, seguidos pela umidade e pela temperatura do ar, respectivamente, em uma mesma medição. 
+
+O servidor disponibiliza os eventos via protocolo HTTP para o aplicativo realizar a consulta. A comunicação do servidor em ambiente local com os 
+demais módulos da solução utilizou a ferramenta Ngrok \cite{ngrok}. Ngrok é um serviço que expõe aplicações 
+locais à internet, ao criar endereço público com domínio personalizado sem a necessidade de contratar serviços de 
+hospedagem para servidores em nuvem. Portanto, o código-fonte do aplicativo armazena o endereço público do servidor e o \textit{firmware} do microcontrolador 
+ESP32 realiza a mesma ação, mas com o método de configuração específico para dispositivo embarcado.
 
 \subsection{Terceira iteração}\label{ExecAtv3It}
 
