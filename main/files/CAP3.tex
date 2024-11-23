@@ -39,7 +39,7 @@ o funcionamento de um dispositivo de medição em tempo real com interface para 
     \caption{Sistemas Operacionais dos \textit{smartphones} dos alunos da EST. Fonte:Autor}\label{figSOsmartphone}
 \end{figure}
 
-Sobre o tipo de conexão com a internet, a figura \ref{figWifiAlunos} ilustra a porcentagem de estudantes com rede Wi-Fi em suas residências. De acordo com a pesquia,  
+Sobre o tipo de conexão com a internet, a Figura \ref{figWifiAlunos} ilustra a porcentagem de estudantes com rede Wi-Fi em suas residências. De acordo com a pesquia,  
 a maioria dos entrevistados possui acesso à rede Wi-Fi. Esse valor é especialmente útil para a viabilidade do projeto, uma vez que a conectividade permitirá o funcionamento do sistema no modo \textit{online}.
 
 \begin{figure}[ht]
@@ -73,7 +73,7 @@ As funcionalidades apresentadas têm o objetivo de equilibrar a expectativa dos 
 cronograma.
 
 O próximo passo da especificação é a modelagem de arquitetura do sistema, e para isso o projeto usa o padrão C4-model \cite{c4-model}. O C4 é um conjunto de ferramentas visuais usado pelo 
-desenvolvedor de software na comunicação da arquitetura do sistema, semelhante a um mapa, com quatro níveis de detalhamento: \textit{context}, \textit{container}, \textit{component} e \textit{code}. A figura \ref{figContextDiagram} é o 
+desenvolvedor de software na comunicação da arquitetura do sistema, semelhante a um mapa, com quatro níveis de detalhamento: \textit{context}, \textit{container}, \textit{component} e \textit{code}. A Figura \ref{figContextDiagram} é o 
 diagrama de contexto, por mostrar a comunicação via protocolo HTTP ou Blueetooth do usuário doméstico com a aplicação. A implementação do sistema tem como serviço externo a ferramenta Ngrok \cite{ngrok}, pois o uso do túnel HTTP e \textit{link} estático permite a API do \textit{backend} ser acessível tanto pelo equipamento 
 embarcado quanto pelo aplicativo Android na internet.
 
@@ -156,7 +156,7 @@ eletrônicos do sistema, garantindo os requisitos definidos na especificação. 
 
 A construção da proposta é o resultado da junção entre as duas áreas. Porém, desenvolver o sistema embarcado 
 na metodologia iterativo e incremental exige o conhecimento prévio da dependência de serviços entre as partes, assim como o uso de protocolos 
-de comunicação do início ao fim do projeto. Dito isso, a figura \ref{figTarefasMetodologia} ilustra a organização das tarefas de HW e SW, considerando 
+de comunicação do início ao fim do projeto. Dito isso, a Figura \ref{figTarefasMetodologia} ilustra a organização das tarefas de HW e SW, considerando 
 a integração entre os componentes logicamente dependentes dentro de cada iteração.
 
 \begin{figure}[ht]
@@ -192,7 +192,7 @@ de abstração do \textit{framework} para persistência de dados \cite{spring-da
 é simplificar a operação com banco de dados relacionais, pois os desenvolvedores de \textit{software} utilizam objetos Java 
 em vez de instruções SQL diretamente. Além disso, o projeto define um padrão de mapeamento de objetos para tabelas com base em anotações e
 oferece recursos avançados de consulta via implementações do padrão de projeto \textit{Repository}. O esquema de Banco de Dados resultou na criação das 
-tabelas e relacionamentos ilustrados na figura \ref{figSchemaBuriDB}.
+tabelas e relacionamentos ilustrados na Figura \ref{figSchemaBuriDB}.
 
 \begin{figure}[ht]
     \centering
@@ -210,15 +210,15 @@ o próximo passo consiste na escolha do microcontrolador, pois ele será respons
 
 O ESP32 foi escolhido devido à sua versatilidade, ao possuir conectividade Wi-Fi e Bluetooth integradas, o que facilita a comunicação sem fio com outros componentes do sistema de monitoramento. Além disso, destaca-se 
 pela robustez e poder de processamento, ao oferecer maior velocidade de processamento em comparação com outras opções, o que é essencial para o desempenho do sistema. Outro destaque é a economia, já que o microcontrolador 
-é relativamente acessível, quando comparado a outras placas de desenvolvimento com funcionalidades semelhantes, tornando-o ideal para o desenvolvimento rápido de aplicações, pois a análise da figura \ref{figTableEsp} fundamenta a decisão.
+é relativamente acessível, quando comparado a outras placas de desenvolvimento com funcionalidades semelhantes, tornando-o ideal para o desenvolvimento rápido de aplicações, pois a análise da Figura \ref{figTableEsp} fundamenta a decisão.
 
 Em seguida, foi realizada a aquisição dos materiais necessários para o desenvolvimento do projeto, incluindo os sensores, o microcontrolador e outros componentes eletrônicos essenciais para a implementação do circuito. A compra dos itens 
-otimizou os recursos financeiros e atendeu às especificações técnicas do projeto embarcado. Para tanto, são apresentados a seguir os custos da solução proposta na tabela \ref{tabPrecoHardware}.
+otimizou os recursos financeiros e atendeu às especificações técnicas do projeto embarcado. Para tanto, são apresentados a seguir os custos da solução proposta na Tabela \ref{tabPrecoHardware}.
 
 \begin{table}[h!]
     \centering
     \caption{Custo total de componentes eletrônicos para a prototipação do \textit{hardware}. Os preços são de lojas em Manaus no período de abril a julho de 2024. Fonte: Autor.}\label{tabPrecoHardware}
-    \begin{tabular}{|c|c|c|}
+    \begin{tabular}{c|c|c}
         \hline
         \textbf{Quantidade} & \textbf{Nome do componente} & \textbf{Custo R\$} \\
         \hline
@@ -288,7 +288,7 @@ automático de IDs de equipamentos, pois cada aparelho possui um identificador d
 Após finalizada a etapa de autenticação da API, a próxima tarefa é implementar o código no aplicativo Android 
 para realizar o cadastro e login na plataforma. Com o Android Studio, ambiente de desenvolvimento integrado oficial do Android, o projeto 
 foi construído em módulos, sendo o \textit{package} data responsável pelo envio e tratamento de dados do aplicativo. Portanto, com o auxílio do cliente HTTP Retrofit \cite{retrofit}, 
-a interface BuriApi implementou os métodos identificados na figura \ref{figRetrofitAndroid}.
+a interface BuriApi implementou os métodos identificados na Figura \ref{figRetrofitAndroid}.
 
 \begin{figure}[ht]
     \centering
@@ -309,7 +309,7 @@ quando não pressionado, pois, no caso de normalmente aberto o nível lógico é
 
 Ainda nessa tarefa, é preciso escrever o \textit{firmware} do ESP32 para interagir corretamente com o botão e o LED. O microcontrolador configura a 
 leitura de GPIO via interrupção com o uso de uma variável global booleana (verdadeiro ou falso). Essa variável controla o fluxo de execução do programa principal 
-e interage com LED, pois se o valor armazenado for verdadeiro, então o LED é ligado. A figura \ref{figPushButtonFirmware} ilustra o trecho de código responsável pelo controle do modo operacional, onde a função principal 
+e interage com LED, pois se o valor armazenado for verdadeiro, então o LED é ligado. A Figura \ref{figPushButtonFirmware} ilustra o trecho de código responsável pelo controle do modo operacional, onde a função principal 
 executada pelo ESP é a \textit{loop}, porém a primeira função chamada é a \textit{setup}, cujo pino de leitura conectado 
 no botão é definido como entrada de dados e, em seguida, associado a uma função de atualização da variável global do sistema. Por fim, a função \textit{loop} 
 verifica o valor atual da variável através de uma estrutura condicional para execução de tarefas distintas. 
@@ -335,33 +335,25 @@ no desenvolvimento do projeto os logs do microcontrolador são monitorados const
 Por fim, a última atividade de \textit{software} termina com a implementação da API e publicação do servidor.  
 Para o controle das medições, a rota ``/measurement'' recebe as informações de temperatura e umidade do ar, concentração de monóxido 
 e id do equipamento, porém, antes de salvar no Banco de Dados, ocorre uma verificação no conjunto de dados para o envio de 
-novos eventos do dispositivo. Por exemplo, a tabela \ref{tabEfeitosCO} mostra os sintomas causados em seres humanos devido exposição ao 
+novos eventos do dispositivo. Por exemplo, a Tabela \ref{tabEfeitosCO} mostra os sintomas causados em seres humanos devido exposição ao 
 monóxido de carbono.
 
 \begin{table}[h!]
+    \centering
     \caption{Sintomas de exposição ao monóxido de carbono. Fonte: Retirado de \cite{seguranca-contra-incendios}}\label{tabEfeitosCO}
-    \resizebox{\textwidth}{!}{%
-        \begin{tabular}{|c|c|}
-            \hline
-            \textbf{Concentração (PPM)} & \textbf{SINTOMAS}\\
-            \hline
-            35 & nenhum sintoma adverso dentro de 8 horas de exposição \\
-            \hline
-            200 & dor de cabeça após 2 a 3 horas de exposição \\
-            \hline
-            400 & dor de cabeça e náusea após 1 a 2 horas de exposição\\
-            \hline
-            800 & dor de cabeça, náusea e distúrbios após 45 minutos de exposição; morte em até 2 horas de exposição \\
-            \hline
-            1000 & perda de consciência \\
-            \hline
-            1600 & dor de cabeça, náusea e distúrbios após 5 a 10 minutos de exposição, perda de consciência após 30 minutos de exposição \\
-            \hline
-            12800 & efeitos fisiológicos imediatos, perda da consciência e risco de vida após 1 a 3 minutos de exposição \\
-            \hline
-        \end{tabular}
-    }
+    \begin{tabular}{p{4cm}|p{10cm}}
+    \toprule
+    \textbf{Concentração (PPM)} & \textbf{SINTOMAS} \\ \midrule
+    35 & nenhum sintoma adverso dentro de 8 horas de exposição \\ \midrule
+    200 & dor de cabeça após 2 a 3 horas de exposição \\ \midrule
+    400 & dor de cabeça e náusea após 1 a 2 horas de exposição \\ \midrule
+    800 & dor de cabeça, náusea e distúrbios após 45 minutos de exposição; morte em até 2 horas de exposição \\ \midrule
+    1.000 & perda de consciência \\ \midrule
+    1.600 & dor de cabeça, náusea e distúrbios após 5 a 10 minutos de exposição, perda de consciência após 30 minutos de exposição \\ \midrule
+    12.800 & efeitos fisiológicos imediatos, perda da consciência e risco de vida após 1 a 3 minutos de exposição \\ \bottomrule
+    \end{tabular}
 \end{table}
+
 
 Com base nas informações coletadas, o sistema de monitoramento avalia o estado atual do ambiente e registra um novo evento na 
 tabela de Eventos, incluindo a mensagem de aviso correspondente. O aplicativo Android consulta regularmente o servidor para notificar 
@@ -384,7 +376,42 @@ Portanto, dos 58 alunos entrevistados na fase de especificação, 38 participara
 aplicativo BURI. O questionário foi enviado individualmente para os entrevistados por meio de aplicativo de comunicação após 
 a execução das atividades práticas definidas no manual do sistema.
 
+A análise de funcionalidade do sistema de monitoramento utilizou o SUS (\textit{System Usability Scale}) como abordagem para a elaboração de perguntas do questionário \cite{sus-design-questionario}. Desenvolvido por John Brooke, o método 
+consiste em inserir perguntas com intervalo de 1 até 5 para indicar o grau de concordância da pessoa entrevistada com a afirmação descrita no escopo do texto. Porém, as perguntas originais foram adaptadas para contemplar o uso do sistema 
+também na perspectiva do \textit{hardware} e sua comunicação com o dispositivo móvel, pois o projeto de sistemas embarcados abrange as duas áreas, \textit{software} e \textit{hardware}.
 
+No que diz respeito às tarefas executadas na entrevista, o projeto BURI utiliza critérios e 
+recomendações do livro ``\textit{A pratical Guide to usability testing}'' \cite{tarefas-design}. De acordo com os autores, estudos 
+de usabilidade com impacto positivo estruturam um ambiente propício para coleta de dados qualitativos e quantitativos, ou seja, comentários escritos de participantes e 
+graus em escala numérica para classificar a dificuldade na execução de tarefas. 
+
+Portanto, o primeiro passo foi a criação do termo de consentimento livre com base no trabalho de Marilis (2022), porém adicionando preocupações sobre a saúde dos entrevistados 
+em relação ao uso de sistema de monitoramento da contaminação do ar. Em segundo, ocorre a escolha das funcionalidades do sistema embarcado que serão alvo da pesquisa com os participantes, pois 
+o documento de cenários de teste deve contextualizar o usuário a respeito de cada atividade \cite{tarefas-design}. Após isso, o manual de configuração e uso do sistema BURI é disponibilizado 
+previamente aos participantes da avaliação prática, juntamente com o documento de cenários de teste. Esse procedimento permite ao entrevistado uma visão geral do que ele irá avaliar e também 
+ajuda na familiaridade com o dispositivo embarcado.
+
+O teste foi aplicado de forma presencial, em uma sala de aula da Escola Superior de Tecnologia da Universidade do Estado do Amazonas, onde foi possível utilizar o protótipo físico
+e o aplicativo no ambiente controlado. Os estudantes foram divididos em grupos de 2 a 3 pessoas e instalaram o 
+aplicativo no \textit{smartphone} via \textbf{apk}, formato de arquivo comum para distribuição de aplicativos Android \cite{android-developers}. Por limitação de tempo e apenas um exemplar do protótipo disponível, as 
+tarefas escolhidas dentro das funcionalidades da aplicação foram as apresentadas na Tabela \ref{tab:cenarios-de-uso}. 
+
+\begin{table}[htbp]
+    \centering
+    \caption{Tarefas executadas no aplicativo BURI e suas descrições. Fonte: Autor, com base em \cite{ufam-design}.}\label{tab:cenarios-de-uso}
+    \begin{tabular}{p{4cm}|p{10cm}}
+    \toprule
+    \textbf{Tarefa} & \textbf{Descrição} \\ \midrule
+    Criar conta & Quando você acaba de instalar o app BURI, você quer realizar o cadastro na plataforma para acessar todos os dados sobre contaminação do ar em tempo real. \\ \midrule
+    Realizar Login & Quando você é cadastrado e quer realizar o login no sistema BURI para ter acesso aos seus dispositivos e informações da sua residência. \\ \midrule
+    Cadastrar novo dispositivo & Quando você tem um dispositivo eletrônico de medição de dados do ar, você quer cadastrá-lo na sua rede Wi-FI e no aplicativo para utilizá-lo e monitorar os dados em tempo real. \\ \midrule
+    Visualizar Lista de dispositivos cadastrados & Quando você possui dispositivos cadastrados, você quer visualizá-los para escolher qual dispositivo você quer verificar os dados em tempo real. \\ \midrule
+    Selecionar dispositivo & Quando você já escolheu o dispositivo que quer visualizar suas informações e integrar com o protótipo eletrônico. \\ \midrule
+    Visualizar dados em tempo real (online) & Quando você seleciona o dispositivo que possui, você quer consultar as informações de temperatura, umidade do ar e concentração de monóxido de carbono, assim como o tempo em que foi realizada a coleta. Na versão online, você acessa um indicador visual que o sistema gera nesse modo eletrônico, que pode ser visualizado no protótipo eletrônico. \\ \midrule
+    Visualizar dados em tempo real (offline) & Quando você seleciona o dispositivo que possui, você quer consultar os dados de temperatura, umidade do ar e concentração de monóxido de carbono no modo offline (usando conexão blueetooth). Nesse caso, você acessa apenas os dados já coletados e um indicador visual que o sistema gera nesse modo eletrônico. Pode-se possível alternar entre os modos. \\ \midrule
+    Passar a propriedade de dispositivo eletrônico & Quando você já possui um dispositivo e quer passar ele para outra pessoa (já cadastrada no aplicativo) para que ela utilize no monitoramento da residência dela. \\ \bottomrule
+    \end{tabular}
+\end{table}
 
 \section{Documentação}\label{fase6}
 
