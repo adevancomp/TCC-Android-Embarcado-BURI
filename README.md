@@ -61,5 +61,7 @@ SPRING_PROFILES_ACTIVE=prd
 
 ###### Pronto, agora a aplicação está rodando localmente na sua máquina !!!!
 
+Acesso o endereço no seu navegador : http://localhost:8080/swagger-ui/index.html
+
 <img src="./hello-world.png" alt="Exibição do Swagger Documentação da API" style="width:60%;" />
 
