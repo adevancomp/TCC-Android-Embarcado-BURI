@@ -65,3 +65,24 @@ Acesso o endereço no seu navegador : http://localhost:8080/swagger-ui/index.htm
 
 <img src="./hello-world.png" alt="Exibição do Swagger Documentação da API" style="width:60%;" />
 
+#### 2 Compartilhar a API na internet
+
+#### A aplicação Spring Boot Kotlin está funcionando na sua máquina de desenvolvimento, porém o app Android  e o esp32 não possuem uma forma de se comunicar com a API, pois é necessário executar os passos a seguir.
+
+#### Ngrok é uma ferramenta de desenvolvimento que cria túneis seguros para exposições de serviços locais para a internet. Portanto, visite o link do site oficial do  [ngrok](https://ngrok.com/), instale-o em sua máquina local e volte ao browser para conseguir o domínio da sua aplicação.  Clique em "Domains", dentro de Universal Gateway. 
+
+<img src="./ngrok-domains.png" alt="Custom DomainsI" style="width:50%;" />
+
+Em seguida, na lista vazia clique no sinal de "+", adicione um novo domínio  e copie sua URL.
+
+<img src="./new-domain.jpeg" alt="New DomainI" style="width:60%;" />
+
+#### Agora no terminal do seu computador, execute o seguinte comando: 
+
+```bash
+ ngrok http --scheme=http --domain=[COLE SUA URL AQUI] 8080
+```
+
+#### Pronto, agora é possível acessar sua aplicação de qualquer lugar !!!!
+
+<img src="./ngrok-result.jpeg" alt="New DomainI" style="width:60%;" />
