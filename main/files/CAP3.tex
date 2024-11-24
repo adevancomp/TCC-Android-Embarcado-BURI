@@ -425,3 +425,31 @@ com alunos de Sistemas de Informação e Engenharia de Computação.
 \end{figure}
 
 \section{Documentação}\label{fase6}
+
+O processo de documentação é fundamental para o compartilhamento e replicabilidade do projeto de sistema 
+embarcado. Nesta fase, as informações são organizadas e registradas, abrangendo desde a descrição funcional do sistema até 
+os procedimentos para instalação de dependências, pois o repositório remoto na plataforma de versionamento de código Github desempenha
+a função de centralizar a documentação \cite{github}. Além disso, o projeto contém instruções detalhadas para a configuração de cada componente, 
+incluindo a instalação e uso da API, o funcionamento do aplicativo e o processo de gravação do \textit{firmware} no dispositivo embarcado. Adicionalmente, 
+ele também inclui o esquema eletrônico do hardware utilizado, bibliotecas de leitura de sensores utilizadas e, por último, orientações de instalação e exemplos de uso. 
+
+Sobre organização de código, o repositório divide as linhas de desenvolvimento usando o conceito de \textit{branch}. Uma \textit{branch} (ou ramo) no sistema de versionamento GIT \cite{git-branch} é uma referência 
+para um trecho de código e seu estado específico no tempo (\textit{commit}), servindo para realizar alterações pontuais sem comprometer o fluxo principal do repositório. Por exemplo, a \textit{branch} chamada 
+``feat/api'' possui o código-fonte da API do servidor e todas as instruções técnicas para a execução da aplicação.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.60\textwidth]{img/github-tcc-readme-api.png}
+    \caption{Instruções para configuração da API. Fonte: Autor.}\label{figGithubAPI}
+\end{figure}
+
+Outro artefato relevante é o manual do sistema, elaborado visando atender às necessidades do usuário leigo. Esse documento foi estruturado em formato de tutorial, com uma linguagem clara e acessível, além de 
+conter instruções detalhadas acompanhadas por imagens e pequenos textos explicativos. Ele abrange todo o processo de configuração e uso do dispositivo eletrônico, desde a instalação inicial até a troca de proprietário. Também 
+orienta sobre como acessar e interpretar os dados por meio do aplicativo Android, garantindo que o usuário final utilize o sistema de forma autônoma. Porém, o manual foi responsável 
+pela orientação das atividades do teste de aceitação, pois o guia serviu de consulta durante o experimento pelo grupo de alunos e, posteriormente, incorporado na fase de documentação.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.60\textwidth]{img/documentacao-manual.png}
+    \caption{Manual do sistema BURI. Fonte: Autor.}\label{figGithubManual}
+\end{figure}
