@@ -368,6 +368,28 @@ ESP32 realiza a mesma ação, mas com o método de configuração específico pa
 
 \subsection{Terceira iteração}\label{ExecAtv3It}
 
+Esta seção encerra o desenvolvimento do \textit{software} e \textit{hardware} do sistema de monitoramento da contaminação do ar. A primeira etapa consistiu na configuração 
+do \textit{firmware}, o código executado no microcontrolador ESP32. Sobre a sua programação, o algoritmo estabelece dois modos de operação: o modo \textit{online}, que permite 
+o envio de dados ao servidor por meio de uma conexão Wi-Fi, e o \textit{offline}, em que a comunicação ocorre diretamente com o aplicativo Android via rede Bluetooth.
+
+O dispositivo de monitoramento requer conexão com a internet, um identificador único e acesso ao servidor. Para obter essas informações e estabelecer a interface com 
+o usuário, utilizou-se a biblioteca Wifi Manager \cite{tzapu-wifimanager}, que possibilita a configuração das redes Wi-Fi via  portal de acesso configurável e acessível no navegador. Já para 
+garantir a persistência dos dados durante as reinicializações do microcontrolador, foi utilizado a biblioteca de armazenamento SPIFFS Filesystem \cite{spiffs}. Essa solução permite armazenar
+na memória \textit{flash} do ESP32 dados no formato de arquivo, de forma eficiente e organizada, permitindo que o dispositivo recupere as informações mesmo após desligamentos ou reinicializações inesperadas.
+
+Em seguida, a próxima atividade de configuração é o envio de dados de ambiente para o servidor. O envio de dados foi implementado utilizando uma requisição HTTP no método POST, porém 
+construída diretamente no código do microcontrolador. A URL da API (previamente configurada) foi recuperada da memória e durante o processo de construção da mensagem HTTP foram 
+incluídos os cabeçalhos e o corpo da requisição contendo os dados coletados pelos sensores. No corpo da requisição, os seguintes valores foram adicionados: concentração de monóxido de carbono (ppm), umidade relativa do ar (\%), 
+temperatura (°C), horário de coleta e identificador do equipamento cadastrado. Portanto, a Figura \ref{figPostMeasurement} ilustra a formatação da mensagem utilizando o protocolo HTTP.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.53\textwidth]{img/POST-esp32-code.png}
+    \hfill
+    \includegraphics[width=0.36\textwidth]{img/POST-result.png}
+    \caption{Código de envio e mensagem HTTP resultante. Fonte: Autor.}\label{figPostMeasurement}
+\end{figure}
+
 \section{Testes de aceitação}\label{fase5}
 
 A etapa de testes de aceitação é o momento onde a aplicação desenvolvida sofre avaliação 
