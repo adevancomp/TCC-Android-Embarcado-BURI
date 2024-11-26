@@ -387,7 +387,26 @@ temperatura (°C), horário de coleta e identificador do equipamento cadastrado.
     \includegraphics[width=0.53\textwidth]{img/POST-esp32-code.png}
     \hfill
     \includegraphics[width=0.36\textwidth]{img/POST-result.png}
-    \caption{Código de envio e mensagem HTTP resultante. Fonte: Autor.}\label{figPostMeasurement}
+    \caption{Código de envio e exemplo de mensagem HTTP resultante. Fonte: Autor.}\label{figPostMeasurement}
+\end{figure}
+
+O servidor recebe as informações, verifica os valores atuais de cada parâmetro para tratar eventos do ambiente e, por fim, armazena os dados no banco de dados. Com a etapa 
+online do firmware concluída, a próxima atividade da iteração é desenvolver o código do aplicativo Android para consultar e visualizar as informações de cada dispositivo. A tela principal do 
+aplicativo BURI apresenta a lista de equipamentos cadastrados do usuário atual, permite através da ação de clique a visualização de dados de um item específico e o cadastro de um novo dispositivo. 
+
+Porém, a função de cadastro é dividida em duas etapas, uma executada no aplicativo e outra na rede de acesso do microcontrolador. O motivo da separação 
+é a possibilidade do dispositivo eletrônico migrar de rede Wi-Fi, pois a situação descrita, combinada com uma abordagem de código estática, exige do usuário convencional conhecimento técnico para mudar o código-fonte do \textit{hardware} e 
+atribuir a senha da nova rede, além de ser pouco prático. Após passar as credenciais, o usuário recebe o sinal visual do LED verde aceso e visualiza os dados do seu dispositivo no modo \textit{online} na tela do seu \textit{smartphone}.
+
+Na aplicação Android, o método de busca dos dados para visualização foi implementado na classe ``EqpInfoViewModel'', pois na arquitetura MVVM seu papel é interagir com a fonte de dados e notificar a interface sobre mudanças de estado. Em primeiro, caso 
+o funcionamento da aplicação seja \textit{online}, a classe realiza uma requisição HTTP do tipo GET no servidor através da implementação do comando na interface BuriApi, mas, caso contrário, a classe irá verificar a lista de dispositivos Blueetooth conectados em busca do 
+microcontrolador.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.25\textwidth]{img/buri-config-software.jpg}
+    \includegraphics[width=0.25\textwidth]{img/buri-config-hardware.jpg}
+    \caption{Processo de cadastro do novo dispositivo físico no aplicativo e na rede de acesso do ESP32. Fonte: Autor.}\label{figBuriConfig}
 \end{figure}
 
 \section{Testes de aceitação}\label{fase5}
