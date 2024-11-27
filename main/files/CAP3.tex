@@ -399,15 +399,48 @@ Porém, a função de cadastro é dividida em duas etapas, uma executada no apli
 atribuir a senha da nova rede, além de ser pouco prático. Após passar as credenciais, o usuário recebe o sinal visual do LED verde aceso e visualiza os dados do seu dispositivo no modo \textit{online} na tela do seu \textit{smartphone}.
 
 Na aplicação Android, o método de busca dos dados para visualização foi implementado na classe ``EqpInfoViewModel'', pois na arquitetura MVVM seu papel é interagir com a fonte de dados e notificar a interface sobre mudanças de estado. Em primeiro, caso 
-o funcionamento da aplicação seja \textit{online}, a classe realiza uma requisição HTTP do tipo GET no servidor através da implementação do comando na interface BuriApi, mas, caso contrário, a classe irá verificar a lista de dispositivos Blueetooth conectados em busca do 
+o funcionamento da aplicação seja \textit{online}, a classe realiza uma requisição HTTP do tipo GET no servidor através da implementação do comando na interface BuriApi, caso contrário, a classe irá verificar a lista de dispositivos Blueetooth conectados em busca do 
 microcontrolador.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.25\textwidth]{img/buri-config-software.jpg}
-    \includegraphics[width=0.25\textwidth]{img/buri-config-hardware.jpg}
+    \includegraphics[width=0.16\textwidth]{img/buri-config-software.jpg}
+    \includegraphics[width=0.16\textwidth]{img/buri-config-hardware.jpg}
     \caption{Processo de cadastro do novo dispositivo físico no aplicativo e na rede de acesso do ESP32. Fonte: Autor.}\label{figBuriConfig}
 \end{figure}
+
+O modo \textit{offline} utiliza o conceito de \textit{socket} da área de Sistemas Operacionais. Um \textit{socket} é um ponto de comunicação 
+bidirecional entre dois processos pertencentes ou não ao mesmo sistema, permitindo um fluxo contínuo de dados (\textit{bytes} sequenciais) enquanto 
+a conexão permanece ativa \cite{socket-geeksforgeeks}. A leitura dos dados de medição no \textit{socket} blueetooth está condicionada 
+ao acionamento do modo na interface gráfica do aplicativo, troca de contexto do microcontrolador com o uso do botão e conexão Blueetooth entre o aparelho 
+do usuário e a ESP32. Uma informação relevante é que, independente do modo de operação do sistema BURI, os dados são consultados a cada 1 minuto, pois 
+os efeitos da inalação de monóxido de carbono são diretamente proporcionais ao tempo de exposição, como mostram os dados da Tabela \ref{tabEfeitosCO}. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.64\textwidth]{img/buri-android-socket.png}
+    \caption{Código do consumo de dados do \textit{socket} no Android. Fonte: Autor.}\label{figBlueetoothSocketAndroid}
+\end{figure}
+
+Com o desenvolvimento das funcionalidades descritas acima, ocorre o teste de integração e o sucesso do uso dos componentes de \textit{software}. A última atividade da área de \textit{hardware} é a configuração dos modos 
+\textit{online} e \textit{offline}, onde o equipamento eletrônico recebe a junção de cada trecho de código e o acionamento do botão para troca de contexto. O 
+código em execução lê os sensores e sofre interrupção externa do pressionamento do botão, por atualizar a variável global que indica o modo de operação do circuito e
+comunica a informação do ambiente atual. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.46\textwidth]{img/hardware-online.jpg}
+    \includegraphics[width=0.46\textwidth]{img/hardware-offline.jpg}
+    \caption{Dispositivo de monitoramento Buri Hardware no modo online (led aceso) e offline (led apagado). Fonte: Autor.}\label{figHardwareAoVivo}
+\end{figure}
+
+Concluindo esta seção, a implementação e integração das iterações de atividades do sistema de monitoramento da qualidade do ar BURI, conforme descrito na 
+metodologia, permitiram que cada funcionalidade fosse desenvolvida, testada e validada em etapas progressivas. A integração entre as diversas áreas do sistema 
+apresentou desafios significativos, uma vez que o protótipo exige sincronia, confiabilidade e desempenho eficiente, além de um planejamento cuidadoso.
+
+Uma das principais dificuldades enfrentadas no desenvolvimento do código embarcado foi a limitação de memória. As bibliotecas 
+utilizadas e o uso de memória flash ocuparam um espaço considerável na versão final. Contudo, para mitigar essa limitação, a abordagem adotada foi construir 
+manualmente a mensagem de requisição HTTP, eliminando a dependência de abstrações proporcionadas por clientes HTTP, o que resultou em maior eficiência no uso de recursos.
 
 \section{Testes de aceitação}\label{fase5}
 
@@ -440,7 +473,8 @@ tarefas escolhidas dentro das funcionalidades da aplicação são apresentadas n
 Conforme o objetivo geral deste trabalho de conclusão de curso, o sistema de monitoramento é direcionado a ambientes \textit{indoor}. Esses espaços são 
 caracterizados por serem fechados, em contraste com ambientes externos ou ao ar livre, e por serem frequentemente ocupados por pessoas, como, por exemplo, escritórios comerciais. Assim, as atividades realizadas no ambiente de sala de aula 
 buscam aproximar o projeto do contexto real e do público-alvo para o qual ele será efetivamente aplicado. Portanto, a Figura \ref{figTesteHardware} ilustra a aplicação de um dos testes 
-com alunos de Sistemas de Informação e Engenharia de Computação.
+de aceitação, onde observa-se alunos do curso de Sistemas da Informação e Engenharia de Computação da EST usando o dispositivo embarcado e o aplicativo Android
+para obter informações do ambiente no instante atual.
 
 \begin{table}[htbp]
     \centering
