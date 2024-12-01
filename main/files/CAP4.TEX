@@ -77,6 +77,24 @@ realizadas com mais dificuldade. Portanto, os comentários obtidos no questioná
 
 \section{Teste do sistema de alerta}\label{alerta}
 
+O aviso de eventos perigosos é emitido na forma de notificação no \textit{smartphone} do usuário. Para o monitoramento da concentração de monóxido de carbono, os valores e as mensagens de 
+texto foram extraídos da Tabela \ref{tabEfeitosCO}. Esse evento possui prioridade superior aos de temperatura e umidade do ar, o que significa que, ao analisar uma medição atual e detectar 
+mais de um evento, apenas o de monóxido de carbono será registrado no banco de dados para aquela medição. Em seguida, considera-se o evento relacionado à umidade do ar, que é disparado após 
+uma redução de 60\% na medição atual. Por fim, caso a temperatura esteja fora do intervalo de 15°C a 35°C, o sistema informa a ocorrência de temperatura elevada ou inadequada.
+
+Realizar a queima controlada e incompleta de materiais, como carvão ou papel A4, requer um ambiente devidamente controlado e o uso de Equipamentos de Proteção Individual (EPIs) compatíveis com 
+um laboratório de pesquisa. Assim, para verificar a eficiência do sistema de alerta, optou-se por utilizar requisições HTTP manuais no servidor do sistema de 
+monitoramento, simulando valores anormais de medição, em vez de montar um ambiente de testes práticos semelhante ao descrito no trabalho de Sá (2022). Alternativas, como o uso de isqueiro e um 
+recipiente plástico, também foram avaliadas, mas não permitiram o isolamento adequado para atingir os níveis de monóxido de carbono (CO) de referência. A Figura \ref{figNotification} apresenta um 
+exemplo de evento com elevação de monóxido de carbono.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.35\textwidth]{img/alerta/dispositivo.jpg}
+    \includegraphics[width=0.35\textwidth]{img/alerta/notificação.jpg}
+    \caption{Dispositivo de medição e notificação associada. Fonte: Autor.}\label{figNotification}
+\end{figure}
+
 \section{Comparação técnica com trabalhos similares}\label{comparacao}
 
 Após a finalização de todas as etapas da metodologia, incluindo a realização de teste de usabilidade com pessoas de diferentes áreas, esta seção trata da análise dos resultados obtidos 
