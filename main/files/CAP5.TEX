@@ -1,6 +1,42 @@
 \chapter{Considerações Finais}
 
-\section{Limitações}
+O sistema BURI é fruto de uma proposta de solução para o monitoramento da qualidade do 
+ar em residências, com possibilidade de aplicação em outros ambientes \textit{indoor}. Seu objetivo é 
+operar de forma integrada com o \textit{smartphone} do usuário e a rede Wi-Fi, embora o módulo de 
+monitoramento também ofereça comunicação \textit{offline} por meio de Bluetooth. Essa funcionalidade torna-se 
+uma alternativa relevante para o indivíduo utilizar o dispositivo eletrônico mesmo na ausência de conexão à internet. Ainda, o 
+projeto notifica o usuário caso receba dados de medição que indiquem algum risco à sua saúde, sendo fundamental para aumentar a qualidade de vida 
+e prevenir acidentes com o gás de monóxido de carbono.
 
-\section{Trabalhos Futuros}
+Neste capítulo, são discutidas as principais limitações enfrentadas durante o desenvolvimento do sistema, apresentadas na Seção \ref{cap5:limitacoes}. Essa seção examina os desafios técnicos, 
+restrições de \textit{hardware} e \textit{software}, além de restrições relacionadas ao custo de implementação. Em seguida, a Seção \ref{cap5:trabalhos-futuros} explora possíveis melhorias no sistema, como a 
+incorporação de um servidor na nuvem, a integração com assistentes virtuais e a correção do comportamento inesperado do Bluetooth. Por fim, na Seção \ref{cap5:conclusao}, são sintetizadas as contribuições do projeto, destacando os 
+benefícios trazidos ao monitoramento ambiental, bem como reflexões sobre o impacto do sistema no cotidiano dos usuários.
 
+\section{Limitações}\label{cap5:limitacoes}
+
+A principal limitação do aplicativo é a dificuldade de configuração no modo \textit{offline}, uma vez que alguns celulares não conseguiram estabelecer conexão com o aparelho de monitoramento. Durante os testes realizados com os
+grupos de alunos, observou-se que os dispositivos que apresentaram esse problema utilizavam a versão 14 do Android. No entanto, a pesquisa ainda necessita de uma análise mais aprofundada para identificar as causas da falha. Outro aspecto 
+relevante é o modo de execução do servidor, que utiliza um \textit{notebook} como hospedeiro da aplicação e opera localmente, o que pode limitar o desempenho caso o número de usuários do sistema aumente. Por fim, um ponto frequentemente 
+mencionado no questionário de avaliação é a quantidade de informações exigidas para configurar o aparelho na rede Wi-Fi pela primeira vez. Muitos alunos precisaram de auxílio do desenvolvedor para recordar e executar todos os passos descritos no manual.
+
+\section{Trabalhos Futuros}\label{cap5:trabalhos-futuros}
+
+A solução proposta, embora funcional, ainda apresenta oportunidades de melhoria e expansão que podem ser exploradas em trabalhos futuros. A seguir, são apresentadas algumas direções potenciais para o aprimoramento do sistema. Uma das 
+principais melhorias seria a incorporação de um servidor na nuvem para gerenciar os dados de monitoramento, o que facilitaria o acesso às informações e proporcionaria maior escalabilidade ao sistema. Outro ponto relevante é a integração do sistema 
+BURI com assistentes virtuais, o que permitiria ao usuário realizar comandos de voz para monitorar a qualidade do ar, receber alerta sobre a presença de gases tóxicos ou consultar o histórico de medições. Em relação ao problema do modo 
+Bluetooth, é necessário reproduzir as condições do dia do teste de usabilidade para identificar a possível causa da falha.
+
+Com base nos \textit{feedbacks} recebidos, a melhoria da interface do usuário e a simplificação do processo de configuração são aspectos a serem considerados. O desenvolvimento de um processo de configuração restrito ao aplicativo poderia reduzir a 
+necessidade de suporte técnico na configuração inicial, tornando o processo mais intuitivo. A interface de cadastro de novo dispositivo apresenta uma caixa de diálogo com a ação ``COPIAR URL'', cujo visual não se destaca, o que fez com que alguns 
+usuários não associassem à ação sugerida. Portanto, uma abordagem seria destacar a cor do botão de ação e aumentar o tempo 
+de resposta do usuário.
+
+\section{Conclusão}\label{cap5:conclusao}
+
+Este projeto de conclusão de curso evidenciou a relevância de iniciativas tecnológicas direcionadas à melhoria da qualidade de vida e segurança das pessoas, com destaque para 
+a detecção de gases tóxicos, como o monóxido de carbono. Apesar das limitações identificadas, o sistema apresentou resultados promissores nos testes realizados com 
+alunos da UEA, demonstrando seu potencial para aplicações práticas. As propostas de trabalhos futuros, como a implementação de um servidor em nuvem, a integração com assistentes 
+virtuais e a reformulação da interface do usuário, abrem perspectivas para tornar o BURI uma solução ainda mais robusta. Além disso, o sistema possui código aberto e acesso livre 
+para reprodução, disponível em \url{https://github.com/adevancomp/TCC-Android-Embarcado-BURI}, incentivando a colaboração da comunidade acadêmica e de desenvolvedores para adaptações. Esse caráter colaborativo amplia as possibilidades de evolução do projeto, 
+promovendo a disseminação dos conceitos de IoT e sistemas distribuídos e contribuindo para o avanço de soluções inteligentes de monitoramento ambiental.
