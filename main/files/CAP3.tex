@@ -254,7 +254,7 @@ otimizou os recursos financeiros e atendeu às especificações técnicas do pro
 O DHT11 é um sensor com leitura digital comumente usado em projetos de automação para medição de temperatura e umidade do ar. O dispositivo 
 tem quatro pinos: \textbf{VCC}, responsável pela alimentação do sensor (3.3V a 5V); \textbf{GND}, que conecta ao sinal terra de referência do circuito; \textbf{DATA}, onde ocorre a transmissão 
 de dados digitais; e \textbf{NC}, um pino específico sem utilidade \cite{dht11-documentation}. Por conta de suas características, como a capacidade de fornecer leituras confiáveis em condições normais de ambiente, como 
-temperatura de 0 a 50°C e umidade do ar na faixa de 20 a 90\%, ele é a solução ideal para a aplicação em ambiente doméstico do sistema de monitoramento da contaminação do ar.
+temperatura de 0 a 50°C e umidade do ar na faixa de 20 a 90\%, ele é a solução ideal para a aplicação em ambiente doméstico do sistema de monitoramento da qualidade do ar.
 
 O segundo sensor utilizado no projeto é o MQ-7, sensível à presença de monóxido de carbono (CO) e amplamente empregado em equipamentos industriais e automotivos. Ele possui quatro 
 pinos, sendo dois deles (\textit{VCC} e \textit{GND}) destinados ao controle de energia e os outros dois à leitura de dados, sendo o pino \textbf{AO} para valores analógicos e o pino \textbf{D0} para saídas digitais. 
@@ -297,7 +297,7 @@ a interface BuriApi implementou os métodos identificados na Figura \ref{figRetr
 \end{figure}
 
 Em seguida realizou-se a implementação das seguintes telas do aplicativo: login, cadastro e lista de dispositivos. O aplicativo 
-tem o propósito de facilitar a interação do usuário com a aplicação de monitoramento da contaminação do ar, pois ele se conecta 
+tem o propósito de facilitar a interação do usuário com a aplicação de monitoramento da qualidade do ar, pois ele se conecta 
 tanto com o dispositivo quanto ao servidor via redes sem fio para mostrar dados em tempo real da concentração de monóxido de carbono. Como resultado das 
 atividades realizadas, foi concluída com sucesso a primeira integração do sistema, conectando o servidor ao aplicativo Android nas 
 funcionalidades de login e cadastro. 
@@ -368,7 +368,7 @@ ESP32 realiza a mesma ação, mas com o método de configuração específico pa
 
 \subsection{Terceira iteração}\label{ExecAtv3It}
 
-Esta seção encerra o desenvolvimento do \textit{software} e \textit{hardware} do sistema de monitoramento da contaminação do ar. A primeira etapa consistiu na configuração 
+Esta seção encerra o desenvolvimento do \textit{software} e \textit{hardware} do sistema de monitoramento da qualidade do ar. A primeira etapa consistiu na configuração 
 do \textit{firmware}, o código executado no microcontrolador ESP32. Sobre a sua programação, o algoritmo estabelece dois modos de operação: o modo \textit{online}, que permite 
 o envio de dados ao servidor por meio de uma conexão Wi-Fi, e o \textit{offline}, em que a comunicação ocorre diretamente com o aplicativo Android via rede Bluetooth.
 
@@ -460,7 +460,7 @@ de usabilidade com impacto positivo estruturam um ambiente propício para coleta
 graus em escala numérica para classificar a dificuldade na execução de tarefas. 
 
 Portanto, o primeiro passo foi a criação do termo de consentimento livre com base no trabalho de Marilis (2022), porém adicionando preocupações sobre a saúde dos entrevistados 
-em relação ao uso de sistema de monitoramento da contaminação do ar. Em segundo, ocorre a escolha das funcionalidades do sistema embarcado que serão alvo da pesquisa com os participantes, pois 
+em relação ao uso de sistema de monitoramento da qualidade do ar. Em segundo, ocorre a escolha das funcionalidades do sistema embarcado que serão alvo da pesquisa com os participantes, pois 
 o documento de cenários de teste deve contextualizar o usuário a respeito de cada atividade \cite{tarefas-design}. Após isso, o manual de configuração e uso do sistema BURI é disponibilizado 
 previamente aos participantes da avaliação prática, juntamente com o documento de cenários de teste. Esse procedimento permite ao entrevistado uma visão geral do que ele irá avaliar e também 
 ajuda na familiaridade com o dispositivo embarcado.

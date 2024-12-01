@@ -1,7 +1,7 @@
 \chapter{Fundamentação Teórica}
 
 Este capítulo aborda em detalhes os principais conceitos e tecnologias que fundamentam o projeto, incluindo temas como Internet das Coisas (\textit{IoT}), Sistemas Distribuídos, 
-redes de comunicação como Wi-Fi e Bluetooth, protocolo de comunicação HTTP, desenvolvimento de software para a plataforma Android, características do microcontrolador ESP32, monitoramento de 
+Redes de Computadores (Wi-Fi e Bluetooth), protocolo de comunicação HTTP, desenvolvimento de \textit{software} para a plataforma Android, características do microcontrolador ESP32, monitoramento de 
 exposição ao monóxido de carbono e trabalhos relacionados. Todos os tópicos citados possuem papel crucial no desenvolvimento da solução proposta no trabalho de conclusão de curso. Dessa forma, o
 objetivo é fornecer ao leitor uma visão abrangente das competências desenvolvidas em sua execução.
 
@@ -54,7 +54,7 @@ retorna o resultado ao cliente em espera, completando o ciclo de comunicação d
 
 Outro conceito importante é o de tolerância à falha. Essa característica permite um sistema continuar operando mesmo diante da falha de um ou mais 
 componentes internos. Ou seja, é a capacidade do sistema distribuído em identificar e isolar seus defeitos a fim de preservar o seu estado global, pois essa propriedade é 
-importante em sistemas críticos como por exemplo em sistemas de controle aéreo ou financeiros, onde interrupções podem levar a graves consequências e prejuízos \cite[pp. 528]{sistemas-distribuidos-coulouris2013}.
+importante em sistemas críticos como, por exemplo, em sistemas de controle aéreo ou financeiros, onde interrupções podem levar a graves consequências e prejuízos \cite[pp. 528]{sistemas-distribuidos-coulouris2013}.
 
 \section{Redes de Computadores}
 
@@ -158,7 +158,7 @@ padrão escolhido facilita a manutenção, o desenvolvimento de novas funcionali
 
 \subsection{Recomendação de Arquitetura}
 
-Um princípio muito usado na área de desenvolvimento de software é o chamado \textit{separation of concerns}, ou separação de responsabilidades. Esse conceito, no ecossistema Android,
+Um princípio muito usado na área de desenvolvimento de \textit{software} é o chamado \textit{separation of concerns}, ou separação de responsabilidades. Esse conceito, no ecossistema Android,
 atua na divisão do sistema em partes menores, específicas para uma determinada função e com objetivo bem definido. Por exemplo, não misturar lógica de 
 negócio ou acesso aos dados na camada de visualização (UI), tornando-a  responsável apenas pela interação com o usuário e renderização de componentes nativos. Diante disso, a documentação recomenda a separação em (pelo menos)
 duas camadas principais: \textit{UI} e \textit{Data}. A camada de \textit{UI} é responsável por exibir os dados do aplicativo, refletindo a mudança na tela em resposta às
@@ -174,11 +174,11 @@ Sua função é intermediar a comunicação entre as camadas, abstraindo chamada
 
 \subsection{Ciclo de vida da atividade}\label{ciclo-de-vida}
 
-O \textit{Activity lifecycle} (ciclo de vida de uma atividade) descreve todos os estados pelos quais uma activity passa, do momento em que é criada
-até quando é destruída. Uma \textit{activity} é uma classe que fornece uma janela para o aplicativo desenhar sua interface de usuário, pois um projeto Android 
-inicia sempre com uma \textit{activity}. O ciclo de vida de uma \textit{activity} passa por cinco etapas: 
+O \textit{Activity lifecycle} (ciclo de vida de uma atividade) descreve todos os estados pelos quais uma \textit{activity} passa, do momento em que é criada
+até quando é destruída. Uma \textit{activity} é uma classe Java que fornece uma janela para o aplicativo desenhar sua interface de usuário, pois um projeto Android 
+inicia sempre com uma \textit{activity}. O seu ciclo de vida passa por cinco etapas: 
 \textit{initialized}, \textit{created}, \textit{started}, \textit{resumed}, \textit{destroyed}. A seguir, será explicado em detalhes
-cada estado atingido.
+cada transição de estado e o seu significado.
 
 \begin{figure}[ht]
     \centering
@@ -195,7 +195,7 @@ ela passará para o estado \textit{destroyed}, encerrando seu ciclo de vida \cit
 
 \subsection{Arquitetura MVVM}
 
-O Model-View-ViewModel (MVVM) é um padrão de projeto de software criado por engenheiros da Microsoft\textsuperscript{\textregistered} 
+O Model-View-ViewModel (MVVM) é um padrão de projeto de \textit{software} criado por engenheiros da Microsoft\textsuperscript{\textregistered} 
 cuja função é separar a lógica de software da configuração de interface do usuário. Além disso, esse padrão de projeto facilita a aplicação de testes de unidades e reutilização 
 de código. O \textit{Model} é o componente não visual que armazena a lógica de negócio e o modelo de dados do domínio da aplicação, pois recebe e envia dados da \textit{ViewModel} 
 para que ela interaja com a \textit{View}. A \textit{View} são os elementos visíveis de interação com o usuário, pois recebem entradas de dados e eventos de \textit{UI}. Por fim, a
@@ -274,7 +274,7 @@ a intoxicação por monóxido de carbono, o paciente é submetido à terapia com
 
 
 
-\section{Trabalhos relacionados}
+\section{Trabalhos relacionados}\label{cap2:tabRel}
 
 O uso de sistemas embarcados na resolução de problemas de monitoramento de ambiente e prevenção 
 de acidentes possui uma ampla literatura disponível, justificando o uso de IoT em diversos setores 
@@ -283,7 +283,7 @@ discutirá soluções que compõe a base para o desenvolvimento do presente trab
 
 O trabalho de Sá possui foco no uso de dispositivos na área de IoT para a prevenção de incêndios em ambientes residenciais \cite{uea-iot-deteccao-incendio}. 
 O protótipo desenvolvido é uma solução web para monitoramento de variáveis com uso do módulo NodeMCU ESP12, pois o microcontrolador envia dados de temperatura, gás inflamável e de 
-fumaça por rede Wi-Fi para o backend da aplicação, feito em MySQL e PHP. No componente de hardware, os sensores utilizados foram o BM280 (Sensor de temperatura digital) e
+fumaça por rede Wi-Fi para o backend da aplicação, feito em MySQL e PHP. No componente de \textit{hardware}, os sensores utilizados foram o BM280 (Sensor de temperatura digital) e
 MQ2 (Sensor de gás/fumaça), assim como o atuador do tipo válvula para acionar o desligamento de gás de cozinha em situação de vazamento, evitando incêndio ou minimizando seus efeitos.
 
 No contexto de proteção e acomodação dos componentes eletrônicos, foi confeccionado um \textit{case} personalizado por impressão 3D, o que conferiu acabamento 
@@ -296,7 +296,7 @@ nuvem para uma visualização em tempo real. O sistema alerta o usuário caso a 
 pelo ambiente e enviam seus dados para o dispositivo central (\textit{Raspberry Pi}), pois o computador têm acesso ao servidor da AWS IoT e envia os dados coletados via protocolo MQTT.
 
 No trabalho \textit{AirWorld} \cite{UFAMAirWorld}, a solução proposta é um aplicativo móvel informativo de qualidade do ar para ambientes públicos, pois 
-sua interface informa dados do ambiente atual e orienta a prática de atividades físicas ou lazer. Os sensores utilizados foram o DHT11 para umidade do ar e temperatura, MQ7 para identificação do gás monoxído de 
+sua interface informa dados do ambiente atual e orienta a prática de atividades físicas ou lazer. Os sensores utilizados foram o DHT11 para umidade do ar e temperatura, MQ7 para identificação do gás monóxido de 
 carbono e, por último, o MQ-135 para dióxido de carbono, alcóol e outras substâncias tóxicas. Portanto, na arquitetura os dados são lidos pelo microcontrolador 
 \textit{Lora ESP32 Heltec}, que envia para o \textit{Firebase} armazenar e exibir os dados no aplicativo Android. 
 
