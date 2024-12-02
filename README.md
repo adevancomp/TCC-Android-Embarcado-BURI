@@ -40,7 +40,7 @@ build.gradle.kts  Dockerfile          gradlew  Procfile     src
 ```bash
 JWT_KEY=[coloque uma string aleatória aqui]
 PGDATABASE=[dê um nome para o seu banco de dados]
-PGHOST=db
+PGHOST=buridb
 PGPASSWORD=[coloque sua senha]
 PGPORT=5432
 PGUSER=postgres
@@ -50,13 +50,13 @@ SPRING_PROFILES_ACTIVE=prd
 ###### Ao preencher os campos solicitados, execute primeiro o seguinte comando para construir a imagem da API
 
 ```bash
- docker-compose build
+ docker compose build
 ```
 
 ###### E depois execute esse ultimo comando para subir os contêineres:
 
 ```bash
- docker-compose up
+ docker compose up
 ```
 
 ###### Pronto, agora a aplicação está rodando localmente na sua máquina !!!!
