@@ -2,11 +2,13 @@
 #include <NTPClient.h>
 #include <SPIFFS.h>
 #include <DHT.h>
+#include <MQ7.h>
 #include <ArduinoJson.h>
 #include <BluetoothSerial.h>
 
 #define DHT_PIN 4
 #define MQ7_PIN 2
+#define LED_PIN 12
 #define DHT_TYPE DHT11
 #define BUTTON_PIN 23
 #define BUTTON_TIME_TL 100
@@ -21,6 +23,7 @@ char BASE_URL[48]="";                                     // 47 caracteres pro l
 bool should_save_config = false;                          // Variável para saber se houve alterações no Wifi Manager
 
 DHT dht_sensor(DHT_PIN,DHT_TYPE);                         // Objeto para leitura dos dados do DHT
+MQ7 mq7(MQ7_PIN, 3.3);                                    // Objeto para leitura de CO do MQ-7
 
 WiFiUDP ntpUDP;                                           // Objeto de comunicação UDP para troca de dados no servidor NTP
 NTPClient timeClient(ntpUDP,"pool.ntp.org",-14400,6000);  // (objeto UDP, nome do servidor NTP, -4h sobre o GMT, intervalo de atualização)
@@ -54,6 +57,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   pinMode(MQ7_PIN,INPUT);
+  pinMode(LED_PIN,OUTPUT);
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonPressedISR, RISING);
   WiFiManager wm;
   bool res;
@@ -114,6 +118,7 @@ void setup() {
     configFile.close();
   }
   dht_sensor.begin();
+  mq7.calibrate();  
 }
 
 void loop() {
@@ -130,19 +135,24 @@ void loop() {
   } else {
     measurement["temp"] = String(dht_values,2);
   }
-  measurement["co"] = analogRead(MQ7_PIN);
+  measurement["co"] = mq7.readPpm();
+
   if(mode_is_online){
     //Começo do código online
-    
+    digitalWrite(LED_PIN,HIGH);
     Serial.println("Log:Modo online");
+    timeClient.update();
+    
     String formattedDate = timeClient.getFormattedDate();
-    measurement["collectionDate"] = formattedDate.substring(0,formattedDate.length() -1) + "-04:00";
+    String collectionDate = formattedDate.substring(0,formattedDate.length() -1) + "-04:00";
+    Serial.println(collectionDate);
+    measurement["collectionDate"] = collectionDate;
     measurement["equipmentId"] = String(id);
     serializeJson(measurement, measurementSerialized);
-    if(wifiClient.connect(String(BASE_URL).substring(8).c_str(), 80)){
+    if(wifiClient.connect(String(BASE_URL).substring(7).c_str(), 80)){
       Serial.println("Conectou no servidor da API");
       wifiClient.println("POST "+String(PATH_SAVE_MEASUREMENT)+" HTTP/1.0");
-      wifiClient.println("Host: "+String(BASE_URL).substring(8));
+      wifiClient.println("Host: "+String(BASE_URL).substring(7));
       wifiClient.println("Content-Type: application/json");
       wifiClient.print("Content-Length: ");
       wifiClient.println(strlen(measurementSerialized.c_str()));
@@ -161,7 +171,8 @@ void loop() {
     //Fim do codigo online
   } else {
     //Começo do código offline
-
+    measurement["collectionDate"] = "";
+    digitalWrite(LED_PIN,LOW);
     Serial.println("Log:Modo offline");
     serializeJson(measurement, measurementSerialized);
     if (serial_bt.hasClient()) {
@@ -171,7 +182,7 @@ void loop() {
       delay(100);
     } else {
       Serial.println("LOG:Aguardando conexão blueetooth ...");
-      delay(400);
+      delay(100);
     }
 
     //Fim do codigo offline
