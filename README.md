@@ -4,4 +4,4 @@
 
 ### Orientador : [Prof. Jonathas Silva dos Santos](https://www.linkedin.com/in/jonathassilvasantos/)
 
-<video src="./docs/buri-demonstracao.mp4" width="420" height="640" controls></video>
+<video src="./docs/buri-demonstracao_compress.mp4" width="420" height="640" controls></video>
