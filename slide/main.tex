@@ -4,6 +4,7 @@
 \usepackage[portuguese]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
+\usepackage{booktabs}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
@@ -66,7 +67,7 @@
     \end{frame}
 
     \begin{frame}{Objetivo Geral}
-        O objetivo geral do trabalho é oferecer uma solução de sistema embarcado para o monitoramento
+        O objetivo geral é oferecer uma solução de sistema embarcado para o monitoramento
         da qualidade do ar em ambiente residencial, com ênfase na coleta de dados e identificação de
         condições de risco. 
     \end{frame}
@@ -97,15 +98,56 @@
     %Destaque os principais conceitos e autores que embasam o
     %trabalho, sem entrar em detalhes excessivos.
 
-    \begin{frame}
-        O monóxido de carbono (CO) é um gás incolor 
+    \begin{frame}{Referencial Teórico}
+        O desenvolvimento do protótipo abordou diversos temas, entre eles: 
+        IoT, redes de computadores e estudo do monóxido de carbono. Além disso, o sistema 
+        \textbf{BURI} utilizou trabalhos acadêmicos para embasar a fundamentação teórica. Portanto, 
+        serão abordados a seguir, sucintamente, alguns tópicos importantes de cada área.
+    \end{frame}
+
+    \begin{frame}{IoT}
+        IoT é a sigla em inglês para o termo \textit{Internet of Things} (Internet das Coisas). 
+        A expressão possui muitas definições, porém o significado mais comum é dispositivos eletrônicos 
+        conectados à rede mundial de computadores, recebendo e enviando dados.
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.38\textwidth]{img/iot-cycle.png}
+            \caption{Ciclo do IoT. Fonte: \cite{iot-cycle}}\label{fig:cycleIoT}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Redes de Computadores}
+        ``A internet é um subsistema de comunicação único que fornece comunicação entre todos os hosts conectados a ela'' \cite[pp. 96]{sistemas-distribuidos-coulouris2013}. Dentro do 
+        assunto de redes locais de conexão sem fio, existe dois representantes: Wi-Fi e Bluetooth. 
+        
+        Uma rede Wi-Fi permite conexão de alta velocidade entre \textit{hosts} ou hospedeiros via 
+        pontos de acesso (\textit{access point} - AP). Já o protocolo Bluetooth é projetado para conexões de curto alcance e de baixa potência entre dois dispositivos.
+    \end{frame}
+
+    \begin{frame}{Monóxido de carbono}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.88\textwidth]{img/tab-concentracao-co.png}
+            \caption{Concentração de CO e efeitos. Fonte: \cite{seguranca-contra-incendios}}\label{fig:co}
+        \end{figure}
+    \end{frame}    
+
+    \begin{frame}{Trabalhos Relacionados}
+        \begin{enumerate}
+            \item Desenvolvimento de um protótipo de dispositivo de baixo custo baseado em Iot (internet of things) para detecção e prevenção de incêndios em ambientes residenciais \cite{uea-iot-deteccao-incendio}.
+            \item \textit{Indoor Air Quality Monitoring on AWS Using MQTT Protocol} \cite{iot-monitoring-on-aws}.
+            \item AirWorld: uma solução tecnológica para o monitoramento da qualidade do ar em ambientes públicos \cite{UFAMAirWorld}.
+            \item \textit{Intelligent based novel embedded system based IoT enabled
+            air pollution monitoring system} \cite{tbRelacionado4NovelEmbeddedSystem}.
+            \item Automação residencial de monitoramento de gás por meio da plataforma Arduino e IOT \cite{alexandre-automaccao-formulas-de-leitura-sensor}.
+        \end{enumerate}
     \end{frame}
 
     \section{Metodologia}
     %Resuma a metodologia utilizada, incluindo o tipo de pesquisa,
     %métodos de coleta e análise de dados
 
-    \begin{frame}
+    \begin{frame}{Metodologia}
         O monóxido de carbono (CO) é um gás incolor 
     \end{frame}
 
