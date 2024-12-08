@@ -57,7 +57,7 @@
     %pergunta de pesquisa e os objetivos
 
     \begin{frame}{Contextualização}
-        O monóxido de carbono é uma substância química incolor, inodoro e asfixiante. Atua no organismo humano pelo processo 
+        O monóxido de carbono (CO) é uma substância química incolor, inodoro e asfixiante. Atua no organismo humano pelo processo 
         de transporte de oxigênio no sangue \cite{carbon-monoxide-poisoning-varon}.
         \begin{figure}[ht]
             \centering
@@ -148,22 +148,98 @@
     %métodos de coleta e análise de dados
 
     \begin{frame}{Metodologia}
-        O monóxido de carbono (CO) é um gás incolor 
+        A metodologia do trabalho de conclusão de curso basea-se no \textit{embedded design lifecycle diagram} \cite{system-design-IOT}, diagrama de atividades 
+        apresentado no livro \textit{Embedded Systems Design}, mas com adaptações para o contexto acadêmico.
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.74\textwidth]{img/diagrama-metodologia.png}
+            \caption{Metodologia. Fonte: Autor, com base em \cite{system-design-IOT}}\label{fig:metodologia}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Metodologia: Atividades Realizadas}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.66\textwidth]{img/tarefas-metodologia.png}
+            \caption{Atividades de desenvolvimento. Fonte: Autor}\label{fig:atv}
+        \end{figure}
     \end{frame}
 
     \section{Resultados}
     %Foque nos resultados mais relevantes e significativos,
     %destacando como eles respondem à pergunta de pesquisa.
 
-    \begin{frame}
-        O monóxido de carbono (CO) é um gás incolor 
+    \begin{frame}{Resultados: Protótipo Físico}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.57\textwidth]{img/buri-esquematico.png}
+            \caption{Esquemático do \textit{hardware}. Fonte: Autor}\label{fig:hardware}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Resultados: Aplicativo Android}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.27\textwidth]{img/app.png}
+            \caption{Monitoramento pelo aplicativo. Fonte: Autor}\label{fig:software}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Resultados: Notificação de alerta}
+        O dispositivo embarcado lida com informação crítica. Conforme ilustrado na Figura \ref{fig:co}, 
+        altas concentrações de CO combinadas com período curto de tempo são fatais. Portanto, o \textit{software} 
+        implementa o aviso de exposição na forma de notificações do aplicativo e monitora cada medição para 
+        determinar a criação de um novo evento no Banco de Dados.
+    \end{frame}
+
+    \begin{frame}{Resultados: Notificação de alerta}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.47\textwidth]{img/notificação.jpg}
+            \caption{Notificação no \textit{smartphone}. Fonte: Autor}\label{fig:notification}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Resultados: Questionário e Teste de aceitação}
+        Após a conclusão das atividades listadas na Figura \ref{fig:atv}, a próxima fase foi 
+        a aplicação do teste de aceitação. Essa etapa consiste na criação de atividades práticas e escolha de um 
+        grupo de pessoas para executarem ações no sistema. Portanto, o total de 38 alunos de graduação foram voluntários 
+        para o processo mencionado anteriormente.
+    \end{frame}
+
+    \begin{frame}{Resultados: Questionário e Teste de aceitação}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.40\textwidth]{img/teste/app1.jpeg}
+            \includegraphics[width=0.45\textwidth]{img/teste/hard2.jpeg}
+            \caption{Testes do sistema BURI. Fonte: Autor.}\label{fig:testes-fotos}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Resultados: Questionário e Teste de aceitação}
+        Durante a avaliação, os entrevistados realizaram 8 atividades:
+        \begin{enumerate}
+            \item Criar conta;
+            \item Fazer Login;
+            \item Cadastrar novo dispositivo;
+            \item Visualizar lista de dispositivos cadastrados;
+            \item Selecionar dispositivo;
+            \item Visualizar dados (\textit{online});
+            \item Visualizar dados (\textit{offline});
+            \item Mudar propriedade de dispositivo;
+        \end{enumerate}
     \end{frame}
 
     \section{Discussão}
     %Relacione os resultados com o referencial teórico e com outros
     %estudos, interpretando o que eles significam
 
-    \begin{frame}
+    \begin{frame}{Discussão: Análise das respostas do questionário}
+        O monóxido de carbono (CO) é um gás incolor 
+    \end{frame}
+
+    \begin{frame}{Discussão: Comparação com trabalhos relacionados}
         O monóxido de carbono (CO) é um gás incolor 
     \end{frame}
 
