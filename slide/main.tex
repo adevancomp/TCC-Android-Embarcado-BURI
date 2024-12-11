@@ -56,7 +56,7 @@
     %Apresente o título do TCC e introduza rapidamente o contexto
     %pergunta de pesquisa e os objetivos
 
-    \begin{frame}{Contextualização}
+    \begin{frame}{Introdução}
         O monóxido de carbono (CO) é uma substância química incolor, inodoro e asfixiante. Atua no organismo humano pelo processo 
         de transporte de oxigênio no sangue \cite{carbon-monoxide-poisoning-varon}.
         \begin{figure}[ht]
@@ -99,16 +99,24 @@
     %trabalho, sem entrar em detalhes excessivos.
 
     \begin{frame}{Referencial Teórico}
-        O desenvolvimento do protótipo abordou diversos temas, entre eles: 
-        IoT, redes de computadores e estudo do monóxido de carbono. Além disso, o sistema 
-        \textbf{BURI} utilizou trabalhos acadêmicos para embasar a fundamentação teórica. Portanto, 
-        serão abordados a seguir, sucintamente, alguns tópicos importantes de cada área.
+        O sistema BURI é um projeto multidisciplinar, abordando temas como: 
+        monóxido de carbono, IoT e redes de computadores. Além disso, o desenvolvimento do  
+        protótipo utilizou trabalhos acadêmicos como referência em sua concepção. Portanto, 
+        os tópicos citados serão explicados a seguir.
+    \end{frame}
+
+    \begin{frame}{Monóxido de carbono}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.88\textwidth]{img/tab-concentracao-co.png}
+            \caption{Concentração de CO e efeitos. Fonte: \cite{seguranca-contra-incendios}}\label{fig:co}
+        \end{figure}
     \end{frame}
 
     \begin{frame}{IoT}
-        IoT é a sigla em inglês para o termo \textit{Internet of Things} (Internet das Coisas). 
-        A expressão possui muitas definições, porém o significado mais comum é dispositivos eletrônicos 
-        conectados à rede mundial de computadores, recebendo e enviando dados.
+        IoT é uma sigla para o termo \textit{Internet of Things} (Internet das Coisas). 
+        A expressão possui muitas definições, porém o significado mais comum é de dispositivos eletrônicos 
+        conectados à rede de computadores, recebendo e enviando dados de forma autônoma.
         \begin{figure}[ht]
             \centering
             \includegraphics[width=0.38\textwidth]{img/iot-cycle.png}
@@ -118,18 +126,10 @@
 
     \begin{frame}{Redes de Computadores}
         ``A internet é um subsistema de comunicação único que fornece comunicação entre todos os hosts conectados a ela'' \cite[pp. 96]{sistemas-distribuidos-coulouris2013}. Dentro do 
-        assunto de redes locais de conexão sem fio, existe dois representantes: Wi-Fi e Bluetooth. 
+        assunto de redes locais de conexão sem fio, existem dois representantes: Wi-Fi e Bluetooth. 
         
         Uma rede Wi-Fi permite conexão de alta velocidade entre \textit{hosts} ou hospedeiros via 
-        pontos de acesso (\textit{access point} - AP). Já o protocolo Bluetooth é projetado para conexões de curto alcance e de baixa potência entre dois dispositivos.
-    \end{frame}
-
-    \begin{frame}{Monóxido de carbono}
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.88\textwidth]{img/tab-concentracao-co.png}
-            \caption{Concentração de CO e efeitos. Fonte: \cite{seguranca-contra-incendios}}\label{fig:co}
-        \end{figure}
+        pontos de acesso (\textit{access point} - AP). Já o protocolo Bluetooth é projetado para conexões de curto alcance e de baixa \textbf{potência} entre dois dispositivos.
     \end{frame}    
 
     \begin{frame}{Trabalhos Relacionados}
@@ -148,7 +148,7 @@
     %métodos de coleta e análise de dados
 
     \begin{frame}{Metodologia}
-        A metodologia do trabalho de conclusão de curso basea-se no \textit{embedded design lifecycle diagram} \cite{system-design-IOT}, diagrama de atividades 
+        A metodologia de trabalho basea-se no \textit{embedded design lifecycle diagram} \cite{system-design-IOT}, diagrama de atividades 
         apresentado no livro \textit{Embedded Systems Design}, mas com adaptações para o contexto acadêmico.
 
         \begin{figure}[ht]
@@ -166,9 +166,59 @@
         \end{figure}
     \end{frame}
 
+    \section{Especificação}
+
+    \begin{frame}{Especificação: Primeiro questionário}        
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.99\textwidth]{./img/questionario-wifi.png}
+            \caption{Pergunta sobre Wi-Fi. Fonte: Autor}\label{fig:wifi}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Especificação: Primeiro questionário}        
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.89\textwidth]{./img/questionario-experiencia-config.png}
+            \caption{Pergunta sobre uso de apps para automação. Fonte: Autor}\label{fig:configAut}
+        \end{figure}
+    \end{frame}
+
     \section{Resultados}
     %Foque nos resultados mais relevantes e significativos,
     %destacando como eles respondem à pergunta de pesquisa.
+
+    \begin{frame}{Resultados: Modelagem do Sistema}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.97\textwidth]{img/context-diagram.png}
+            \caption{Diagrama de contexto. Fonte: Autor}\label{fig:dtcontext}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Resultados: Modelagem do Sistema}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.90\textwidth]{img/conteiner-diagram.png}
+            \caption{Diagrama de container (Geral). Fonte: Autor}\label{fig:dtGeral}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Resultados: Modelagem do Sistema}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.85\textwidth]{img/conteiner-part-1.png}
+            \caption{Diagrama de container (Parte 1). Fonte: Autor}\label{fig:dtcontainer-pt1}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Resultados: Modelagem do Sistema}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.60\textwidth]{img/conteiner-part-2.png}
+            \caption{Diagrama de container (Parte 2). Fonte: Autor}\label{fig:dtcontainer-pt2}
+        \end{figure}
+    \end{frame}
 
     \begin{frame}{Resultados: Protótipo Físico}
         \begin{figure}[ht]
@@ -189,8 +239,7 @@
     \begin{frame}{Resultados: Notificação de alerta}
         O dispositivo embarcado lida com informação crítica. Conforme ilustrado na Figura \ref{fig:co}, 
         altas concentrações de CO combinadas com período curto de tempo são fatais. Portanto, o \textit{software} 
-        implementa o aviso de exposição na forma de notificações do aplicativo e monitora cada medição para 
-        determinar a criação de um novo evento no Banco de Dados.
+        implementa o aviso de exposição na forma de notificações do aplicativo.
     \end{frame}
 
     \begin{frame}{Resultados: Notificação de alerta}
@@ -249,14 +298,6 @@
             \centering
             \includegraphics[width=0.99\textwidth]{./img/grafico-preco-hardware.png}
             \caption{Preço justo. Fonte: Autor}\label{fig:precoJusto}
-        \end{figure}
-    \end{frame}
-
-    \begin{frame}{Discussão: Primeiro questionário}        
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.99\textwidth]{./img/questionario-wifi.png}
-            \caption{Pergunta sobre Wi-Fi. Fonte: Autor}\label{fig:wifi}
         \end{figure}
     \end{frame}
 
