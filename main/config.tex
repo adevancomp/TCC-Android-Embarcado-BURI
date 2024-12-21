@@ -71,6 +71,24 @@
 
 }
 
+% AGRADECIMENTOS ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\newcommand{\agradecimentos}[1]{
+\chapter*{Agradecimentos} % Título alinhado à esquerda
+\input{#1}
+\newpage
+}
+
+% EPÍGRAFE ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\newcommand{\epigrafe}[1]{
+\chapter*{Epígrafe} % Título alinhado à esquerda
+\vspace*{\fill} % Preenche o espaço vertical até o final da página
+\begin{flushright} % Alinha o texto à direita
+\textit{#1} \\[1em] % Texto em itálico com espaçamento
+\end{flushright}
+\vspace*{-0.5cm} % Ajusta o posicionamento para ficar mais próximo ao canto inferior direito
+\newpage
+}
+
 % Sumário -----------
 \newcommand{\sumario}{
 \renewcommand{\contentsname}{Sum\'{a}rio}
