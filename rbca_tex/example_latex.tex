@@ -110,9 +110,47 @@ Embora o CO seja um componente químico produzido pelos processos fisiológicos 
 risco de intoxicação. Ao ser inalado, o gás difunde-se nos alvéolos pulmonares e segue para a corrente sanguínea, onde se liga à proteína hemoglobina, 
 que atua no transporte de oxigênio no sangue, interrompendo o processo adequado de respiração celular no indivíduo \citep{gases-sufocantes-hernandez-2022}.
 
-Nesse contexto, a contribuição deste trabalho consiste em propor e desenvolver uma solução integrada de 
-\textit{hardware} e \textit{software} para o monitoramento do ambiente residencial, pois a presença do CO não 
-é detectada pelo olfato humano e o tempo de exposição é o fator determinante para minimizar os impactos no organismo.
+Nesse contexto, a contribuição deste trabalho consiste em propor e desenvolver uma solução integrada de \textit{hardware} e \textit{software} para o monitoramento 
+do ambiente residencial. A presença de monóxido de carbono (CO) não é detectada pelo olfato humano, e o tempo de exposição é determinante para minimizar os impactos 
+na saúde. Para tanto, o sistema, denominado \textbf{BURI}, atua como uma interface de monitoramento ambiental, sendo responsável pela coleta de dados dos sensores, 
+pela configuração do protótipo eletrônico e pela apresentação das informações ao usuário doméstico.
+
+No ambiente doméstico, as fontes mais comuns de monóxido de carbono são aquecedores, fogões, automóveis fechados, entre outros. O principal problema é o vazamento, pois 
+a falta de manutenção ou o uso indevido de equipamentos representa um risco potencial na ausência de dispositivos de medição \citep{varon-poisoning}. Portanto, o protótipo 
+visa contribuir para a detecção de riscos de intoxicação por CO em ambientes \textit{indoor}, especialmente em residências, cujas principais características incluem pouca 
+ventilação natural e intensa circulação de pessoas.
+
+Para avaliar o desempenho da solução proposta, é necessário aplicar um estudo de usabilidade, no qual voluntários executam tarefas em um ambiente controlado, realizando atividades 
+reais no sistema embarcado BURI. Esse processo segue as recomendações do livro ``\textit{A Practical Guide to Usability Testing}'' \citep{guide-usability-design}.
+
+O texto está organizado da seguinte forma. A Seção \ref{sec01:fundamentacao-teorica} apresenta a fundamentação teórica, abordando conceitos como Internet das Coisas, comunicação por redes Wi-Fi e Bluetooth, 
+e desenvolvimento Android, que embasam o conhecimento teórico da pesquisa. Na Seção \ref{sec02:metodologia}, são descritas as etapas da metodologia utilizada no ciclo de desenvolvimento. A Seção \ref{sec03:modelagem} detalha 
+a modelagem da arquitetura do sistema e fluxo de comunicação entre os componentes internos do sistema embarcado. 
+
+Na Seção \ref{sec04:atividades}, são descritos os aspectos da implementação do sistema, incluindo a integração de \textit{hardware} 
+e \textit{software}. A Seção \ref{sec05:testes} discute a execução dos testes práticos com alunos de graduação, além do envio simulado de alerta em caso de detecção de monóxido de carbono em níveis críticos. Os resultados 
+obtidos e as análises correspondentes são apresentados na Seção \ref{sec06:resultados}. Por fim, a Seção \ref{sec07:conclusao} conclui o trabalho, ressaltando as contribuições 
+científicas para a área de sistemas embarcados e as possibilidades de aprimoramento futuro.
+
+\section{Fundamentação Teórica}\label{sec01:fundamentacao-teorica}
+
+\subsection{Internet das Coisas}\label{sec01:sub1:IoT}
+
+\subsection{Comunicação por rede Wi-Fi e Bluetooth}\label{sec01:sub2:redes}
+
+\subsection{Desenvolvimento Android}\label{sec01:sub3:android}
+
+\section{Metodologia}\label{sec02:metodologia}
+
+\section{Modelagem da arquitetura do sistema}\label{sec03:modelagem}
+
+\section{Implementação}\label{sec04:atividades}
+
+\section{Testes de aceitação e envio de alerta}\label{sec05:testes}
+
+\section{Resultados e Discussão}\label{sec06:resultados}
+
+\section{Conclusão}\label{sec07:conclusao}
 
 %% Specify your .bib file name here, without the extension .bib
 \bibliography{references} 
