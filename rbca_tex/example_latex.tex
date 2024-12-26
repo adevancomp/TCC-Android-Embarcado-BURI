@@ -145,11 +145,73 @@ Por outro lado, o termo IoT possui diversas definições. A concepção mais int
 área atualmente abrange muitas outras disciplinas do conhecimento, como protocolos de comunicação, eletrônica de baixo custo, plataformas em nuvem, \textit{machine learning}, otimização de processos, entre outras. Não somente coletar dados, mas 
 utilizá-los para orientar tomada de decisão em busca de eficiência.
 
+Para viabilizar a implementação de soluções em IoT, é fundamental o uso de dispositivos que atuem como intermediários entre os ambientes físico e digital. Nesse contexto, destacam-se os microcontroladores, equipamentos compactos e versáteis, 
+capazes de processar informações, executar tarefas específicas e estabelecer comunicação eficiente com outros dispositivos.
+
+O ESP32 é uma família de microcontroladores desenvolvida pela empresa Espressif Systems, amplamente conhecida por seus recursos avançados, como conectividade Wi-Fi e Bluetooth, sendo projetada especialmente para aplicações de IoT. Este dispositivo 
+destaca-se em diversos projetos de automação residencial e industrial devido a vantagens como design robusto, baixo consumo de energia, interface que facilita a integração com outros componentes eletrônicos e um chip integrado de alto desempenho \citep{esp32-espressif}.
+
 \subsection{Comunicação por rede Wi-Fi e Bluetooth}\label{sec01:sub2:redes}
+
+A conectividade é um dos requisitos centrais para o funcionamento da Internet das Coisas, permitindo que dispositivos troquem informações entre si e com sistemas centrais de processamento de dados. Essa comunicação só é possível via 
+redes de computadores. ``A internet é um subsistema de comunicação único que fornece comunicação entre todos os hosts conectados a ela'' \citep[pp. 96]{spd-coulouris2013}. Portanto, uma rede de computadores permite que sistemas se 
+comuniquem e troquem mensagens por protocolos, sendo estes um conjunto específico de regras para o envio e recebimento de dados.
+
+No contexto de redes locais sem fio, esta seção trata de duas implementações utilizadas no sistema BURI: Wi-Fi e Bluetooth. A rede Wi-Fi, inicialmente designada como a \textbf{LAN sem fio IEE 802.11}, é uma tecnologia de comunicação 
+que permite aos hospedeiros sem fio acesso a redes maiores por uma infraestrutura baseada em pontos de acesso (\textit{access point} - AP). 
+
+Em termos de arquitetura, o hospedeiro móvel realiza uma varredura e encontra APs disponíveis 
+através do envio periódico de quadros de sinalização por parte dos pontos, contendo o identificador da rede SSID (do inglês, \textit{Service Set Identifier}) e o endereço MAC do AP. Em seguida, o usuário escolhe um desses pontos para 
+se associar, solicitando entrada na sub-rede e obtendo um IP \citep{redeskurose2010}.
+
+Já o Bluetooth possui como restrições o baixo consumo de energia e uso na comunicação entre dispositivos portáteis, pois, diferente do Wi-Fi, o Bluetooth 
+necessita de menor largura de banda e alcance de transmissão. Sua implementação é feita de duas formas: \textit{Basic Rate} (BR) e \textit{Low Energy} (LE). 
+
+A principal diferença entre eles reside no fato de que o sistema LE apresenta recursos projetados para um menor consumo de corrente, além de possuir baixa complexidade e custo, sendo ideal 
+para dispositivos cujo funcionamento está sujeito a restrições energéticas. O \textit{Bluetooth Core System} é organizado em um \textit{host} e um ou vários \textit{controllers}. O \textit{host} é o componente 
+responsável por gerenciar os níveis situados acima da HCI (\textit{Host Controller Interface}) e abaixo dos perfis de aplicação externos ao protocolo. Por sua vez, o \textit{controller} atua nas camadas inferiores 
+da pilha Bluetooth, realizando o controle do \textit{hardware} no envio e recebimento de sinais por meio de ondas de rádio \citep{bluetooth-documentation}.
 
 \subsection{Desenvolvimento Android}\label{sec01:sub3:android}
 
+O Android é um Sistema Operacional de código aberto baseado na kernel do Linux, focado em dispositivos móveis, cujo projeto é liderado pela 
+empresa Google. Não se limitando aos \textit{smarthphones}, o Android possui aplicação em : TVs, geladeiras, relógios inteligentes, carros, 
+câmeras digitais, entre outros \citep{google-developers}. Essa versatilidade do Android é atrativa para o desenvolvimento de soluções em sistemas 
+embarcados como o BURI, um aplicativo que integra as funcionalidades de monitoramento da qualidade do ar com foco em monóxido de carbono.
+
+O \textit{separation of concerns}, ou separação de responsabilidades, é um principio comum no mundo do desenvolvimento de \textit{software}. Por exemplo, não misturar lógica de 
+negócio ou acesso aos dados na camada de visualização (UI), tornando-a  responsável apenas pela interação com o usuário e renderização de componentes nativos. Diante disso, a 
+documentação recomenda a separação em (pelo menos) duas camadas principais: \textit{UI} e \textit{Data}. 
+
+A camada de \textit{UI} é responsável por exibir os dados do aplicativo, refletindo a mudança na tela em resposta às interações do usuário (como cliques ou pressionamento de botões) 
+ou a eventos externos (como a resposta de uma requisição de rede). Por sua vez, a camada \textit{Data} fornece à camada de \textit{UI} um acesso simplificado aos dados, além de abrigar 
+a lógica de negócio e o gerenciamento adequado de cada tipo de dado. Opcionalmente, pode-se adicionar uma terceira camada entre as duas, chamada de \textit{Domain Layer}. Sua função é 
+intermediar a comunicação entre as camadas, abstraindo chamadas e eventos em um único lugar.
+
+\begin{figure}[bt!] %% preferably at bottom or top of column
+	\centering
+	\includegraphics[width=.43\textwidth]{img/fundamentos/app-android-layers.png}
+	\caption{Camadas de arquitetura de um aplicativo Android. Fonte: \citep{google-developers}}\label{fig:androidLayers}
+\end{figure}
+
 \section{Metodologia}\label{sec02:metodologia}
+
+Esta seção é dedicada na descrição das etapas realizadas para alcançar o objetivo da pesquisa aplicada. A metodologia da proposta 
+baseia-se no \textit{embedded design life cycle diagram} \citep{metodologia-embedded-system}. O fluxo de atividades possui vantagem no 
+particionamento de tarefas em \textit{hardware} (HW) e \textit{software} (SW), pois sistemas embarcados têm características intrínsecas, 
+como alto acoplamento, dependência entre componentes eletrônicos e a leitura de dados pelo \textit{software}, além da própria limitação de 
+poder computacional oferecido pelos dispositivos.
+
+A execução simultânea de atividades em duas áreas permite validar as funcionalidades do sistema em entregas parciais e otimizar o processo de 
+desenvolvimento. Entretanto, sua complexidade demanda maior atenção à execução e à ordem das tarefas. O ciclo de atividades descrito no 
+livro \textit{Embedded System Design} \citep{metodologia-embedded-system} é direcionado para a construção de produtos, o que torna necessária a 
+adaptação do método ao contexto acadêmico, com embasamento em trabalhos científicos. Assim, a metodologia atual é ilustrada na Figura \ref{fig:metodologia}.
+
+\begin{figure}[bt!] %% preferably at bottom or top of column
+	\centering
+	\includegraphics[width=.52\textwidth]{img/fundamentos/metodologia.png}
+	\caption{Metodologia. Fonte: Elaboração própria com base em \citep{metodologia-embedded-system}}\label{fig:metodologia}
+\end{figure}
 
 \section{Modelagem da arquitetura do sistema}\label{sec03:modelagem}
 
