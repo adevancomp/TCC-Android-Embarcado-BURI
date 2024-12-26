@@ -21,7 +21,6 @@
 
 %%%
 
-
 %%% Paper title
 \title{BURI: Sistema Embarcado de monitoramento da qualidade do ar em ambiente residencial}
 
@@ -237,6 +236,50 @@ Por fim, o Banco de Dados desempenha a função de armazenar todas as informaç�
 umidade do ar e concentração de monóxido de carbono. Ademais, a estrutura de dados foi projetada para registrar tanto eventos críticos quanto medições que permanecem dentro dos parâmetros normais.
 
 \section{Implementação}\label{sec04:atividades}
+
+O protótipo final resulta da integração entre \textit{software} e \textit{hardware}. A etapa inicial do desenvolvimento de software consiste na modelagem e implementação do banco de dados, responsável pela persistência e 
+gerenciamento das informações. Em seguida, a API (\textit{Application Programming Interface}) é implementada para gerenciar as interações com a interface do usuário, o banco de dados e as regras de negócio, como a identificação de dispositivos e eventos de risco.
+
+No contexto de \textit{hardware}, os primeiros passos foram o estudo dos componentes eletrônicos e montagem do circuito. Portanto, os sensores de medição escolhidos foram o DHT11 e o MQ-7, para coleta de dados de temperatura e umidade do ar e para 
+concentração de monóxido de carbono. O ESP32 foi escolhido devido à sua versatilidade, ao possuir conectividade Wi-Fi e Bluetooth integradas, o que facilita a comunicação sem fio com outros componentes do sistema de monitoramento. Além disso, destaca-se 
+pela robustez e poder de processamento, ao oferecer maior velocidade de processamento em comparação com outras opções, o que é essencial para o desempenho do sistema. 
+
+\begin{figure}[bt!] %% preferably at bottom or top of column
+	\centering
+	\includegraphics[width=.43\textwidth]{img/arquitetura/buri_esquematico.png}
+	\caption{Esquemático do protótipo físico. Fonte: Autor}\label{fig:esquematico}
+\end{figure}
+
+A Figura \ref{fig:esquematico} apresenta a montagem do circuito eletrônico. O microcontrolador processa os dados provenientes dos sensores DHT11 e MQ7, além de controlar o sinalizador LED por meio da matriz de contato em branco, visível na imagem. A função do 
+LED é indicar ao usuário o estado atual do dispositivo: aceso, o protótipo está em modo \textit{online}; apagado, em modo \textit{offline}. A alternância entre os modos é acionada pelo botão. O ESP32 consome energia pela conexão micro USB com a porta do notebook, pois 
+no desenvolvimento do projeto os logs do microcontrolador são monitorados. 
+
+Em seguida, realizou-se a construção de telas do aplicativo. A tarefa de \textit{software} usa a linguagem de programação Kotlin, recomendação 
+oficial da Google para desenvolvimento de aplicativos Android \citep{google-developers}. As telas desenvolvidas foram: login, cadastro, lista de dispositivos e de 
+visualização de dados em tempo real.
+
+A tela principal do aplicativo BURI apresenta a lista de equipamentos cadastrados pelo usuário. Ao clicar em um item específico, é possível visualizar seus dados. Além disso, o 
+aplicativo permite cadastrar novos dispositivos. A configuração do protótipo físico, entretanto, envolve duas etapas complementares: a primeira é realizada no aplicativo, enquanto 
+a segunda ocorre no ESP32.
+
+O aplicativo se encarrega de armazenar os dados do dispositivo no servidor. O microcontrolador ESP32, por sua vez, é responsável por estabelecer a conexão com a rede Wi-Fi e armazenar 
+um identificador único (ID), permitindo o envio subsequente das medições.
+
+\begin{figure}[bt!] %% preferably at bottom or top of column
+	\centering
+	\includegraphics[width=.27\textwidth]{img/arquitetura/interface-app.jpg}
+	\caption{Tela com a lista de dispositivos. Fonte: Autor}\label{fig:home:app}
+\end{figure}
+
+Para o controle do microcontrolador, a linguagem de programação do \textit{firmware}, trecho de código 
+executado no ESP32, foi o C++ juntamente com a ferramenta Arduino IDE. Para garantir a persistência dos dados 
+durante as reinicializações do microcontrolador, foi utilizada a biblioteca de armazenamento SPIFFS Filesystem \citep{spiffs}. Essa solução permite armazenar
+na memória \textit{flash} do ESP32 dados no formato de arquivo, de forma eficiente e organizada, permitindo que o dispositivo 
+recupere as informações mesmo após desligamentos ou reinicializações inesperadas.
+
+Ao enviar uma medição ao servidor, o microcontrolador dispara uma rotina de verificação antes de salvar 
+as informações no Banco de Dados. 
+
 
 \section{Testes de aceitação e envio de alerta}\label{sec05:testes}
 
