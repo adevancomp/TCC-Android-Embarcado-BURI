@@ -215,6 +215,27 @@ adaptação do método ao contexto acadêmico, com embasamento em trabalhos cien
 
 \section{Modelagem da arquitetura do sistema}\label{sec03:modelagem}
 
+A modelagem de arquitetura do sistema usa o padrão de documentação C4-model \citep{c4-model}. O C4 é um conjunto de ferramentas visuais usado pelos 
+desenvolvedores de \textit{software} para a comunicação da arquitetura do sistema, semelhante a um mapa, com quatro níveis de 
+detalhamento: \textit{context}, \textit{container}, \textit{component} e \textit{code}. 
+
+\begin{figure*}%[b!]  %% Add a [b!] if you prefer the wide image to be at the bottom of the page
+	\centering
+	\includegraphics[width=.99\textwidth]{img/arquitetura/conteiner-diagram.png}
+	\caption{Diagrama de conteiner do sistema BURI. Fonte: Autor}
+	\label{fig:diagram:conteiner}
+\end{figure*}
+
+O diagrama de \textit{container} é o segundo nível na hierarquia do modelo. Seu objetivo é demonstrar o funcionamento da aplicação em termos de contêineres, ou seja, os elementos implantáveis
+e componentes de \textit{software} necessários para o pleno funcionamento do projeto. Na Figura \ref{fig:diagram:conteiner}, o projeto é composto por três módulos principais: servidor, aplicativo móvel e banco de dados.
+
+O servidor é responsável pelas regras de negócio, como o cadastro de usuários, dispositivos e login, além de realizar o armazenamento das medições coletadas pelo equipamento embarcado. Esses dados 
+constituem a base para o registro de eventos extremos. A segunda parte corresponde ao aplicativo Android, que funciona como a interface do sistema com o usuário doméstico. Todo o fluxo de informações 
+entre os diferentes componentes serve como fonte de dados para a visualização no \textit{smartphone} do indivíduo.
+
+Por fim, o Banco de Dados desempenha a função de armazenar todas as informações provenientes do sistema de monitoramento. Os dados coletados são organizados por dispositivo, sendo que cada um realiza medições de temperatura, 
+umidade do ar e concentração de monóxido de carbono. Ademais, a estrutura de dados foi projetada para registrar tanto eventos críticos quanto medições que permanecem dentro dos parâmetros normais.
+
 \section{Implementação}\label{sec04:atividades}
 
 \section{Testes de aceitação e envio de alerta}\label{sec05:testes}
