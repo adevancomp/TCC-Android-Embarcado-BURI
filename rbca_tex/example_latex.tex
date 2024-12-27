@@ -122,13 +122,13 @@ ventilação natural e intensa circulação de pessoas.
 Para avaliar o desempenho da solução proposta, é necessário aplicar um estudo de usabilidade, no qual voluntários executam tarefas em um ambiente controlado, realizando atividades 
 reais no sistema embarcado BURI. Esse processo segue as recomendações do livro ``\textit{A Practical Guide to Usability Testing}'' \citep{guide-usability-design}.
 
-O texto está organizado da seguinte forma. A Seção \ref{sec01:fundamentacao-teorica} apresenta a fundamentação teórica, abordando conceitos como Internet das Coisas, comunicação por redes Wi-Fi e Bluetooth, 
-e desenvolvimento Android, assim como os trabalhos que embasam o conhecimento teórico da pesquisa. Na Seção \ref{sec02:metodologia}, são descritas as etapas da metodologia utilizada no ciclo de desenvolvimento. A Seção \ref{sec03:modelagem} detalha 
+O texto está organizado da seguinte forma. A \cref{sec01:fundamentacao-teorica} apresenta a fundamentação teórica, abordando conceitos como Internet das Coisas, comunicação por redes Wi-Fi e Bluetooth, 
+e desenvolvimento Android, assim como os trabalhos que embasam o conhecimento teórico da pesquisa. Na \cref{sec02:metodologia}, são descritas as etapas da metodologia utilizada no ciclo de desenvolvimento. A \cref{sec03:modelagem} detalha 
 a modelagem da arquitetura do sistema e fluxo de comunicação entre os componentes internos do sistema embarcado. 
 
-Na Seção \ref{sec04:atividades}, são descritos os aspectos da implementação do sistema, incluindo a integração de \textit{hardware} 
-e \textit{software}. A Seção \ref{sec05:testes} discute a execução dos testes práticos com alunos de graduação, além do envio simulado de alerta em caso de detecção de monóxido de carbono em níveis críticos. Os resultados 
-obtidos e as análises correspondentes são apresentados na Seção \ref{sec06:resultados}. Por fim, a Seção \ref{sec07:conclusao} conclui o trabalho, ressaltando as contribuições 
+Na \cref{sec04:atividades}, são descritos os aspectos da implementação do sistema, incluindo a integração de \textit{hardware} 
+e \textit{software}. A \cref{sec05:testes} discute a execução dos testes práticos com alunos de graduação, além do envio simulado de alerta em caso de detecção de monóxido de carbono em níveis críticos. Os resultados 
+obtidos e as análises correspondentes são apresentados na \cref{sec06:resultados}. Por fim, a \cref{sec07:conclusao} conclui o trabalho, ressaltando as contribuições 
 científicas para a área de sistemas embarcados e as possibilidades de aprimoramento futuro.
 
 \section{Fundamentação Teórica}\label{sec01:fundamentacao-teorica}
@@ -231,7 +231,7 @@ poder computacional oferecido pelos dispositivos.
 A execução simultânea de atividades em duas áreas permite validar as funcionalidades do sistema em entregas parciais e otimizar o processo de 
 desenvolvimento. Entretanto, sua complexidade demanda maior atenção à execução e à ordem das tarefas. O ciclo de atividades descrito no 
 livro \textit{Embedded System Design} \citep{metodologia-embedded-system} é direcionado para a construção de produtos, o que torna necessária a 
-adaptação do método ao contexto acadêmico, com embasamento em trabalhos científicos. Assim, a metodologia atual é ilustrada na Figura \ref{fig:metodologia}.
+adaptação do método ao contexto acadêmico, com embasamento em trabalhos científicos. Assim, a metodologia atual é ilustrada na \cref{fig:metodologia}.
 
 \begin{figure}[bt!] %% preferably at bottom or top of column
 	\centering
@@ -253,7 +253,7 @@ detalhamento: \textit{context}, \textit{container}, \textit{component} e \textit
 \end{figure*}
 
 O diagrama de \textit{container} é o segundo nível na hierarquia do modelo. Seu objetivo é demonstrar o funcionamento da aplicação em termos de contêineres, ou seja, os elementos implantáveis
-e componentes de \textit{software} necessários para o pleno funcionamento do projeto. Na Figura \ref{fig:diagram:conteiner}, o projeto é composto por três módulos principais: servidor, aplicativo móvel e banco de dados.
+e componentes de \textit{software} necessários para o pleno funcionamento do projeto. Na \cref{fig:diagram:conteiner}, o projeto é composto por três módulos principais: servidor, aplicativo móvel e banco de dados.
 
 O servidor é responsável pelas regras de negócio, como o cadastro de usuários, dispositivos e login, além de realizar o armazenamento das medições coletadas pelo equipamento embarcado. Esses dados 
 constituem a base para o registro de eventos extremos. A segunda parte corresponde ao aplicativo Android, que funciona como a interface do sistema com o usuário doméstico. Todo o fluxo de informações 
@@ -277,7 +277,7 @@ pela robustez e poder de processamento, ao oferecer maior velocidade de processa
 	\caption{Esquemático do protótipo físico. Fonte: Autor}\label{fig:esquematico}
 \end{figure}
 
-A Figura \ref{fig:esquematico} apresenta a montagem do circuito eletrônico. O microcontrolador processa os dados provenientes dos sensores DHT11 e MQ7, além de controlar o sinalizador LED por meio da matriz de contato em branco, visível na imagem. A função do 
+A \cref{fig:esquematico} apresenta a montagem do circuito eletrônico. O microcontrolador processa os dados provenientes dos sensores DHT11 e MQ7, além de controlar o sinalizador LED por meio da matriz de contato em branco, visível na imagem. A função do 
 LED é indicar ao usuário o estado atual do dispositivo: aceso, o protótipo está em modo \textit{online}; apagado, em modo \textit{offline}. A alternância entre os modos é acionada pelo botão. O ESP32 consome energia pela conexão micro USB com a porta do notebook, pois 
 no desenvolvimento do projeto os logs do microcontrolador são monitorados. 
 
@@ -311,7 +311,7 @@ entrevistados por meio de um aplicativo de comunicação, após a realização d
 
 Portanto, o primeiro passo foi a escolha das funcionalidades executadas durante a avaliação. O projeto basea-se no estudo de usabilidade 
 ``\textit{A Practical Guide to Usability Testing}'' \citep{guide-usability-design}, proporcionando um ambiente propício para coleta de dados qualitativos e quantitativos, 
-ou seja, comentários de participantes e respostas em escala numérica crescente para classificar a dificuldade na execução de cada atividade.  A Figura \ref{fig:testes} mostra a 
+ou seja, comentários de participantes e respostas em escala numérica crescente para classificar a dificuldade na execução de cada atividade. A \cref{fig:testes} mostra a 
 execução de um teste prático no ambiente controlado de uma sala de aula.
 
 \begin{figure}[bt!] %% preferably at bottom or top of column
@@ -374,8 +374,8 @@ conexão com a internet, permitindo ao usuário acessar informações sobre a co
 	\label{fig:atividades:exec}
 \end{figure*}
 
-Ao término da execução das oito atividades propostas, os alunos responderam, individualmente, a um questionário para avaliação do aplicativo e do protótipo físico. A Figura \ref{fig:atividades:exec} apresenta 
-o resultado da realização de todas as atividades descritas na Tabela \ref{tab:buri-tarefas}. A legenda indica se o usuário completou a tarefa, completou com auxílio do desenvolvedor ou não conseguiu concluí-la. 
+Ao término da execução das oito atividades propostas, os alunos responderam, individualmente, a um questionário para avaliação do aplicativo e do protótipo físico. A \cref{fig:atividades:exec} apresenta 
+o resultado da realização de todas as atividades descritas na \cref{tab:buri-tarefas}. A legenda indica se o usuário completou a tarefa, completou com auxílio do desenvolvedor ou não conseguiu concluí-la. 
 
 Um ponto de destaque é a tarefa 3, relacionada ao cadastro do dispositivo, na qual quase metade dos alunos necessitou de assistência, mesmo com o manual de configuração disponível durante todo o teste. Essa dificuldade 
 é explicada pela quantidade de etapas necessárias para finalizar a tarefa, o que evidencia a necessidade de ajustes em futuras versões do \textit{software}.
@@ -394,9 +394,36 @@ pesquisa e conexão com o aparelho ESP32 por Bluetooth, uma vez a quantidade de 
 A interface para cadastro de um novo dispositivo apresenta uma caixa de diálogo com a ação ``COPIAR URL'', cujo componente visual não se destaca no pop-up. Essa característica levou alguns usuários a não associarem o 
 botão à ação sugerida. Assim, uma possível abordagem seria destacar a cor do botão correspondente e ampliar o tempo de resposta para o usuário.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.22\textwidth]{img/testes/dispositivo.jpg}
+    \includegraphics[width=0.22\textwidth]{img/testes/notificacao.jpg}
+    \caption{Dispositivo de medição e notificação associada. Fonte: Autor.}\label{fig:notification}
+\end{figure}
 
+A \cref{fig:notification} ilustra o funcionamento do sistema de notificação. Na primeira imagem, observa-se a tela principal, que exibe um dispositivo registrado. Já a 
+segunda imagem apresenta uma notificação de alerta referente a uma alta concentração de monóxido de carbono no ambiente, acompanhada de uma mensagem informativa sobre os efeitos 
+fisiológicos e o tempo de exposição.
+
+O projeto conta com uma documentação detalhada no formato de manual de uso. Esse arquivo descreve todas as funcionalidades da aplicação por meio de um tutorial, incluindo imagens e 
+orientações que auxiliam no processo de configuração do sistema BURI. Tal abordagem é fundamental para fomentar o desenvolvimento de sistemas de IoT voltados ao monitoramento, especialmente 
+aqueles de código aberto, permitindo sua livre reprodução.
+
+O sistema BURI é resultado de uma proposta de solução para o monitoramento da qualidade do 
+ar em residências, com possibilidade de aplicação em outros ambientes \textit{indoor}. Seu objetivo é 
+operar de forma integrada com o \textit{smartphone} do usuário e a rede Wi-Fi, embora o módulo de 
+monitoramento também ofereça comunicação \textit{offline} por meio da tecnologia Bluetooth.
 
 \section{Conclusão}\label{sec07:conclusao}
+
+Este projeto evidenciou a relevância de iniciativas tecnológicas direcionadas à melhoria da qualidade de vida e segurança das pessoas, com destaque para 
+a detecção de gases tóxicos, como o monóxido de carbono. Apesar das limitações identificadas, o sistema apresentou resultados promissores nos testes realizados com 
+alunos da Universidade do Estado do Amazonas, demonstrando seu potencial para o cenário real de monitoramento.
+
+As propostas de trabalhos futuros, como a implementação de um servidor em nuvem, a integração com assistentes 
+virtuais e a reformulação da interface do usuário, abrem perspectivas para tornar o BURI uma solução ainda mais robusta. Além disso, o sistema possui código aberto e acesso livre 
+para reprodução, disponível no endereço do github \url{https://github.com/adevancomp/TCC-Android-Embarcado-BURI}, incentivando a colaboração da comunidade acadêmica e de desenvolvedores para adaptações. Esse caráter colaborativo amplia as possibilidades de evolução do projeto, 
+promovendo a disseminação dos conceitos de IoT, sistemas distribuídos e contribuindo para o avanço de soluções inteligentes de monitoramento ambiental.
 
 %% Specify your .bib file name here, without the extension .bib
 \bibliography{references} 
