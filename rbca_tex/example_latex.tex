@@ -123,7 +123,7 @@ Para avaliar o desempenho da solução proposta, é necessário aplicar um estud
 reais no sistema embarcado BURI. Esse processo segue as recomendações do livro ``\textit{A Practical Guide to Usability Testing}'' \citep{guide-usability-design}.
 
 O texto está organizado da seguinte forma. A Seção \ref{sec01:fundamentacao-teorica} apresenta a fundamentação teórica, abordando conceitos como Internet das Coisas, comunicação por redes Wi-Fi e Bluetooth, 
-e desenvolvimento Android, que embasam o conhecimento teórico da pesquisa. Na Seção \ref{sec02:metodologia}, são descritas as etapas da metodologia utilizada no ciclo de desenvolvimento. A Seção \ref{sec03:modelagem} detalha 
+e desenvolvimento Android, assim como os trabalhos que embasam o conhecimento teórico da pesquisa. Na Seção \ref{sec02:metodologia}, são descritas as etapas da metodologia utilizada no ciclo de desenvolvimento. A Seção \ref{sec03:modelagem} detalha 
 a modelagem da arquitetura do sistema e fluxo de comunicação entre os componentes internos do sistema embarcado. 
 
 Na Seção \ref{sec04:atividades}, são descritos os aspectos da implementação do sistema, incluindo a integração de \textit{hardware} 
@@ -193,6 +193,33 @@ intermediar a comunicação entre as camadas, abstraindo chamadas e eventos em u
 	\caption{Camadas de arquitetura de um aplicativo Android. Fonte: \citep{google-developers}}\label{fig:androidLayers}
 \end{figure}
 
+\subsection{Trabalhos Relacionados}\label{sec01:sub4:trabalhos}
+
+O trabalho \citeauthor*{ref1:uea-deteccao-incendio} possui foco no uso de dispositivos na área de IoT para a prevenção de incêndios em ambientes residenciais. 
+O protótipo desenvolvido é uma solução web para monitoramento de variáveis com uso do módulo NodeMCU ESP12, pois o microcontrolador envia dados de temperatura, 
+gás inflamável e de fumaça por rede Wi-Fi para o backend da aplicação, feito em MySQL e PHP. 
+
+Semelhante ao anterior, o trabalho intitulado ``\textit{Indoor Air Quality Monitoring on AWS Using MQTT Protocol}'' \citep{ref2:air-monitoring-on-aws} mostra o desenvolvimento de um módulo de monitoramento da qualidade do ar 
+em ambientes internos utilizando o protocolo MQTT e serviços da AWS. O módulo proposto utiliza sensores para medir a qualidade do ar interno, incluindo CO\textsubscript{2}, O\textsubscript{2} e poeira, com os dados sendo enviados e armazenados na 
+nuvem para uma visualização em tempo real.
+
+O trabalho acadêmico ``Automação residencial de monitoramento de gás por meio da plataforma Arduino e IOT'' \citep{ref3:alexandre-automacao-gpl} teve como objetivo descrever as etapas de implementação e resultados alcançados de um sistema de automação 
+residencial inteligente para monitoramento e alerta de vazamento de gás utilizando a Internet das Coisas (IoT). O sistema consiste em um microcontrolador Arduino UNO 
+conectado a um sensor de gás MQ-5 e um módulo bluetooth HC-05, que envia os dados para um aplicativo Android desenvolvido na plataforma Android Studio.
+
+O protótipo construído no ``\textit{Intelligent based novel embedded system based IoT enabled air pollution monitoring system}'' \citep{ref4:novel-embedded-system} abordou o uso de \textit{hardware} e \textit{software} na implementação 
+de uma solução para monitoramento da poluição ar usando o conceito de \textit{fog computing}, ou seja, computação em névoa. De acordo com os autores, o conceito de 
+\textit{fog computing} é uma estratégia adotada para o dispositivo de IoT responsável pela coleta dos dados também possuir a ação de processamento do grande volume de variáveis coletados e, 
+em seguida, enviar para o servidor na nuvem uma representação geral do estado, pois reduz a latência e economiza banda de rede.
+
+O funcionamento do projeto é estruturado em três camadas principais: \textit{device}, \textit{fog} e \textit{cloud}. Na camada \textit{device}, 
+a unidade de processamento central é um \textit{Raspberry Pi}, que atua como controlador principal. Em relação à \textit{fog layer}, estão os microcontroladores ESP 8266, responsáveis por receber, processar e 
+enviar os dados dos sensores para o nó mais próximo ou a nuvem diretamente. O nó foi projetado para uso de seis sensores, sendo eles: GP2Y1014AU0F, DSM501, MQ-7, GSNT11, SO2-AF,
+e MiCS2610-11, permitindo monitorar gases como $PM_{10}$, ${PM_{2.5}}$, CO, $NO_{2}$, $SO_{2}$ e $O_{3}$. No entanto, a adição do DHT11 para medição de temperatura e umidade do ar é justificada 
+pela dependência que alguns sensores de gás possuem em relação à temperatura, no processo de calibração. A energia é fornecida pela bateria de 9V, onde o módulo de controle converte a tensão para 5V e 3V, conforme a 
+necessidade de cada componente. Na \textit{cloud}, o servidor HTTP fornece APIs para os clientes consultarem todos os dados de qualidade do ar, por exemplo, o aplicativo Android com 
+gráficos das medições de cada variável medida e o histórico do mês.
+
 \section{Metodologia}\label{sec02:metodologia}
 
 Esta seção é dedicada na descrição das etapas realizadas para alcançar o objetivo da pesquisa aplicada. A metodologia da proposta 
@@ -220,7 +247,7 @@ detalhamento: \textit{context}, \textit{container}, \textit{component} e \textit
 
 \begin{figure*}%[b!]  %% Add a [b!] if you prefer the wide image to be at the bottom of the page
 	\centering
-	\includegraphics[width=.99\textwidth]{img/arquitetura/conteiner-diagram.png}
+	\includegraphics[width=.95\textwidth]{img/arquitetura/conteiner-diagram.png}
 	\caption{Diagrama de conteiner do sistema BURI. Fonte: Autor}
 	\label{fig:diagram:conteiner}
 \end{figure*}
@@ -246,7 +273,7 @@ pela robustez e poder de processamento, ao oferecer maior velocidade de processa
 
 \begin{figure}[bt!] %% preferably at bottom or top of column
 	\centering
-	\includegraphics[width=.43\textwidth]{img/arquitetura/buri_esquematico.png}
+	\includegraphics[width=.35\textwidth]{img/arquitetura/buri_esquematico.png}
 	\caption{Esquemático do protótipo físico. Fonte: Autor}\label{fig:esquematico}
 \end{figure}
 
@@ -265,25 +292,109 @@ a segunda ocorre no ESP32.
 O aplicativo se encarrega de armazenar os dados do dispositivo no servidor. O microcontrolador ESP32, por sua vez, é responsável por estabelecer a conexão com a rede Wi-Fi e armazenar 
 um identificador único (ID), permitindo o envio subsequente das medições.
 
-\begin{figure}[bt!] %% preferably at bottom or top of column
-	\centering
-	\includegraphics[width=.27\textwidth]{img/arquitetura/interface-app.jpg}
-	\caption{Tela com a lista de dispositivos. Fonte: Autor}\label{fig:home:app}
-\end{figure}
-
 Para o controle do microcontrolador, a linguagem de programação do \textit{firmware}, trecho de código 
 executado no ESP32, foi o C++ juntamente com a ferramenta Arduino IDE. Para garantir a persistência dos dados 
 durante as reinicializações do microcontrolador, foi utilizada a biblioteca de armazenamento SPIFFS Filesystem \citep{spiffs}. Essa solução permite armazenar
 na memória \textit{flash} do ESP32 dados no formato de arquivo, de forma eficiente e organizada, permitindo que o dispositivo 
 recupere as informações mesmo após desligamentos ou reinicializações inesperadas.
 
-Ao enviar uma medição ao servidor, o microcontrolador dispara uma rotina de verificação antes de salvar 
-as informações no Banco de Dados. 
-
+Ao enviar uma medição ao servidor, o microcontrolador dispara uma rotina de verificação antes de salvar as informações no Banco de Dados. Com base nas 
+informações coletadas, o sistema de monitoramento avalia o estado atual do ambiente e registra um novo evento na tabela de Eventos, incluindo a mensagem
+de aviso correspondente. O aplicativo Android consulta regularmente o servidor para notificar o usuário sobre essas ocorrências. Entre as três variáveis 
+monitoradas, o servidor prioriza os eventos relacionados ao monóxido de carbono, seguidos pela umidade e pela temperatura do ar, respectivamente, em uma mesma medição. 
 
 \section{Testes de aceitação e envio de alerta}\label{sec05:testes}
 
+A fase de testes de aceitação consiste no momento em que a aplicação é avaliada por voluntários, que realizam tarefas reais no sistema para assegurar o cumprimento 
+dos requisitos da solução proposta. No total, 38 pessoas participaram da avaliação de usabilidade do aplicativo BURI. O questionário foi enviado individualmente aos 
+entrevistados por meio de um aplicativo de comunicação, após a realização das atividades práticas descritas no manual do sistema.
+
+Portanto, o primeiro passo foi a escolha das funcionalidades executadas durante a avaliação. O projeto basea-se no estudo de usabilidade 
+``\textit{A Practical Guide to Usability Testing}'' \citep{guide-usability-design}, proporcionando um ambiente propício para coleta de dados qualitativos e quantitativos, 
+ou seja, comentários de participantes e respostas em escala numérica crescente para classificar a dificuldade na execução de cada atividade.  A Figura \ref{fig:testes} mostra a 
+execução de um teste prático no ambiente controlado de uma sala de aula.
+
+\begin{figure}[bt!] %% preferably at bottom or top of column
+	\centering
+	\includegraphics[width=.40\textwidth]{img/testes/alunos.jpeg}
+	\caption{Testes práticos do protótipo. Fonte: Autor}\label{fig:testes}
+\end{figure}
+
+Os alunos entrevistados são universitários de Engenharia do projeto \textbf{Academia STEM}, localizado na 
+Escola Superior de Tecnologia da Universidade do Estado do Amazonas (EST/UEA). A Academia STEM é um projeto de capacitação e formação profissional que tem por objetivo aumentar 
+de forma consistente o nível de conhecimento dos recursos humanos que compõem o ecossistema do Polo Industrial de Manaus (PIM), de forma a propiciar aumento do interesse pelos 
+cursos de graduação STEM, reduzir as taxas de evasão e reprovação, melhorar as competências técnicas dos profissionais que atuam no PIM e incrementar a ``mentalidade'' de empreendedorismo \citep{stem}.
+
+\begin{table*}[ht]
+    \centering
+    \caption{Tarefas executadas no aplicativo BURI e suas respectivas descrições}
+    \label{tab:buri-tarefas}
+    \begin{tabular}{lp{10.3cm}}
+        \toprule
+        \textbf{Tarefa} & \textbf{Descrição} \\
+        \midrule
+        1. Criar conta & Quando você  instala o app BURI, você quer realizar o cadastro na plataforma para acessar todos os dados sobre contaminação do ar em tempo real. \\
+        2. Realizar Login & Quando você já cadastrou sua conta e quer realizar o login no sistema BURI para ter acesso aos seus dispositivos e informações da sua residência. \\
+        3. Cadastrar novo dispositivo & Quando você tem um dispositivo eletrônico de medição de dados do ar, você quer cadastrá-lo na sua rede Wi-Fi e no aplicativo para utilizá-lo. \\
+        4. Visualizar Lista de dispositivos cadastrados & Quando você possui dispositivos cadastrados, você quer visualizá-los para escolher qual dispositivo observar em tempo real. \\
+        5. Selecionar dispositivo & Quando você já escolheu o dispositivo que quer visualizar suas informações e integrar com o protótipo eletrônico. \\
+        6. Visualizar dados em tempo real (\textbf{offline}) & Quando você seleciona o dispositivo que possui, você quer consultar as informações de temperatura, umidade do ar e concentração de monóxido de carbono, assim como o tempo em que foi realizada a coleta. Na versão offline, você acessa um indicador visual que este sistema gera nesse modelo eletrônico, que pode ser visualizado no protótipo eletrônico. \\
+        7. Visualizar dados em tempo real (\textbf{online}) & Quando você seleciona o dispositivo que possui, você quer consultar os dados de temperatura, umidade do ar e concentração de monóxido de carbono no modo online através do aplicativo. Possibilita também a visualização de dados através de um indicador visual que pode ser visto no modelo eletrônico. \\
+        8. Passar a propriedade do dispositivo eletrônico & Quando você tem um dispositivo e quer passar ele para outra pessoa (já cadastrada no aplicativo), que estará utilizando ele no monitoramento da residência dela. \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+O aviso de eventos perigosos é emitido na forma de notificação no \textit{smartphone} do usuário. O evento de alteração na concentração de monóxido de carbono possui prioridade aos de temperatura e umidade do ar, o que significa que, ao analisar uma medição atual e detectar 
+mais de um evento, apenas o de monóxido de carbono será registrado no banco de dados para aquela medição. Em seguida, considera-se o evento relacionado à umidade do ar, que é disparado após 
+uma redução de 60\% na medição atual. Por fim, caso a temperatura esteja fora do intervalo de 15°C a 35°C, o sistema informa a ocorrência de temperatura elevada ou inadequada.
+
+Devido a complexidade de montar uma estrutura experimental para verificar a eficiência do sistema de alerta, optou-se por utilizar requisições HTTP manuais no servidor do sistema de 
+monitoramento, simulando valores anormais de medição, em vez de montar um ambiente prático semelhante ao descrito no trabalho de Sá (2022). O resultado 
+da simulação é positivo, pois a notificação é enviada no aplicativo e possue uma mensagem de descrição adequada ao contexto.
+
 \section{Resultados e Discussão}\label{sec06:resultados}
+
+Esta seção apresenta os resultados obtidos durante o desenvolvimento e avaliação da proposta de solução \textbf{BURI}. Primeiramente, é realizada a análise das respostas obtidas no primeiro 
+questionário, aplicado na fase de especificação da metodologia. O objetivo é obter informações sobre o ambiente onde a aplicação será utilizada, incluindo aspectos como conectividade com a 
+internet e o nível de conhecimento dos usuários domésticos na configuração de equipamentos de automação residencial. Em seguida, procede-se à análise dos dados coletados por meio do segundo 
+questionário, relacionado à etapa de validação do sistema de monitoramento.
+
+Quanto à utilização de dispositivos de automação em ambientes domésticos, 62,7\% dos alunos declararam não utilizar aplicativos para controlar dispositivos em casa. Essa informação destaca a 
+importância de incluir, na solução proposta, o requisito não funcional de facilidade de configuração. Isso se deve ao fato de que o protótipo embarcado será destinado a um público que, em sua maioria, 
+pode não possuir conhecimento técnico para configurar o acesso à rede de internet ou a comunicação do \textit{smartphone} via conexão Bluetooth.  
+
+Em relação ao acesso à internet, a maioria dos estudantes afirmou possuir conexão Wi-Fi. No entanto, considerando o contexto crítico, o sistema de monitoramento deve ser capaz de operar também sem 
+conexão com a internet, permitindo ao usuário acessar informações sobre a condição atual do ambiente de maneira \textit{offline}.
+
+\begin{figure*}%[b!]  %% Add a [b!] if you prefer the wide image to be at the bottom of the page
+	\centering
+	\includegraphics[width=.85\textwidth]{img/questionario/atividades-resultado.png}
+	\caption{Execução das Atividades. Fonte: Autor}
+	\label{fig:atividades:exec}
+\end{figure*}
+
+Ao término da execução das oito atividades propostas, os alunos responderam, individualmente, a um questionário para avaliação do aplicativo e do protótipo físico. A Figura \ref{fig:atividades:exec} apresenta 
+o resultado da realização de todas as atividades descritas na Tabela \ref{tab:buri-tarefas}. A legenda indica se o usuário completou a tarefa, completou com auxílio do desenvolvedor ou não conseguiu concluí-la. 
+
+Um ponto de destaque é a tarefa 3, relacionada ao cadastro do dispositivo, na qual quase metade dos alunos necessitou de assistência, mesmo com o manual de configuração disponível durante todo o teste. Essa dificuldade 
+é explicada pela quantidade de etapas necessárias para finalizar a tarefa, o que evidencia a necessidade de ajustes em futuras versões do \textit{software}.
+
+\begin{figure}[bt!] %% preferably at bottom or top of column
+	\centering
+	\includegraphics[width=.45\textwidth]{img/questionario/conexao-wifi.png}
+	\caption{Conexão com Wi-Fi. Fonte: Autor}\label{fig:wifi}
+\end{figure}
+
+No uso do sistema de monitoramento com a rede Bluetooth, relacionado à atividade 7, foi identificado, durante os experimentos, um problema de conexão entre o \textit{smartphone} do usuário e o microcontrolador ESP32. Embora o 
+celular aceitasse o pedido de pareamento com o ESP32, a etapa subsequente, referente à conexão propriamente dita, não era concluída. Após diversas tentativas, verificou-se que alguns dispositivos não conseguiam 
+estabelecer a conexão, o que restringiu a utilização do protótipo exclusivamente ao modo \textit{online}. Ainda, utilizou-se o manual e a ajuda do desenvolvedor para realizar a etapa de 
+pesquisa e conexão com o aparelho ESP32 por Bluetooth, uma vez a quantidade de passos varia de aparelho para aparelho.
+
+A interface para cadastro de um novo dispositivo apresenta uma caixa de diálogo com a ação ``COPIAR URL'', cujo componente visual não se destaca no pop-up. Essa característica levou alguns usuários a não associarem o 
+botão à ação sugerida. Assim, uma possível abordagem seria destacar a cor do botão correspondente e ampliar o tempo de resposta para o usuário.
+
+
 
 \section{Conclusão}\label{sec07:conclusao}
 
