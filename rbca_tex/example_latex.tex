@@ -396,8 +396,8 @@ botão à ação sugerida. Assim, uma possível abordagem seria destacar a cor d
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.22\textwidth]{img/testes/dispositivo.jpg}
-    \includegraphics[width=0.22\textwidth]{img/testes/notificacao.jpg}
+    \includegraphics[width=0.18\textwidth]{img/testes/dispositivo.jpg}
+    \includegraphics[width=0.18\textwidth]{img/testes/notificacao.jpg}
     \caption{Dispositivo de medição e notificação associada. Fonte: Autor.}\label{fig:notification}
 \end{figure}
 
@@ -408,6 +408,30 @@ fisiológicos e o tempo de exposição.
 O projeto conta com uma documentação detalhada no formato de manual de uso. Esse arquivo descreve todas as funcionalidades da aplicação por meio de um tutorial, incluindo imagens e 
 orientações que auxiliam no processo de configuração do sistema BURI. Tal abordagem é fundamental para fomentar o desenvolvimento de sistemas de IoT voltados ao monitoramento, especialmente 
 aqueles de código aberto, permitindo sua livre reprodução.
+
+Após a finalização de todas as etapas da metodologia, a próxima etapa é a análise dos resultados obtidos 
+neste trabalho em comparação com a literatura atual. A primeira observação de similaridade diz respeito aos 
+sensores utilizados, cuja escolha foi justificada pelos resultados apresentados nos respectivos trabalhos de referência. 
+Isso implicou na continuidade do uso dos componentes para a implementação do trabalho final.  Outra questão relacionada é o uso 
+do microcontrolador ESP32, uma vez que o dispositivo apresenta recursos nativamente na placa de desenvolvimento, como Wi-Fi e Bluetooth, 
+ao contrário do Arduino, para o qual seria necessário adquirir os módulos separadamente. Por fim, o resultado final da análise é resumido na \cref{tab:buri-trabalhos}.
+
+\begin{table*}[ht]
+    \centering
+    \caption{Comparação Técnica da Solução BURI e os trabalhos relacionados}
+    \label{tab:buri-trabalhos}
+    \begin{tabular}{p{4cm}|c|c|c|c|c|c}
+        \toprule
+        \textbf{Trabalho} & \textbf{Dispositivo Físico} & \textbf{Online} & \textbf{Offline} & \textbf{Alerta}  & \textbf{Ação} & \textbf{Código Aberto} \\
+        \midrule
+        \citep{ref1:uea-deteccao-incendio} & Sim & Sim & Não & Sim & Sim & Sim \\ 
+        \citep{ref2:air-monitoring-on-aws} & Sim & Sim & Não & Sim & Não  & Não \\ 
+        \citep{ref4:novel-embedded-system} & Sim & Sim & Não & Sim & Não & Não \\ 
+        \citep{ref3:alexandre-automacao-gpl} & Sim & Sim & Sim & Sim & Não & Não \\ 
+        Este trabalho & Sim & Sim & Sim & Sim & Não & Sim \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
 
 O sistema BURI é resultado de uma proposta de solução para o monitoramento da qualidade do 
 ar em residências, com possibilidade de aplicação em outros ambientes \textit{indoor}. Seu objetivo é 
